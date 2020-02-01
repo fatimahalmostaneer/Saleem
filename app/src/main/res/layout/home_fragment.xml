@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    >
+
+
+
+    <RelativeLayout
+        android:id="@+id/UpperRelativeLayout"
+        android:layout_weight="0.5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary">
+        <!--
+           <androidx.viewpager.widget.ViewPager
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"></androidx.viewpager.widget.ViewPager> -->
+
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:id="@+id/circularProgressBar"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:cpb_background_progressbar_width="9dp"
+            app:cpb_progressbar_color="@color/colorYellow"
+            android:layout_centerInParent="true"
+            app:cpb_start_angle="0"
+            app:cpb_progress_direction="to_left"
+            app:cpb_progress="25"
+            app:cpb_progress_max="100"/>
+
+        <TextView
+            android:id="@+id/numOfCals"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:text="1260"
+            android:textColor="@color/colorWhite"
+            ></TextView>
+
+        <TextView
+            android:id="@+id/remainingCals"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="15sp"
+            android:text="Remaining calories"
+            android:layout_below="@id/numOfCals"
+            android:textColor="@color/colorWhite"></TextView>
+
+        <LinearLayout
+            android:id="@+id/calsValsLL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/circularProgressBar"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:textAlignment="center"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/consumedCaloriesVal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="450"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                />
+
+            <TextView
+                android:id="@+id/waterVal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="660"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/burntCaloriesVal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="73"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_weight="1"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/calsNamesLL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/circularProgressBar"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:textAlignment="center">
+
+            <TextView
+                android:id="@+id/consumedCalories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Consumed calories"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_weight="0.5"
+                />
+
+            <TextView
+                android:id="@+id/water"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:text="Water"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/burntCalories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Burnt calories"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_weight="1.5"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/BottomRelativeLayout"
+        android:layout_weight="0.5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFF"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:id="@+id/UpperLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFF"
+            android:orientation="horizontal"
+            android:layout_marginTop="1dp">
+
+
+            <Button
+                android:id="@+id/Breakfast_button"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:text="Breakfast"
+                android:background="@drawable/rounded_buttons"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12dp"
+                />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/Lunch_button"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:text="Lunch"
+                android:background="@drawable/rounded_buttons"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/MiddleLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFF"
+            android:orientation="horizontal"
+            android:layout_below="@+id/UpperLinearLayout"
+            android:layout_marginTop="10dp">
+
+
+            <Button
+                android:id="@+id/Snack_button"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:text="Snack"
+                android:background="@drawable/rounded_buttons"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12dp" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/Dinner_button"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:text="Lunch"
+                android:background="@drawable/rounded_buttons"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/BottomLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_below="@+id/MiddleLinearLayout">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+            <View
+                android:id="@+id/UpperDivider"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@color/colorLightGray" />
+
+            <TextView
+                android:id="@+id/HealthAdvice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="HealthAdvice"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="15sp" />
+
+            <View
+                android:id="@+id/LowerDivider"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@color/colorLightGray" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!-- <com.google.android.material.floatingactionbutton.FloatingActionButton
+         android:id="@+id/floatingActionButton3"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentEnd="true"
+         android:layout_alignParentRight="true"
+         android:layout_alignParentBottom="true"
+         android:layout_gravity="end|bottom"
+         android:clickable="true"
+         app:srcCompat="@drawable/ic_add"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toStartOf="@+id/BottomLinearLayout"
+         app:layout_constraintStart_toStartOf="parent"/>
+ </RelativeLayout>
+
+
+ <com.google.android.material.bottomnavigation.BottomNavigationView
+     android:id="@+id/bottomNavigation"
+     app:menu="@menu/bottom_nav_menu"
+     android:background="@color/colorLightGray"
+     app:itemIconTint="@android:color/black"
+     app:itemTextColor="@android:color/black"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     app:layout_constraintBottom_toBottomOf="parent"
+     app:layout_constraintEnd_toStartOf="@+id/BottomRelativeLayout"
+     app:layout_constraintStart_toStartOf="parent" />-->
+
+
+</LinearLayout>
