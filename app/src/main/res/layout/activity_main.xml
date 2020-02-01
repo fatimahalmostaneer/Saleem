@@ -37,6 +37,13 @@
         android:layout_height="match_parent"
         android:layout_above="@id/bottomNavigation"></FrameLayout>
 
+<Button
+    android:id="@+id/fortesting"
+    android:layout_width="150dp"
+    android:layout_height="wrap_content"
+    android:text="for scanner !!"
+    android:layout_marginTop="640dp"
+    ></Button>
 
 </RelativeLayout>
 
