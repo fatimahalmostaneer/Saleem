@@ -19,4 +19,13 @@
     <string name="forgetPassword">Forget Password</string>
     <string name="createAccount">Create Account</string>
 
+    <string name="AreyousureLogout">Are you sure you want to Logout?</string>
+    <string name="enteryourName">Enter your Name</string>
+    <string name="enteryourPass">Enter your Password</string>
+    <string name="enteryourCPass">Confirm Password</string>
+    <string name="Register">Register</string>
+    <string name="NoresultData">No result data</string>
+    <string name="Thankyou">Thank you</string>
+
+
 </resources>
