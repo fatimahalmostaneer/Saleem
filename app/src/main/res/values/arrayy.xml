@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="sections">
+        <item >خسارة وزن</item>
+        <item >الحفاظ على الوزن</item>
+        <item >زيادة الوزن</item>
+
+    </string-array>
+</resources>
