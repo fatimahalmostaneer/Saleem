@@ -121,7 +121,6 @@
                 android:background="@drawable/circle_without_border"
                 >
 
-
             </LinearLayout>
 
             <LinearLayout
