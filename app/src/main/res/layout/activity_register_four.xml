@@ -30,7 +30,7 @@
                 android:layout_marginTop="10dp"
                 android:text="الخطوة 4/4"
                 android:textAlignment="center"
-                android:textColor="#027469"
+                android:textColor="#FF9800"
                 android:textSize="18dp"
                 android:textStyle="bold" />
 
@@ -46,31 +46,58 @@
                 android:textSize="24dp"
                 android:textStyle="bold" />
 
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/goalOneBtn"
+                android:layout_width="322dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/rounded_buttons"
+                android:text="خسارة وزن"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"
 
-                <ListView
-                    android:id="@+id/listView1"
-                    android:layout_width="match_parent"
-                    android:layout_height="415dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:entries="@array/sections"></ListView>
+                />
 
-            </RelativeLayout>
+            <Button
+                android:id="@+id/goalTwoBtn"
+                android:layout_width="322dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="60dp"
+                android:background="@drawable/rounded_buttons"
+                android:text="الحفاظ على الوزن"
+                android:textColor="#fff"
+                android:textSize="20dp"
+
+                />
+
+            <Button
+                android:id="@+id/goalThreeBtn"
+                android:layout_width="322dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="60dp"
+                android:background="@drawable/rounded_buttons"
+                android:text="زيادة الوزن"
+                android:textColor="#fff"
+                android:textSize="20dp"
+
+                />
+
 
             <Button
                 android:id="@+id/loginBtn"
-                android:layout_width="208dp"
-                android:layout_height="38dp"
+                android:layout_width="150dp"
+                android:layout_height="49dp"
                 android:layout_gravity="center"
-                android:layout_margin="15dp"
-                android:layout_marginTop="30dp"
-                android:background="@color/colorPrimary"
-                android:text="next"
+                android:layout_marginTop="70dp"
+                android:background="@drawable/rounded_corner"
+                android:text="التالي"
                 android:textColor="#fff"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+
+                />
 
         </LinearLayout>
 
@@ -105,7 +132,7 @@
                 android:layout_marginLeft="130dp"
 
                 android:background="@drawable/circle_without_border"
-                android:backgroundTint="@color/pink_hak">
+               >
 
 
             </LinearLayout>

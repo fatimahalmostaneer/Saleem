@@ -1,8 +1,0 @@
-<resources>
-    <string-array name="sections">
-        <item >مبتدى</item>
-        <item >متوسط</item>
-        <item >متقدم</item>
-
-    </string-array>
-</resources>

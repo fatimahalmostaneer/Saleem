@@ -14,9 +14,9 @@
         <activity android:name=".register.registerFourActivity"></activity>
         <activity android:name=".register.registerThreeActivity" />
         <activity android:name=".register.registerTwoActivity" />
-        <activity android:name=".register.registerOneActivity" />
+        <activity android:name=".MainActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name=".register.registerOneActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

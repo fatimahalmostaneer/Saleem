@@ -23,7 +23,7 @@
             android:layout_marginTop="10dp"
             android:text="الخطوة 2/4"
             android:textAlignment="center"
-            android:textColor="#027469"
+            android:textColor="#FF9800"
             android:textSize="18dp"
             android:textStyle="bold" />
 
@@ -50,7 +50,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgraound="@drawable/rounded_buttons"
                 android:hint="الوزن"
                 android:inputType="number" />
 
@@ -59,11 +58,11 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgraound="@drawable/rounded_buttons"
                 android:hint="الطول"
                 android:inputType="number" />
         </LinearLayout>
 
+<!--
 
         <RadioGroup
             android:id="@+id/toggle"
@@ -107,12 +106,12 @@
 
 
         </RadioGroup>
-
+-->
 
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="241dp">
+            android:layout_height="183dp">
 
             <EditText
                 android:id="@+id/editText1"
@@ -143,14 +142,15 @@
         </RelativeLayout>
 
         <Button
-            android:id="@+id/nextBtn2"
-            android:layout_width="match_parent"
+            android:id="@+id/loginBtn"
+            android:layout_width="147dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="100dp"
-            android:layout_marginRight="100dp"
-
+            android:layout_gravity="center"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/rounded_corner"
             android:text="التالي"
+            android:textColor="#fff"
+            android:textSize="20dp"
 
             />
 
@@ -191,7 +191,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="130dp"
             android:background="@drawable/circle"
-            android:backgroundTint="@color/pink_hak">
+           >
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

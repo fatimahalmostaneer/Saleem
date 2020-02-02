@@ -45,7 +45,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:ems="10"
-                    android:hint="@string/email"
+                    android:hint="أيميل"
                     android:inputType="textEmailAddress"
                     android:textSize="15dp" />
 
@@ -65,7 +65,7 @@
                     android:layout_marginEnd="20dp"
                     android:layout_marginTop="-11dp"
                     android:ems="10"
-                    android:hint="@string/password"
+                    android:hint="كلمة المرور"
                     android:inputType="textPassword"
                     android:textSize="15dp"
                     app:passwordToggleEnabled="true"
@@ -80,9 +80,9 @@
                 android:layout_width="312dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="15dp"
-                android:background="@color/colorPrimary"
-                android:text="@string/login_btn"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/rounded_corner"
+                android:text="تسجسل الدخول"
                 android:textColor="#fff"
                 android:textSize="20dp" />
 
