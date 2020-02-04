@@ -88,8 +88,8 @@
 
             <Button
                 android:id="@+id/nxtThreeBtn"
-                android:layout_width="150dp"
-                android:layout_height="49dp"
+                android:layout_width="147dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="70dp"
                 android:background="@drawable/rounded_corner"
