@@ -16,12 +16,14 @@ class registerOneActivity : AppCompatActivity() {
 
    /* val emailTxt = findViewById<View>(R.id.emailET) as EditText
     val nameTxt = findViewById<View>(R.id.nameET) as EditText*/
-    val btn=findViewById<View>(R.id.nxtOneBtn) as Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_one)
+        val btn=findViewById<View>(R.id.nxtOneBtn) as Button?
+
+
 
        // emailTxt.callOnClick()
         btn?.setOnClickListener {
