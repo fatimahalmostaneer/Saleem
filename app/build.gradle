@@ -44,6 +44,8 @@ dependencies {
     implementation 'com.mikhaellopez:circularprogressbar:3.0.3'
     implementation 'me.dm7.barcodescanner:zxing:1.9'
     implementation 'com.google.firebase:firebase-firestore:21.3.1'
+    implementation 'com.github.f0ris.sweetalert:library:1.5.6'
+
 
 }
 apply plugin: 'com.android.application'
