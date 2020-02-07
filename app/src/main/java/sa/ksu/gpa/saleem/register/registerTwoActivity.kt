@@ -30,9 +30,6 @@ class registerTwoActivity : AppCompatActivity() {
     val user = HashMap<String, Any>()
 
 
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_two)
@@ -51,20 +48,31 @@ class registerTwoActivity : AppCompatActivity() {
         btn?.setOnClickListener {
             Toast.makeText(this@registerTwoActivity, "Click...", Toast.LENGTH_LONG).show()
             val intent = Intent(this, registerThreeActivity::class.java)
-// To pass any data to next activity
-            //intent.putExtra("keyIdentifier", value)
-// start your next activity
 
             var wight = wightTxt?.text.toString()
             var hight = heightTxt?.text.toString()
 
+            if(genderf.isChecked) {
+                user.put("gender", "female")
+            } else
+                if (genderm.isChecked){
+                    user.put("gender","male")
+                }
 
+            radio_group.setOnCheckedChangeListener(
+                RadioGroup.OnCheckedChangeListener { group, checkedId ->
+                    val radio: RadioButton = findViewById(checkedId)
+                    Toast.makeText(applicationContext," On checked change :"+
+                            " ${radio.text}",
+                        Toast.LENGTH_SHORT).show()
+                })
 
-        /*    var checkedF = genderf.text.toString() as RadioButton
-            var checkedM = genderf.text.toString() as RadioButton
-
-*/
-
+      /*      fun radio_button_click(view: View){
+                // Get the clicked radio button instance
+                val radio: RadioButton = findViewById(radio_group.checkedRadioButtonId)
+                Toast.makeText(applicationContext,"On click : ${radio.text}",
+                    Toast.LENGTH_SHORT).show()
+            }*/
 
             //val user = HashMap<String, Any>()
             user.put("wight", wight)
@@ -82,25 +90,26 @@ class registerTwoActivity : AppCompatActivity() {
 
             // Set an checked change listener for switch button
 
-            fun onRadioButtonClicked(view: View) {
-                var checked = view as RadioButton
-                if (rb_male == checked) {
-                    message(rb_male.text.toString() + if (rb_male.isChecked) " Checked " else " UnChecked ")
-                    // val user = HashMap<String, Any>()
-                    user.put("gender",rb_male)
-                }
-                if (rb_female == checked) {
-                    message(rb_female.text.toString() + if (rb_female.isChecked) " Checked " else " UnChecked ")
-                    // val user = HashMap<String, Any>()
-                    user.put("gender",rb_female)
-                }
-            }
+
+
 
             startActivity(intent)
         }
 
 
-
+  /*      fun onRadioButtonClicked(view: View) {
+            var checked = view as RadioButton
+            if (rb_male == checked) {
+                message(rb_male.text.toString() + if (rb_male.isChecked) " Checked " else " UnChecked ")
+                // val user = HashMap<String, Any>()
+                user.put("gender",rb_male)
+            }
+            if (rb_female == checked) {
+                message(rb_female.text.toString() + if (rb_female.isChecked) " Checked " else " UnChecked ")
+                // val user = HashMap<String, Any>()
+                user.put("gender",rb_female)
+            }
+        }*/
         // get the references from layout file
         textview_date = this.text_view_date_1
         button_date = this.button_date_1

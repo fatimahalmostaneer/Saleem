@@ -130,6 +130,7 @@
                 android:textOn="انثى" />-->
 
             <RadioGroup
+                android:id="@+id/radio_group"
                 android:layout_width="163dp"
                 android:layout_height="43dp"
                 android:gravity="center"
