@@ -63,51 +63,6 @@
                 android:inputType="number" />
         </LinearLayout>
 
-<!--
-
-        <RadioGroup
-            android:id="@+id/toggle"
-            android:layout_width="220"
-            android:layout_height="30dp"
-            android:layout_marginLeft="90dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginBottom="@dimen/margin_medium"
-            android:background="@drawable/pink_out_line"
-            android:checkedButton="@+id/gender"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/male"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="1dp"
-                android:layout_marginTop="1dp"
-                android:layout_marginBottom="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/toggle_widget_background"
-                android:button="@null"
-                android:gravity="center"
-                android:text="ذكر"
-                android:textColor="@color/white" />
-
-            <RadioButton
-                android:id="@+id/female"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="1dp"
-                android:layout_marginRight="1dp"
-                android:layout_marginBottom="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/toggle_widget_background"
-                android:button="@null"
-                android:gravity="center"
-                android:text="انثى"
-                android:textColor="@color/white" />
-
-
-        </RadioGroup>
--->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -116,18 +71,6 @@
             android:orientation="vertical"
             backgraound:context="com.tutorialkart.datepickerexample.MainActivity">
 
-            <!-- <Switch
-                android:id="@+id/switcher"
-                android:layout_width="116dp"
-                android:layout_height="42dp"
-                android:layout_centerInParent="true"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="16dp"
-                android:fontFamily="sans-serif-condensed"
-                android:showText="true"
-                android:textOff="ذكر"
-                android:textOn="انثى" />-->
 
             <RadioGroup
                 android:id="@+id/radio_group"
@@ -149,6 +92,7 @@
                     android:layout_height="wrap_content"
                     android:onClick="onRadioButtonClicked"
                     android:text="انثى" />
+
             </RadioGroup>
 
             <TextView

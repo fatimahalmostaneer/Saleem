@@ -19,6 +19,8 @@ import kotlinx.android.synthetic.main.activity_register_two.*
 import sa.ksu.gpa.saleem.R
 import java.text.SimpleDateFormat
 import java.util.*
+import android.widget.RadioButton
+
 
 class registerTwoActivity : AppCompatActivity() {
 
@@ -39,10 +41,7 @@ class registerTwoActivity : AppCompatActivity() {
         val wightTxt = findViewById<View>(R.id.wight) as TextView?
         val heightTxt = findViewById<View>(R.id.height) as TextView?
 
-        val genderf= findViewById<View>(R.id.rb_female) as RadioButton
-        val genderm= findViewById<View>(R.id.rb_male)  as RadioButton
-
-        val btn=findViewById<View>(R.id.nxtTwoBtn) as Button?
+        val btn = findViewById<View>(R.id.nxtTwoBtn) as Button?
 
 
         btn?.setOnClickListener {
@@ -52,64 +51,27 @@ class registerTwoActivity : AppCompatActivity() {
             var wight = wightTxt?.text.toString()
             var hight = heightTxt?.text.toString()
 
-            if(genderf.isChecked) {
-                user.put("gender", "female")
-            } else
-                if (genderm.isChecked){
-                    user.put("gender","male")
-                }
-
-            radio_group.setOnCheckedChangeListener(
-                RadioGroup.OnCheckedChangeListener { group, checkedId ->
-                    val radio: RadioButton = findViewById(checkedId)
-                    Toast.makeText(applicationContext," On checked change :"+
-                            " ${radio.text}",
-                        Toast.LENGTH_SHORT).show()
-                })
-
-      /*      fun radio_button_click(view: View){
-                // Get the clicked radio button instance
-                val radio: RadioButton = findViewById(radio_group.checkedRadioButtonId)
-                Toast.makeText(applicationContext,"On click : ${radio.text}",
-                    Toast.LENGTH_SHORT).show()
-            }*/
-
-            //val user = HashMap<String, Any>()
-            user.put("wight", wight)
-            user.put("height", hight)
 
 
-            db.collection("users")
-                .add(user)
-                .addOnSuccessListener { documentReference ->
-                    Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
-                }
-                .addOnFailureListener { e ->
-                    Log.w(TAG, "Error adding document", e)
-                }
 
-            // Set an checked change listener for switch button
+        user.put("wight", wight)
+        user.put("height", hight)
 
+
+        db.collection("users")
+            .add(user)
+            .addOnSuccessListener { documentReference ->
+                Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error adding document", e)
+            }
 
 
 
             startActivity(intent)
-        }
+        }//------------------------------------------
 
-
-  /*      fun onRadioButtonClicked(view: View) {
-            var checked = view as RadioButton
-            if (rb_male == checked) {
-                message(rb_male.text.toString() + if (rb_male.isChecked) " Checked " else " UnChecked ")
-                // val user = HashMap<String, Any>()
-                user.put("gender",rb_male)
-            }
-            if (rb_female == checked) {
-                message(rb_female.text.toString() + if (rb_female.isChecked) " Checked " else " UnChecked ")
-                // val user = HashMap<String, Any>()
-                user.put("gender",rb_female)
-            }
-        }*/
         // get the references from layout file
         textview_date = this.text_view_date_1
         button_date = this.button_date_1
@@ -168,15 +130,39 @@ class registerTwoActivity : AppCompatActivity() {
         textview_date!!.text = sdf.format(cal.getTime())
     }
 
-    // multiple Radio click method
-
 
     fun message(str: String) {
         Toast.makeText(this, str, Toast.LENGTH_LONG).show()
     }
 
 
+    fun onRadioButtonClicked(view: View) {
+        if (view is RadioButton) {
+            // Is the button now checked?
+            val checked = view.isChecked
+
+            // Check which radio button was clicked
+            when (view.getId()) {
+                R.id.rb_male ->
+                    if (checked) {
+                        // Pirates are the best
+             /*           Toast.makeText(applicationContext,"On button click : male selected",
+                            Toast.LENGTH_SHORT).show()*/
+                        user.put("gender","male")
+                    }
+                R.id.rb_female ->
+                    if (checked) {
+                        // Ninjas rule
+                       /* Toast.makeText(applicationContext,"On button click : female selected",
+                            Toast.LENGTH_SHORT).show()*/
+                        user.put("gender","male")
+                    }
+            }
+        }
+    }
 }
+
+
 
 
 
