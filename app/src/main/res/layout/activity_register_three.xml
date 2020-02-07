@@ -10,7 +10,7 @@
     <RelativeLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="#fff"
         android:gravity="center"
@@ -18,7 +18,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:orientation="vertical">
@@ -102,67 +102,6 @@
         </LinearLayout>
 
 
-        <RelativeLayout
-            android:layout_width="396dp"
-            android:layout_height="105dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="600dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="22dp">
-
-            >
-            <LinearLayout
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerInParent="true"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/circle_without_border"
-                >
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_centerInParent="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="130dp"
-                android:background="@drawable/circle"
-        >
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="3"
-                    android:textColor="#fff"
-                    android:textSize="25dp"
-                    android:layout_centerInParent="true"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerInParent="true"
-                android:layout_alignParentLeft="true"
-                android:layout_margin="130dp"
-
-                android:background="@drawable/circle_without_border" />
-
-            <LinearLayout
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerInParent="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/circle_without_border" />
-        </RelativeLayout>
 
 
 
