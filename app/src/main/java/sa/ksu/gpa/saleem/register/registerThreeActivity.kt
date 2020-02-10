@@ -20,6 +20,10 @@ class registerThreeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_three)
 
+        val one=findViewById<View>(R.id.levelOneBtn) as Button?
+        val two=findViewById<View>(R.id.levelTwoBtn) as Button?
+        val three=findViewById<View>(R.id.levelThreeBtn) as Button?
+
         val btn=findViewById<View>(R.id.nxtThreeBtn) as Button?
 
 
@@ -28,46 +32,54 @@ class registerThreeActivity : AppCompatActivity() {
 
 
         var button_background : Int = 1;
-        val one=findViewById<View>(R.id.levelOneBtn) as Button?
-        val two=findViewById<View>(R.id.levelTwoBtn) as Button?
-        val three=findViewById<View>(R.id.levelThreeBtn) as Button?
 
 
-
-    /*    var button_change = findViewById(R.id.button_changing) as Button;
-*/
         db.collection("users")
+
+        var goal=0
+
 
        one?.setOnClickListener {
             if(button_background==2){
-                one.setBackgroundResource(R.drawable.rounded_buttons);
+                one.setBackgroundResource(R.drawable.unclick);
                 button_background=1;
             } else if(button_background==1){
-                one.setBackgroundResource(R.drawable.selected_btn);
+                one.setBackgroundResource(R.drawable.rounded_buttons);
+                two?.setBackgroundResource(R.drawable.unclick)
+                three?.setBackgroundResource(R.drawable.unclick)
                 button_background=2;
             }
-           user.put("level","beginner")
+           user.put("goal",1)
+           goal=1
         }
         two?.setOnClickListener{
             if(button_background==2){
-                two?.setBackgroundResource(R.drawable.rounded_buttons);
+                two?.setBackgroundResource(R.drawable.unclick);
                 button_background=1;
             } else if(button_background==1){
-                two?.setBackgroundResource(R.drawable.selected_btn);
+                two?.setBackgroundResource(R.drawable.rounded_buttons);
+                one?.setBackgroundResource(R.drawable.unclick)
+                three?.setBackgroundResource(R.drawable.unclick)
                 button_background=2;
+                two.invalidate()
             }
-            user.put("level","Intermediate")
+
+            user.put("goal",2)
+            goal=2
         }
 
         three?.setOnClickListener{
             if(button_background==2){
-                three?.setBackgroundResource(R.drawable.rounded_buttons);
+                three?.setBackgroundResource(R.drawable.unclick);
                 button_background=1;
             } else if(button_background==1){
-                three?.setBackgroundResource(R.drawable.selected_btn);
+                three?.setBackgroundResource(R.drawable.rounded_buttons);
+                two?.setBackgroundResource(R.drawable.unclick)
+                one?.setBackgroundResource(R.drawable.unclick)
                 button_background=2;
             }
-            user.put("level","advance")
+            user.put("goal",3)
+            goal=3
         }
 
 
@@ -76,45 +88,43 @@ class registerThreeActivity : AppCompatActivity() {
 
             Toast.makeText(this@registerThreeActivity, "Click...", Toast.LENGTH_LONG).show()
             val intent = Intent(this, registerFourActivity::class.java)
-// To pass any data to next activity
-            //intent.putExtra("keyIdentifier", value)
-// start your next activity
+           val x=intent.extras
+
+
+
+                val length = getIntent().getDoubleExtra("height",0.0)
+                var weight=getIntent().getDoubleExtra("wight",0.0)
+                var gender = getIntent().getStringExtra("gender")
+                var bmi = getIntent().getDoubleExtra("bmi",0.0)
+
+                intent.putExtra("wight",weight)
+                intent.putExtra("height",length)
+                intent.putExtra("BMI",bmi)
+                intent.putExtra("gender",gender)
+
+
+
+            intent.putExtra("goal",goal)
+
+
             startActivity(intent)
         }
+
+
+
     }
-/*    fun level(view: View) {
 
-        when (view.id) {
-            R.id.levelOneBtn ->{ user.put("level","beginner")
-                if(button_background==2){
-                    one?.setBackgroundResource(R.drawable.rounded_buttons);
-                    button_background=1;
-                } else if(button_background==1){
-                    one?.setBackgroundResource(R.drawable.selected_btn);
-                    button_background=2;
-                }
-            }
-                    R.id.levelTwoBtn -> {user.put("level","Intermediate")
-                        if(button_background==2){
-                            two?.setBackgroundResource(R.drawable.rounded_buttons);
-                            button_background=1;
-                        } else if(button_background==1){
-                            two?.setBackgroundResource(R.drawable.selected_btn);
-                            button_background=2;
-                        }
-                    }
-                R.id.levelThreeBtn -> {user.put("level","Advanced")
-                    if(button_background==2){
-                        three?.setBackgroundResource(R.drawable.rounded_buttons);
-                        button_background=1;
-                    } else if(button_background==1){
-                        three?.setBackgroundResource(R.drawable.selected_btn);
-                        button_background=2;
-                    }
-                }
-           *//* else -> perform action*//*
-         }
-
-        // Do something in response to button click
-   }*/
 }
+
+
+
+/*private fun Button?.setOnClickListener(registerThreeActivity: registerThreeActivity) {
+    when(view.id) {
+        R.id.goalOneBtn -> {*//* do your code *//*}
+        R.id.goalTwoBtn -> {*//* do your code *//*}
+        R.id.goalThreeBtn -> {*//* do your code *//*}
+        else -> {*//* do your code *//*}
+        }
+    }*/
+
+

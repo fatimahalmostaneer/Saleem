@@ -8,6 +8,14 @@
     android:background="#fff"
     android:gravity="center">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:indeterminate="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        style="?android:attr/progressBarStyleHorizontal"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -54,6 +62,7 @@
                 android:ems="10"
                 android:hint="الأسم"
                 android:inputType="textEmailAddress"
+
                 android:textSize="15dp" />
 
         </com.google.android.material.textfield.TextInputLayout>

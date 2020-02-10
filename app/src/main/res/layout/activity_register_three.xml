@@ -52,12 +52,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="50dp"
-                android:background="@drawable/rounded_buttons"
+                android:background="@drawable/unclick"
                 android:text="مبتدى"
                 android:textColor="#FFFFFF"
                 android:textSize="20dp"
 
                 />
+
 
             <Button
                 android:id="@+id/levelTwoBtn"
@@ -65,12 +66,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="60dp"
-                android:background="@drawable/rounded_buttons"
+                android:background="@drawable/unclick"
                 android:text="متوسط"
                 android:textColor="#fff"
                 android:textSize="20dp"
 
+
                 />
+
 
             <Button
                 android:id="@+id/levelThreeBtn"
@@ -78,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="60dp"
-                android:background="@drawable/rounded_buttons"
+                android:background="@drawable/unclick"
                 android:text="متقدم"
                 android:textColor="#fff"
                 android:textSize="20dp"
