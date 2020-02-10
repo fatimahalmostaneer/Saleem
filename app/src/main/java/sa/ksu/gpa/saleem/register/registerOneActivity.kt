@@ -57,5 +57,40 @@ class registerOneActivity : AppCompatActivity() {
 
 
     }
+
+    /*fun calcualteCaloriesWomen(activityLevel:Double,weight:Double,length:Double,goal:Int){
+        var neededCalories:Double
+        var Mifflin =((10*weight)+ (6.25*length)-(5*activityLevel )-161)
+        var Revised =((9.247*weight) +(3.098*length) - (4.330*activityLevel) + 447.593)
+
+        var Calories= (Mifflin+Revised)/2
+
+        when(goal){
+            1 -> neededCalories= Calories-500
+            2->  neededCalories= Calories+500
+            3 -> neededCalories= Calories
+        }
+
+        //add user's needed calories to her collection
+        //db.collection("Users").document("user")...neededCalories
+
+    }
+    fun calcualteCaloriesMen(activityLevel:Double,weight:Double,length:Double,goal:Int){
+        var neededCalories:Double
+        var Mifflin =((10*weight)+ (6.25*length)-(5*activityLevel )+5)
+        var Revised =((13.397*weight) +(4.799*length) - (5.677*activityLevel) + 88.362)
+
+        var Calories= (Mifflin+Revised)/2
+
+        when(goal){
+            1 -> neededCalories= Calories-500
+            2->  neededCalories= Calories+500
+            3 -> neededCalories= Calories
+        }
+
+        //add user's needed calories to his collection
+        //db.collection("Users").document("user")...neededCalories
+
+    }*/
 }
 
