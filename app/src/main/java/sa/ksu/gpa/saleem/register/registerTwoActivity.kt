@@ -28,8 +28,7 @@ import android.widget.RadioGroup
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
-
+import com.wajahatkarim3.easyvalidation.core.collection_ktx.noNumbersList
 
 
 class registerTwoActivity : AppCompatActivity() {
@@ -78,7 +77,6 @@ class registerTwoActivity : AppCompatActivity() {
             }
 
 
-
         btn?.setOnClickListener {
             Toast.makeText(this@registerTwoActivity, "Click...", Toast.LENGTH_LONG).show()
             val intent = Intent(this, registerThreeActivity::class.java)
@@ -88,15 +86,15 @@ class registerTwoActivity : AppCompatActivity() {
             if (id!=-1){ // If any radio button checked from radio group
                 // Get the instance of radio button using id
                 val radio:RadioButton = findViewById(id)
-                Toast.makeText(applicationContext,"On button click : ${radio.text}",
-                    Toast.LENGTH_SHORT).show()
+                var gender =radio.text
+                intent.putExtra("gender",gender)
+
+
             }else{
                 // If no radio button checked in this radio group
                 Toast.makeText(applicationContext,"On button click : nothing selected",
                     Toast.LENGTH_SHORT).show()
             }
-
-
 
             val wightTxt = findViewById<View>(R.id.wight) as EditText?
             val heightTxt = findViewById<View>(R.id.height) as EditText?
@@ -105,17 +103,18 @@ class registerTwoActivity : AppCompatActivity() {
             var wight = wightTxt?.text.toString().toDouble()
             var height = heightTxt?.text.toString().toDouble()
             var bmi = wight / height * height
-            val level = calculateBmi(wight = wight, height = height)
+            val type = calculateBmi(wight = wight, height = height)
 
-            user.put("level", level)
+           /* user.put("level", level)
             user.put("wight", wight)
-            user.put("height", height)
+            user.put("height", height)*/
 
 
             intent.putExtra("wight", wight)
             intent.putExtra("height", height)
             intent.putExtra("BMI", bmi)
-            intent.putExtra("level", level)
+            intent.putExtra("type", type)
+
 
 
             startActivity(intent)
@@ -228,7 +227,7 @@ class registerTwoActivity : AppCompatActivity() {
 
     fun calculateBmi(wight: Double, height: Double): Int {
 
-        var bmi = wight / height * height
+        var bmi = wight / Math.pow(height,2.0)
 
         // return
         when {

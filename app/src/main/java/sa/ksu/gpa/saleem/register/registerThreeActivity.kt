@@ -36,7 +36,7 @@ class registerThreeActivity : AppCompatActivity() {
 
         db.collection("users")
 
-        var goal=0
+        var level=0
 
 
        one?.setOnClickListener {
@@ -49,8 +49,8 @@ class registerThreeActivity : AppCompatActivity() {
                 three?.setBackgroundResource(R.drawable.unclick)
                 button_background=2;
             }
-           user.put("goal",1)
-           goal=1
+           //user.put("goal",1)
+           level=1
         }
         two?.setOnClickListener{
             if(button_background==2){
@@ -64,8 +64,8 @@ class registerThreeActivity : AppCompatActivity() {
                 two.invalidate()
             }
 
-            user.put("goal",2)
-            goal=2
+            //user.put("goal",2)
+            level=2
         }
 
         three?.setOnClickListener{
@@ -78,8 +78,8 @@ class registerThreeActivity : AppCompatActivity() {
                 one?.setBackgroundResource(R.drawable.unclick)
                 button_background=2;
             }
-            user.put("goal",3)
-            goal=3
+            //user.put("goal",3)
+            level=3
         }
 
 
@@ -101,10 +101,7 @@ class registerThreeActivity : AppCompatActivity() {
                 intent.putExtra("height",length)
                 intent.putExtra("BMI",bmi)
                 intent.putExtra("gender",gender)
-
-
-
-            intent.putExtra("goal",goal)
+                intent.putExtra("level",level)
 
 
             startActivity(intent)

@@ -30,7 +30,7 @@ class registerFourActivity : AppCompatActivity() {
         val two=findViewById<View>(R.id.goalTwoBtn) as Button?
         val three=findViewById<View>(R.id.goalThreeBtn) as Button?
 
-        var level=0
+        var goal=0
 
 
         var button_background : Int = 1;
@@ -45,8 +45,8 @@ class registerFourActivity : AppCompatActivity() {
                 three?.setBackgroundResource(R.drawable.unclick)
                 button_background=2;
             }
-            user.put("level","beginner")
-            level = 1
+         //   user.put("level","beginner")
+            goal = 1
         }
         two?.setOnClickListener{
             if(button_background==2){
@@ -60,8 +60,8 @@ class registerFourActivity : AppCompatActivity() {
                 two.invalidate()
             }
 
-            user.put("level","Intermediate")
-            level = 2
+           // user.put("level","Intermediate")
+            goal = 2
         }
 
         three?.setOnClickListener{
@@ -75,41 +75,39 @@ class registerFourActivity : AppCompatActivity() {
                 button_background=2;
             }
 
-            user.put("level","advance")
-            level = 3
+           // user.put("level","advance")
+            goal = 3
         }
 
 
         val x= intent.extras
 
+        val length = getIntent().getDoubleExtra("height",0.0)
+        var weight=getIntent().getDoubleExtra("wight",0.0)
+        var gender = getIntent().getStringExtra("gender")
+        var bmi = getIntent().getDoubleExtra("bmi",0.0)
+        var level = getIntent().getIntExtra("level",0)
+
         btn?.setOnClickListener {
             Toast.makeText(this@registerFourActivity, "Click...", Toast.LENGTH_LONG).show()
             val intent = Intent(this, MainActivity::class.java)
 
-           //val x= intent.extras
 
-          //  intent.putExtra("data",x)
+            if (gender=="male"){
+                calcualteCaloriesMen(3.0,weight!!,length!!,goal!!)
+
+
+            }
+            if (gender=="female"){
+                calcualteCaloriesWomen(3.0,weight!!,length!!,goal!!)
+
+
+            }
 
             startActivity(intent)
         }
 
-        var weight=x?.getDouble("wight")
-        var length= x?.getDouble("height")
-        var goal=x?.getInt("goal")
-        var gender=x?.getString("gender")
 
-
-
-        if (gender=="male"){
-            calcualteCaloriesMen(3.0,weight!!,length!!,goal!!)
-
-
-        }
-        if (gender=="female"){
-            calcualteCaloriesWomen(3.0,weight!!,length!!,goal!!)
-
-
-        }
 
     }
 
