@@ -3,18 +3,27 @@ package sa.ksu.gpa.saleem.register
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.activity_register_two.*
 import sa.ksu.gpa.saleem.MainActivity
 import sa.ksu.gpa.saleem.R
-import java.util.HashMap
+import java.util.*
 
 class registerFourActivity : AppCompatActivity() {
 
     val user = HashMap<String, Any>()
+
+    private val TAG = "Sign up"
+
+    private lateinit var auth: FirebaseAuth
 
     val db = FirebaseFirestore.getInstance()
 
@@ -23,6 +32,9 @@ class registerFourActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_four)
+
+        auth = FirebaseAuth.getInstance()
+
         db.collection("users")
 
         val btn=findViewById<View>(R.id.startBtn) as Button?
@@ -82,11 +94,15 @@ class registerFourActivity : AppCompatActivity() {
 
         val x= intent.extras
 
-        val length = getIntent().getDoubleExtra("height",0.0)
+        var length = getIntent().getDoubleExtra("height",0.0)
         var weight=getIntent().getDoubleExtra("wight",0.0)
         var gender = getIntent().getStringExtra("gender")
         var bmi = getIntent().getDoubleExtra("bmi",0.0)
         var level = getIntent().getIntExtra("level",0)
+        var age= getIntent().getIntExtra("age",0)
+
+
+        createUserCollection(weight,length,level,goal,gender,bmi,age)
 
         btn?.setOnClickListener {
             Toast.makeText(this@registerFourActivity, "Click...", Toast.LENGTH_LONG).show()
@@ -149,7 +165,7 @@ class registerFourActivity : AppCompatActivity() {
 
         //add user's needed calories to his collection
 
-        db.collection("Users").document("user")
+       // db.collection("Users").document("user")
         //...neededCalories
 
         showDialogWithOkButton("needed calories"+neededCalories)
@@ -165,6 +181,33 @@ class registerFourActivity : AppCompatActivity() {
             }
         val alert = builder.create()
         alert.show()
+    }
+
+    private fun createUserCollection(weight:Double,length:Double,level:Int,goal:Int,gender:String,bmi:Double,age:Int) {
+        val user = HashMap<String, Any>()
+        db.collection("Users").document("user")
+      //  db.collection("users").document(auth.getUid().set(user))
+        user.put("weight",weight)
+        user.put("height",length)
+        user.put("level",level)
+        user.put("goal",goal)
+        user.put("gender",gender)
+        user.put("BMI",bmi)
+        user.put("age",age)
+       // user.put("Needed Calories",neededCalories)
+
+
+        /*MySharedPreference.clearData(this)
+        MySharedPreference.putString(this, Constants.Keys.ID, mAuth.getInstance().getUid())
+*/
+        db.collection("Users")
+            .add(user)
+            .addOnSuccessListener { documentReference ->
+                Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference.id}")
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error adding document", e)
+            }
     }
 
 }
