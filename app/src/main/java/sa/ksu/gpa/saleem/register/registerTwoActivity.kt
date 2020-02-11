@@ -114,6 +114,7 @@ class registerTwoActivity : AppCompatActivity() {
             intent.putExtra("height", height)
             intent.putExtra("BMI", bmi)
             intent.putExtra("type", type)
+          //  intent.putExtra("age", age)
 
 
 
@@ -153,8 +154,8 @@ class registerTwoActivity : AppCompatActivity() {
                 val ageInt = age + 1
 
                 // val user = HashMap<String, Any>()
-                user.put("DOB", age)
-
+               // user.put("DOB", age)
+                intent.putExtra("age", age)
                 updateDateInView()
             }
         }

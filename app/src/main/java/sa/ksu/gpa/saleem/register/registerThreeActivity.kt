@@ -96,12 +96,15 @@ class registerThreeActivity : AppCompatActivity() {
                 var weight=getIntent().getDoubleExtra("wight",0.0)
                 var gender = getIntent().getStringExtra("gender")
                 var bmi = getIntent().getDoubleExtra("bmi",0.0)
+                var age= getIntent().getIntExtra("age",0)
+
 
                 intent.putExtra("wight",weight)
                 intent.putExtra("height",length)
                 intent.putExtra("BMI",bmi)
                 intent.putExtra("gender",gender)
                 intent.putExtra("level",level)
+                intent.putExtra("age", age)
 
 
             startActivity(intent)
