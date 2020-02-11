@@ -63,6 +63,8 @@ class registerTwoActivity : AppCompatActivity() {
 
                 Toast.makeText(applicationContext," On checked change : ${radio.text}",
                     Toast.LENGTH_SHORT).show()
+                intent.putExtra("gender", radio.text)
+
             })
 
 
@@ -81,13 +83,19 @@ class registerTwoActivity : AppCompatActivity() {
             Toast.makeText(this@registerTwoActivity, "Click...", Toast.LENGTH_LONG).show()
             val intent = Intent(this, registerThreeActivity::class.java)
 
+            var name = getIntent().getStringExtra("name")
+            var pass = getIntent().getStringExtra("password")
+            var email= getIntent().getStringExtra("email")
+
+
             // Get the checked radio button id from radio group
             var id: Int = radio_group.checkedRadioButtonId
             if (id!=-1){ // If any radio button checked from radio group
                 // Get the instance of radio button using id
                 val radio:RadioButton = findViewById(id)
                 var gender =radio.text
-                intent.putExtra("gender",gender)
+                getIntent().putExtra("gender",gender)
+                Log.d("this2",""+gender)
 
 
             }else{
@@ -102,18 +110,29 @@ class registerTwoActivity : AppCompatActivity() {
 
             var wight = wightTxt?.text.toString().toDouble()
             var height = heightTxt?.text.toString().toDouble()
-            var bmi = wight / height * height
+            var bmi = (wight)/(height/100 * height/100)
             val type = calculateBmi(wight = wight, height = height)
 
-           /* user.put("level", level)
-            user.put("wight", wight)
-            user.put("height", height)*/
 
 
-            intent.putExtra("wight", wight)
+
+            intent.putExtra("wight",wight)
             intent.putExtra("height", height)
-            intent.putExtra("BMI", bmi)
             intent.putExtra("type", type)
+            intent.putExtra("name", name)
+            intent.putExtra("BMI", bmi)
+
+            intent.putExtra("password", pass)
+            intent.putExtra("email",email)
+
+            Log.d("this2",""+email)
+            Log.d("this2",""+name)
+            Log.d("this2",""+pass)
+            Log.d("this2",""+height)
+            Log.d("this2",""+wight)
+            Log.d("this2",""+type)
+            Log.d("this2",""+bmi)
+
           //  intent.putExtra("age", age)
 
 
@@ -155,7 +174,10 @@ class registerTwoActivity : AppCompatActivity() {
 
                 // val user = HashMap<String, Any>()
                // user.put("DOB", age)
+
                 intent.putExtra("age", age)
+
+                Log.d("this2",""+age)
                 updateDateInView()
             }
         }
@@ -209,7 +231,7 @@ class registerTwoActivity : AppCompatActivity() {
                         // Pirates are the best
                         /*           Toast.makeText(applicationContext,"On button click : male selected",
                             Toast.LENGTH_SHORT).show()*/
-                        user.put("gender", "male")
+                        //user.put("gender", "male")
                         intent.putExtra("gender", "male")
                     }
                 R.id.rb_female ->
@@ -217,7 +239,7 @@ class registerTwoActivity : AppCompatActivity() {
                         // Ninjas rule
                         /* Toast.makeText(applicationContext,"On button click : female selected",
                             Toast.LENGTH_SHORT).show()*/
-                        user.put("gender", "male")
+                       // user.put("gender", "male")
                         intent.putExtra("gender", "Female")
 
                     }
@@ -228,35 +250,45 @@ class registerTwoActivity : AppCompatActivity() {
 
     fun calculateBmi(wight: Double, height: Double): Int {
 
-        var bmi = wight / Math.pow(height,2.0)
+        var bmi = (wight)/(height/100*height/100)
+        intent.putExtra("BMI",bmi)
+
 
         // return
         when {
             18.5 > bmi -> {
                 level= 1
                 showDialogWithOkButton("نحافة")
+                intent.putExtra("type", level)
+
+
             }
             18.5 <= bmi || bmi < 25.0 -> {
                 showDialogWithOkButton("طبيعي")
                 level= 2
+                intent.putExtra("type", level)
             }
             25.0 <= bmi || bmi < 30.0 -> {
                 showDialogWithOkButton("زيادة وزن")
                 level= 3
+                intent.putExtra("type", level)
             }
 
             30.0 <= bmi || bmi < 35.0 -> {
                 showDialogWithOkButton("سمنة درجة اولى")
                 level= 4
+                intent.putExtra("type", level)
             }
             35.0 <= bmi || bmi < 40.0 -> {
                 showDialogWithOkButton("سمنى درجة ثانية")
                 level= 5
+                intent.putExtra("type", level)
 
             }
             bmi >= 40.0 -> {
                 showDialogWithOkButton("سمنة مفرطة")
                level= 6
+                intent.putExtra("type", level)
             }
 
             else -> print("")

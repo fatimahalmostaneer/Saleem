@@ -3,15 +3,18 @@ package sa.ksu.gpa.saleem.register
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.activity_register_one.*
 import kotlinx.android.synthetic.main.activity_register_two.*
 import sa.ksu.gpa.saleem.MainActivity
 import sa.ksu.gpa.saleem.R
@@ -32,6 +35,8 @@ class registerFourActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_four)
+
+        val intent = Intent(this, MainActivity::class.java)
 
         auth = FirebaseAuth.getInstance()
 
@@ -92,7 +97,7 @@ class registerFourActivity : AppCompatActivity() {
         }
 
 
-        val x= intent.extras
+
 
         var length = getIntent().getDoubleExtra("height",0.0)
         var weight=getIntent().getDoubleExtra("wight",0.0)
@@ -101,12 +106,26 @@ class registerFourActivity : AppCompatActivity() {
         var level = getIntent().getIntExtra("level",0)
         var age= getIntent().getIntExtra("age",0)
 
+        var name = getIntent().getStringExtra("name")
+        var pass = getIntent().getStringExtra("password")
+        var email = getIntent().getStringExtra("email")
 
-        createUserCollection(weight,length,level,goal,gender,bmi,age)
+        Log.d("this",""+email)
+        Log.d("this",""+name)
+        Log.d("this",""+pass)
+        Log.d("this",""+length)
+        Log.d("this",""+wight)
+        Log.d("this",""+gender)
+        Log.d("this",""+level)
+        Log.d("this",""+age)
+       Log.d("this",""+bmi)
+        Log.d("this",""+goal)
+
+
 
         btn?.setOnClickListener {
             Toast.makeText(this@registerFourActivity, "Click...", Toast.LENGTH_LONG).show()
-            val intent = Intent(this, MainActivity::class.java)
+          //  val intent = Intent(this, MainActivity::class.java)
 
 
             if (gender=="male"){
@@ -119,10 +138,14 @@ class registerFourActivity : AppCompatActivity() {
 
 
             }
+            createAccount(email,pass)
+
+
 
             startActivity(intent)
         }
 
+        createUserCollection(weight,length,level,goal,gender,bmi,age)
 
 
     }
@@ -209,5 +232,83 @@ class registerFourActivity : AppCompatActivity() {
                 Log.w(TAG, "Error adding document", e)
             }
     }
+
+
+    private fun createAccount(email: String, password: String) {
+
+
+
+        Log.d(registerOneActivity.TAG, "createAccount:$email")
+
+        /*   showProgressBar()*/
+
+        // [START create_user_with_email]
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(registerOneActivity.TAG, "createUserWithEmail:success")
+
+                    sendEmailVerification(email)
+                    showDialogWithOkButton("الرجاء التحقق من البريد الالكتروني")
+
+
+                    //---------------------------
+                    //sendEmailVerification()
+                    val user = auth.currentUser
+                    // updateUI(user)
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(registerOneActivity.TAG, "createUserWithEmail:failure", task.exception)
+                    Toast.makeText(
+                        baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    showDialogWithOkButton("البريد الالكتروني غير صحيح")
+
+
+                    //updateUI(null)
+                }
+
+                // [START_EXCLUDE]
+                /*  hideProgressBar()*/
+                // [END_EXCLUDE]
+            }
+        // [END create_user_with_email]
+    }
+
+    private fun sendEmailVerification(email: String) {
+        // Disable button
+        //verifyEmailButton.isEnabled = false
+
+        // Send verification email
+        // [START send_email_verification]
+
+        val user = auth.currentUser
+        user?.sendEmailVerification()
+            ?.addOnCompleteListener(this) { task ->
+                // [START_EXCLUDE]
+                // Re-enable button
+                // verifyEmailButton.isEnabled = true
+
+                if (task.isSuccessful) {
+                    Toast.makeText(
+                        baseContext,
+                        "Verification email sent to ${user.email} ",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Log.e(registerOneActivity.TAG, "sendEmailVerification", task.exception)
+                    Toast.makeText(
+                        baseContext,
+                        "Failed to send verification email.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                // [END_EXCLUDE]
+            }
+        // [END send_email_verification]
+    }
+
 
 }

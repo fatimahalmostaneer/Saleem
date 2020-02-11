@@ -14,10 +14,10 @@
         <activity android:name=".register.registerOneActivity"></activity>
         <activity android:name=".register.registerFourActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".loginn" />
         <activity android:name=".register.registerThreeActivity" />
+        <activity android:name=".register.registerTwoActivity" />
         <activity
-            android:name=".register.registerTwoActivity"
+            android:name=".loginn"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
