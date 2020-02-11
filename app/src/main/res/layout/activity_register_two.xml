@@ -40,46 +40,28 @@
             android:textSize="24dp"
             android:textStyle="bold" />
 
-
-
-        <com.google.android.material.textfield.TextInputLayout
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
+            android:layout_marginTop="40dp"
+            android:orientation="horizontal">
 
-
-            app:errorEnabled="true">
-
-            <AutoCompleteTextView
+            <EditText
                 android:id="@+id/wight"
-                android:layout_width="200dp"
-                android:layout_height="43dp"
-
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:hint="الوزن"
-                android:inputType="number"
-                android:gravity="center"
-                android:textSize="15dp" />
+                android:inputType="number" />
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            app:errorEnabled="true">
-
-            <AutoCompleteTextView
+            <EditText
                 android:id="@+id/height"
-                android:layout_width="200dp"
-                android:layout_height="43dp"
-                android:gravity="center"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:hint="الطول"
-                android:inputType="number"
-                android:textSize="15dp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
+                android:inputType="number" />
+        </LinearLayout>
 
 
         <LinearLayout
@@ -101,17 +83,15 @@
                     android:id="@+id/rb_male"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="radio_button_click"
-                    android:hint="ذكر"
-                    android:text="male" />
+                    android:onClick="onRadioButtonClicked"
+                    android:text="ذكر" />
 
                 <RadioButton
                     android:id="@+id/rb_female"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="radio_button_click"
-                    android:text="female"
-                    android:hint="انثى"/>
+                    android:onClick="onRadioButtonClicked"
+                    android:text="انثى" />
 
             </RadioGroup>
 
