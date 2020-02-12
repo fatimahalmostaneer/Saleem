@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@drawable/border"
+    android:weightSum="100"
+    android:backgroundTint="#00111111"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="60"
+        android:src="@drawable/work_out"></ImageView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="اسم التمرين "
+        >
+    </TextView>
+    <EditText
+        android:id="@+id/addExcerciseWorkoutname"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/border"
+        android:hint="جزء سفلي"></EditText>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="السعرات الحروقة "
+        >
+    </TextView>
+    <EditText
+        android:id="@+id/addExcerciseburentCal"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/border"
+        android:inputType="number"
+        android:gravity="center"
+        android:hint="300" ></EditText>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:orientation="horizontal"
+    android:weightSum="100">
+    <Button
+        android:id="@+id/cancelExcercise"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/border"
+        android:backgroundTint="#051A1818"
+        android:layout_weight="50"
+        android:textSize="15dp"
+        android:text="إلغاء"
+        android:textColor="#F7FFFFFF"></Button>
+    <Button
+        android:id="@+id/addExcercise"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="50"
+        android:layout_margin="10dp"
+        android:background="@drawable/border"
+        android:backgroundTint="#69F0AE"
+        android:text="إضافة"
+        android:textSize="15dp"
+        android:textColor="#F7FFFFFF">
+
+    </Button>
+</LinearLayout>
+
+</LinearLayout>
