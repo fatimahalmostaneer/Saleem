@@ -27,5 +27,21 @@
     <string name="NoresultData">No result data</string>
     <string name="Thankyou">Thank you</string>
 
+    <string-array name="Quantities">
+        <item>مل</item>
+        <item>كأس</item>
+        <item>جم</item>
+        <item>ملعقة طعام كبيرة</item>
+        <item>ملعقة صغيرة</item>
+    </string-array>
+    <string-array name="Ingredients">
+        <item>رز أبيض</item>
+        <item>رز أسمر </item>
+        <item>موزة</item>
+        <item>تفاح</item>
+        <item>لبن</item>
+        <item>حليب</item>
+    </string-array>
+
 
 </resources>
