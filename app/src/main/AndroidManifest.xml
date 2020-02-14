@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="sa.ksu.gpa.saleem">
 
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -11,20 +12,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".register.registerOneActivity"></activity>
+        <activity android:name=".recipe.ShareRecipeFirst">
+
+        </activity>
+        <activity android:name=".register.registerOneActivity">
+
+        </activity>
         <activity android:name=".register.registerFourActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".register.registerThreeActivity" />
-        <activity android:name=".register.registerTwoActivity" />
-        <activity
-            android:name=".loginn"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".loginn" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".register.registerThreeActivity" />
+        <activity android:name=".ScanActivity" />
+        <activity
+            android:name=".register.registerTwoActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+
         </activity>
     </application>
 
