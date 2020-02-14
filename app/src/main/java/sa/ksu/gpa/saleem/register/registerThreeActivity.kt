@@ -20,6 +20,8 @@ class registerThreeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_three)
+        val intent = Intent(this, registerFourActivity::class.java)
+
 
         val one=findViewById<View>(R.id.levelOneBtn) as Button?
         val two=findViewById<View>(R.id.levelTwoBtn) as Button?
@@ -37,7 +39,7 @@ class registerThreeActivity : AppCompatActivity() {
 
         db.collection("users")
 
-        var level=0
+//        var level=0
 
 
        one?.setOnClickListener {
@@ -51,7 +53,7 @@ class registerThreeActivity : AppCompatActivity() {
                 button_background=2;
             }
            //user.put("goal",1)
-           level=1
+          var level=1
            intent.putExtra("level",level)
 
        }
@@ -68,7 +70,7 @@ class registerThreeActivity : AppCompatActivity() {
             }
 
             //user.put("goal",2)
-            level=2
+           var level=2
             intent.putExtra("level",level)
 
         }
@@ -84,25 +86,26 @@ class registerThreeActivity : AppCompatActivity() {
                 button_background=2;
             }
             //user.put("goal",3)
-            level=3
+           var level=3
             intent.putExtra("level",level)
+            Log.d("this3",""+level)
 
         }
 
-        Log.d("this3",""+level)
+
 
         btn?.setOnClickListener {
 
             Toast.makeText(this@registerThreeActivity, "Click...", Toast.LENGTH_LONG).show()
-            val intent = Intent(this, registerFourActivity::class.java)
 
 
 
                 val length = getIntent().getDoubleExtra("height",0.0)
                 var weight=getIntent().getDoubleExtra("wight",0.0)
                 var gender = getIntent().getStringExtra("gender")
-              var bmii = getIntent().getDoubleExtra("bmi",0.0)
+                var bmii = getIntent().getDoubleExtra("bmi",0.0)
                 var age= getIntent().getIntExtra("age",0)
+            var userAge= getIntent().getStringExtra("uaserAge")
 
             var bmi=(weight)/(length/100*length/100)
 
@@ -116,7 +119,8 @@ class registerThreeActivity : AppCompatActivity() {
                 intent.putExtra("height",length)
                 intent.putExtra("BMI",bmi)
                 intent.putExtra("gender",gender)
-                intent.putExtra("age", age)
+               // intent.putExtra("age",age)
+            intent.putExtra("userAge",userAge)
             intent.putExtra("name",name)
             intent.putExtra("password",pass)
             intent.putExtra("email",email)
@@ -126,11 +130,11 @@ class registerThreeActivity : AppCompatActivity() {
             Log.d("this3",""+pass)
             Log.d("this3",""+length)
             Log.d("this3",""+weight)
-            Log.d("this3",""+level)
+          //  Log.d("this3",""+level)
             Log.d("this3",""+bmi)
             Log.d("this3",""+gender)
-            Log.d("this3",""+age)
-
+           // Log.d("this3",""+age)
+            Log.d("this3",""+userAge)
 
 
             startActivity(intent)

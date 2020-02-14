@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_register_one.*
 import kotlinx.android.synthetic.main.activity_register_two.*
@@ -20,8 +21,6 @@ import sa.ksu.gpa.saleem.R
 class registerOneActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,10 +43,15 @@ class registerOneActivity : AppCompatActivity() {
         var repasst = repassTxt?.text.toString()
 
 
-
         val btn = findViewById<View>(R.id.nxtOneBtn) as Button?
         btn?.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {
+
+                if( android.util.Patterns.EMAIL_ADDRESS.matcher(emailt).matches()){
+                    showDialogWithOkButton("الرجاءالتاكد من البريد الالكتروني")
+
+
+                }
 
                 if (emailt == "" && passt == "" && nameTxt?.text.toString() == "" && repassTxt?.text.toString() == "") {
                     //show a popup for result
@@ -75,14 +79,14 @@ class registerOneActivity : AppCompatActivity() {
 
                 }
 
-                if (validateForm() && checkPassword(passt,repasst)) {
-                    if (verify()) {
+                if (checkPassword(passt, repasst)) {
+                  //  if (verify()) {
 
 
-                        Log.d("this1",""+emailTxt?.text.toString())
-                        Log.d("this1",""+nameTxt?.text.toString())
-                        Log.d("this1",""+passt)
-                        Log.d("this1",""+repasst)
+                        Log.d("this1", "" + emailTxt?.text.toString())
+                        Log.d("this1", "" + nameTxt?.text.toString())
+                        Log.d("this1", "" + passt)
+                        Log.d("this1", "" + repasst)
 
                         intent.putExtra("name", nameTxt?.text.toString())
                         intent.putExtra("email", emailTxt?.text.toString())
@@ -93,7 +97,7 @@ class registerOneActivity : AppCompatActivity() {
 
                     }
                 }
-            }
+           // }
 
         })
 
@@ -143,7 +147,7 @@ class registerOneActivity : AppCompatActivity() {
         // [END send_email_verification]
     }
 
-    private fun validateForm(): Boolean {
+  /*  private fun validateForm(): Boolean {
         var valid = true
 
         val nameTxt = findViewById<View>(R.id.nameET) as EditText?
@@ -158,43 +162,39 @@ class registerOneActivity : AppCompatActivity() {
 
 
 
-
-
-        if (TextUtils.isEmpty(emailEd) &&TextUtils.isEmpty(nameEd) && TextUtils.isEmpty(passEd) && TextUtils.isEmpty(repassEd) ) {
+        if (TextUtils.isEmpty(emailEd) && TextUtils.isEmpty(nameEd) && TextUtils.isEmpty(passEd) && TextUtils.isEmpty(
+                repassEd
+            )
+        ) {
 
             showDialogWithOkButton("الرجاء ادخال اسم المستخدم و البريد الالكتروني وكلمة المرور")
 
-        }
-        else if (TextUtils.isEmpty(emailEd)) {
+        } else if (TextUtils.isEmpty(emailEd)) {
 
             showDialogWithOkButton("الرجاء ادخال البريد الالكتروني")
 
-        }
-        else
-        if (TextUtils.isEmpty(passEd)) {
-
-            showDialogWithOkButton("الرجاء تعين كلمة المرور")
         } else
-        if (TextUtils.isEmpty(repassEd)) {
-            repasswordED.error = "Required."
-            showDialogWithOkButton("الرجاء اعادة تعين كلمة المرور")
+            if (TextUtils.isEmpty(passEd)) {
 
-        } else
-        if (TextUtils.isEmpty(nameEd)) {
+                showDialogWithOkButton("الرجاء تعين كلمة المرور")
+            } else
+                if (TextUtils.isEmpty(repassEd)) {
+                    repasswordED.error = "Required."
+                    showDialogWithOkButton("الرجاء اعادة تعين كلمة المرور")
 
-
-            showDialogWithOkButton("الرجاء ادخال اسم المستخدم")
-        }
-
-
-       // checkPassword(passEd,repassEd)
+                } else
+                    if (TextUtils.isEmpty(nameEd)) {
 
 
+                        showDialogWithOkButton("الرجاء ادخال اسم المستخدم")
+                    }
 
+
+        // checkPassword(passEd,repassEd)
 
 
         return valid
-    }
+    }*/
 
 /*    private fun updateUI(user: FirebaseUser? {
         hideProgressBar()
@@ -219,13 +219,12 @@ class registerOneActivity : AppCompatActivity() {
     }*/
 
 
-
     companion object {
         const val TAG = "EmailPassword"
     }
 
     private fun checkPassword(pass: String, repass: String): Boolean {
-        if (pass != repass){
+        if (pass != repass) {
             showErrorMsg()
         }
         return pass == repass
@@ -236,7 +235,7 @@ class registerOneActivity : AppCompatActivity() {
         showDialogWithOkButton("كلمتا المرور غير متطابقتين")
     }
 
-    private fun verify():Boolean {
+    private fun verify(): Boolean {
 
         val nameTxt = findViewById<View>(R.id.nameET) as EditText?
         val emailTxtt = findViewById<View>(R.id.emailET) as EditText?
@@ -245,9 +244,9 @@ class registerOneActivity : AppCompatActivity() {
 
         val emailTxt = emailTxtt?.text.toString()
         val passTxt = passTxtt?.text.toString()
-        val repass=repassTxt?.text.toString()
+        val repass = repassTxt?.text.toString()
 
-        if (passTxt!=repass) {
+        if (passTxt != repass) {
             showErrorMsg()
             return false
         }
@@ -261,7 +260,7 @@ class registerOneActivity : AppCompatActivity() {
         } else if (emailTxt == "") {
             //show a popup for result
             showDialogWithOkButton("الرجاء ادخال البريد الالكتروني")
-           return false
+            return false
 
         }//end if
         else if (nameTxt?.text.toString() == "") {
@@ -281,61 +280,9 @@ class registerOneActivity : AppCompatActivity() {
             return false
 
 
-        }
-        else return true
-       /* Log.d(TAG, "createAccount:$email")
-        if (!validateForm()) {
-            return
-        }
-        *//*   showProgressBar()*//*
+        } else return true
 
-        // [START create_user_with_email]
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "createUserWithEmail:success")
-                    //---------------------------
-                    //sendEmailVerification()
-                    val user = auth.currentUser
-                    // updateUI(user)
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(
-                        baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    //showDialogWithOkButton("البريد الالكتروني غير صحيح")
-
-
-                    //updateUI(null)
-                }*/
-
-                // [START_EXCLUDE]
-                /*  hideProgressBar()*/
-                // [END_EXCLUDE]
-            }
-        // [END create_user_with_email]
     }
-
-
-
-
-
-/*
-private fun Button?.setOnClickListener(
-    registerOneActivity: registerOneActivity,
-    function: () -> Unit
-) {
-    createAccount(emailED, passTxt.text.toString())
-
 }
-
-fun createAccount(toString: Any, toString1: Any) {
-
-}
-*/
-
 
 
