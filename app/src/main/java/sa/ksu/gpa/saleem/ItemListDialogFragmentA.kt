@@ -33,6 +33,7 @@ class ItemListDialogFragmentA(list: ArrayList<String>) : BottomSheetDialogFragme
     fun newInstance(list: ArrayList<String>): ItemListDialogFragmentA {
         return ItemListDialogFragmentA(list)
     }
+    //onCreateView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

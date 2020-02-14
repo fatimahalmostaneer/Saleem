@@ -26,6 +26,7 @@
     <string name="Register">Register</string>
     <string name="NoresultData">No result data</string>
     <string name="Thankyou">Thank you</string>
+    <string name="cancel">Cancel</string>
 
     <string-array name="Quantities">
         <item>مل</item>
