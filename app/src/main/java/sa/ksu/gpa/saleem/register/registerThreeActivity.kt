@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.activity_register_two.*
 import sa.ksu.gpa.saleem.R
 import java.util.HashMap
 
@@ -19,6 +20,8 @@ class registerThreeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_three)
+        val intent = Intent(this, registerFourActivity::class.java)
+
 
         val one=findViewById<View>(R.id.levelOneBtn) as Button?
         val two=findViewById<View>(R.id.levelTwoBtn) as Button?
@@ -36,7 +39,7 @@ class registerThreeActivity : AppCompatActivity() {
 
         db.collection("users")
 
-        var level=0
+//        var level=0
 
 
        one?.setOnClickListener {
@@ -50,8 +53,10 @@ class registerThreeActivity : AppCompatActivity() {
                 button_background=2;
             }
            //user.put("goal",1)
-           level=1
-        }
+          var level=1
+           intent.putExtra("level",level)
+
+       }
         two?.setOnClickListener{
             if(button_background==2){
                 two?.setBackgroundResource(R.drawable.unclick);
@@ -65,7 +70,9 @@ class registerThreeActivity : AppCompatActivity() {
             }
 
             //user.put("goal",2)
-            level=2
+           var level=2
+            intent.putExtra("level",level)
+
         }
 
         three?.setOnClickListener{
@@ -79,7 +86,10 @@ class registerThreeActivity : AppCompatActivity() {
                 button_background=2;
             }
             //user.put("goal",3)
-            level=3
+           var level=3
+            intent.putExtra("level",level)
+            Log.d("this3",""+level)
+
         }
 
 
@@ -87,24 +97,44 @@ class registerThreeActivity : AppCompatActivity() {
         btn?.setOnClickListener {
 
             Toast.makeText(this@registerThreeActivity, "Click...", Toast.LENGTH_LONG).show()
-            val intent = Intent(this, registerFourActivity::class.java)
-           val x=intent.extras
 
 
 
                 val length = getIntent().getDoubleExtra("height",0.0)
                 var weight=getIntent().getDoubleExtra("wight",0.0)
                 var gender = getIntent().getStringExtra("gender")
-                var bmi = getIntent().getDoubleExtra("bmi",0.0)
+                var bmii = getIntent().getDoubleExtra("bmi",0.0)
                 var age= getIntent().getIntExtra("age",0)
+            var userAge= getIntent().getStringExtra("uaserAge")
+
+            var bmi=(weight)/(length/100*length/100)
+
+
+            var name = getIntent().getStringExtra("name")
+            var pass = getIntent().getStringExtra("password")
+            var email = getIntent().getStringExtra("email")
 
 
                 intent.putExtra("wight",weight)
                 intent.putExtra("height",length)
                 intent.putExtra("BMI",bmi)
                 intent.putExtra("gender",gender)
-                intent.putExtra("level",level)
-                intent.putExtra("age", age)
+               // intent.putExtra("age",age)
+            intent.putExtra("userAge",userAge)
+            intent.putExtra("name",name)
+            intent.putExtra("password",pass)
+            intent.putExtra("email",email)
+
+            Log.d("this3",""+email)
+            Log.d("this3",""+name)
+            Log.d("this3",""+pass)
+            Log.d("this3",""+length)
+            Log.d("this3",""+weight)
+          //  Log.d("this3",""+level)
+            Log.d("this3",""+bmi)
+            Log.d("this3",""+gender)
+           // Log.d("this3",""+age)
+            Log.d("this3",""+userAge)
 
 
             startActivity(intent)

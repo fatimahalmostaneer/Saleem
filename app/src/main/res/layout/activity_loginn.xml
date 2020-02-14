@@ -39,7 +39,7 @@
                 app:errorEnabled="true">
 
                 <AutoCompleteTextView
-                    android:id="@+id/emailET"
+                    android:id="@+id/emailETL"
                     android:layout_width="292dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -58,7 +58,7 @@
                 app:errorEnabled="true">
 
                 <AutoCompleteTextView
-                    android:id="@+id/passwordED"
+                    android:id="@+id/passwordEDL"
                     android:layout_width="296dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -92,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-
+                android:layout_marginLeft="40dp"
                 android:text="@string/forgetPassword"
 
                 android:textColor="@color/colorPrimaryDark" />
