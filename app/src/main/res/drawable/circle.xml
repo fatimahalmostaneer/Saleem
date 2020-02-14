@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval">
-
-    <solid
-        android:color="#e1e1e1e1"/>
-
-    <stroke
-
-        android:width="3dp"
-       />
-    <size
-        android:width="170dp"
-        android:height="170dp"/>
-</shape>
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromDegrees="270"
+    android:toDegrees="270">
+    <shape
+        android:innerRadiusRatio="2.5"
+        android:shape="ring"
+        android:thickness="10dp"
+        android:useLevel="true"> <!-- this line fixes the issue for lollipop api 21 -->
+        <gradient
+            android:angle="0"
+            android:endColor="#2196F3"
+            android:startColor="#5d46b0"
+            android:type="sweep"
+            android:useLevel="false" />
+    </shape>
+</rotate>

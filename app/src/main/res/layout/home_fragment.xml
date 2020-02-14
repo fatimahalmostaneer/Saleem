@@ -1,300 +1,219 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity"
-    >
+    android:orientation="vertical">
 
-
-
-    <RelativeLayout
-        android:id="@+id/UpperRelativeLayout"
-        android:layout_weight="0.5"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimary">
-        <!--
-           <androidx.viewpager.widget.ViewPager
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"></androidx.viewpager.widget.ViewPager> -->
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:background="@android:color/transparent"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <com.mikhaellopez.circularprogressbar.CircularProgressBar
-            android:id="@+id/circularProgressBar"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            app:cpb_background_progressbar_width="9dp"
-            app:cpb_progressbar_color="@color/colorYellow"
-            android:layout_centerInParent="true"
-            app:cpb_start_angle="0"
-            app:cpb_progress_direction="to_left"
-            app:cpb_progress="25"
-            app:cpb_progress_max="100"/>
-
-        <TextView
-            android:id="@+id/numOfCals"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:textSize="40sp"
-            android:textStyle="bold"
-            android:text="1260"
-            android:textColor="@color/colorWhite"
-            ></TextView>
-
-        <TextView
-            android:id="@+id/remainingCals"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:textSize="15sp"
-            android:text="Remaining calories"
-            android:layout_below="@id/numOfCals"
-            android:textColor="@color/colorWhite"></TextView>
-
-        <LinearLayout
-            android:id="@+id/calsValsLL"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/circularProgressBar"
-            android:layout_gravity="center"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:textAlignment="center"
-            android:layout_marginTop="10dp">
+            android:background="@android:color/transparent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimaryDark"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
 
-            <TextView
-                android:id="@+id/consumedCaloriesVal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="450"
-                android:textColor="@android:color/white"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:layout_weight="1"
-                />
+            app:toolbarId="@+id/toolbar" >
 
-            <TextView
-                android:id="@+id/waterVal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="660"
-                android:textColor="@android:color/white"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:backgroundTint="@android:color/transparent"
+                android:background="@color/colorPrimaryDark"
+                app:layout_collapseMode="parallax"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-            <TextView
-                android:id="@+id/burntCaloriesVal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="73"
-                android:textColor="@android:color/white"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:layout_weight="1"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/calsNamesLL"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/circularProgressBar"
-            android:layout_marginTop="30dp"
-            android:layout_gravity="center"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:textAlignment="center">
-
-            <TextView
-                android:id="@+id/consumedCalories"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Consumed calories"
-                android:textColor="@android:color/white"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:layout_weight="0.5"
-                />
-
-            <TextView
-                android:id="@+id/water"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="5"
-                android:gravity="center"
-                android:text="Water"
-                android:textColor="@android:color/white"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/burntCalories"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Burnt calories"
-                android:textColor="@android:color/white"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:gravity="center"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
                 android:layout_weight="1.5"
-                />
+                app:layout_collapseMode="none"
+                android:background="@drawable/bg_main">
 
-        </LinearLayout>
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/ic_chevron_left_black_24dp" />
 
-    </RelativeLayout>
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentTop="true"
 
-    <RelativeLayout
-        android:id="@+id/BottomRelativeLayout"
-        android:layout_weight="0.5"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/ic_chevron_right_black_24dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="02/02/2020"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <ProgressBar
+                    style="?android:progressBarStyleHorizontal"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/circular_shape"
+                    android:progress="60"
+                    android:progressDrawable="@drawable/circle"
+                    android:rotation="180" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_main_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="4dp"
+                        android:text="1200"
+                        android:textColor="@android:color/white"
+                        android:textSize="40sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_main_number"
+                        android:text="سعرات المتبقية"
+                        android:textColor="@android:color/white"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_margin="4dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/LinearLayout1"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_margin="8dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="4dp"
+                            android:text="600"
+                            android:textColor="@android:color/white"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="سعرة مستهلكة"
+                            android:textColor="@android:color/white"
+                            android:textSize="13sp"
+                            android:textStyle="" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/LinearLayout2"
+                        android:layout_width="wrap_content"
+
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_margin="8dp"
+
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:weightSum="1">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="4dp"
+                            android:text="552"
+                            android:textColor="@android:color/white"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="ماء ملل"
+                            android:textColor="@android:color/white"
+                            android:textSize="13sp"
+                            android:textStyle="" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/LinearLayout3"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="4dp"
+                            android:text="100"
+                            android:textColor="@android:color/white"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="التمارين"
+                            android:textColor="@android:color/white"
+                            android:textSize="14sp"
+                            android:textStyle="" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFF"
-        android:padding="10dp">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
-            android:id="@+id/UpperLinearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FFF"
-            android:orientation="horizontal"
-            android:layout_marginTop="1dp">
-
-
-            <Button
-                android:id="@+id/Breakfast_button"
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:layout_weight="1"
-                android:text="Breakfast"
-                android:background="@drawable/rounded_buttons"
-                android:textColor="@color/colorPrimary"
-                android:textSize="12dp"
-                />
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <Button
-                android:id="@+id/Lunch_button"
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:layout_weight="1"
-                android:text="Lunch"
-                android:background="@drawable/rounded_buttons"
-                android:textColor="@color/colorPrimary"
-                android:textSize="12dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/MiddleLinearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FFF"
-            android:orientation="horizontal"
-            android:layout_below="@+id/UpperLinearLayout"
-            android:layout_marginTop="10dp">
-
-
-            <Button
-                android:id="@+id/Snack_button"
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:layout_weight="1"
-                android:text="Snack"
-                android:background="@drawable/rounded_buttons"
-                android:textColor="@color/colorPrimary"
-                android:textSize="12dp" />
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <Button
-                android:id="@+id/Dinner_button"
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:layout_weight="1"
-                android:text="Lunch"
-                android:background="@drawable/rounded_buttons"
-                android:textColor="@color/colorPrimary"
-                android:textSize="12dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/BottomLinearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_below="@+id/MiddleLinearLayout">
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
-            <View
-                android:id="@+id/UpperDivider"
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@color/colorLightGray" />
-
-            <TextView
-                android:id="@+id/HealthAdvice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="HealthAdvice"
-                android:textAlignment="center"
-                android:textColor="#000"
-                android:textSize="15sp" />
-
-            <View
-                android:id="@+id/LowerDivider"
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@color/colorLightGray" />
-
-        </LinearLayout>
-    </RelativeLayout>
-
-    <!-- <com.google.android.material.floatingactionbutton.FloatingActionButton
-         android:id="@+id/floatingActionButton3"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignParentEnd="true"
-         android:layout_alignParentRight="true"
-         android:layout_alignParentBottom="true"
-         android:layout_gravity="end|bottom"
-         android:clickable="true"
-         app:srcCompat="@drawable/ic_add"
-         app:layout_constraintBottom_toBottomOf="parent"
-         app:layout_constraintEnd_toStartOf="@+id/BottomLinearLayout"
-         app:layout_constraintStart_toStartOf="parent"/>
- </RelativeLayout>
-
-
- <com.google.android.material.bottomnavigation.BottomNavigationView
-     android:id="@+id/bottomNavigation"
-     app:menu="@menu/bottom_nav_menu"
-     android:background="@color/colorLightGray"
-     app:itemIconTint="@android:color/black"
-     app:itemTextColor="@android:color/black"
-     android:layout_width="match_parent"
-     android:layout_height="wrap_content"
-     app:layout_constraintBottom_toBottomOf="parent"
-     app:layout_constraintEnd_toStartOf="@+id/BottomRelativeLayout"
-     app:layout_constraintStart_toStartOf="parent" />-->
-
-
-</LinearLayout>
+        <include layout="@layout/fragment_home_body"/>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
