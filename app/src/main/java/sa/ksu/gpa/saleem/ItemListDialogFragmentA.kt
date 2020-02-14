@@ -28,7 +28,7 @@ class ItemListDialogFragmentA(list: ArrayList<String>) : BottomSheetDialogFragme
     private var mListener: Listener? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme)
+       // setStyle(STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme)
     }
     fun newInstance(list: ArrayList<String>): ItemListDialogFragmentA {
         return ItemListDialogFragmentA(list)
@@ -40,17 +40,17 @@ class ItemListDialogFragmentA(list: ArrayList<String>) : BottomSheetDialogFragme
         return inflater.inflate(R.layout.fragment_item_list_dialog, container, false)
     }
 
-    override fun onViewCreated(
+  /*  override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?
     ) {
-        val recyclerView: RecyclerView = view.findViewById(R.id.list)
-        view.findViewById<View>(R.id.btn_cancel)
+       // val recyclerView: RecyclerView = view.findViewById(R.id.list)
+       // view.findViewById<View>(R.id.btn_cancel)
             .setOnClickListener { dismiss() }
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = ItemAdapter(list
         )
-    }
+    }*/
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
