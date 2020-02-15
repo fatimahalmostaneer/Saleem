@@ -49,6 +49,7 @@ dependencies {
     implementation 'com.github.f0ris.sweetalert:library:1.5.6'
     implementation 'com.google.firebase:firebase-auth:19.2.0'
     implementation "com.wajahatkarim3.easyvalidation:easyvalidation-core:1.0.1"
+    implementation 'com.github.leinardi:FloatingActionButtonSpeedDial:master-SNAPSHOT'
 
     implementation 'com.google.firebase:firebase-auth:19.2.0'
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
