@@ -51,24 +51,7 @@ class registerTwoActivity : AppCompatActivity() {
         val db = FirebaseFirestore.getInstance()
         val intent = Intent(this, registerThreeActivity::class.java)
 
-
-
-
         val btn=findViewById<View>(R.id.nxtTwoBtn) as Button?
-
-        radio_group.setOnCheckedChangeListener(
-            RadioGroup.OnCheckedChangeListener { group, checkedId ->
-                val radio: RadioButton = findViewById(checkedId)
-
-                user.put("gender", radio.text)
-                getIntent().putExtra("gender", radio.text.toString())
-
-                Toast.makeText(applicationContext," On checked change : ${radio.text}",
-                    Toast.LENGTH_SHORT).show()
-                getIntent().putExtra("gender", radio.text.toString())
-
-            })
-
 
 
         db.collection("users")
@@ -103,18 +86,14 @@ class registerTwoActivity : AppCompatActivity() {
          //   if (id!=-1){ // If any radio button checked from radio group
                 // Get the instance of radio button using id
                 val radio:RadioButton = findViewById(id)
-                var gender =radio?.text.toString()
-
-
-
-       /*     }else{
-                // If no radio button checked in this radio group
-                Toast.makeText(applicationContext,"On button click : nothing selected",
-                    Toast.LENGTH_SHORT).show()
-            }
+                var gender =radio?.text.toString();
+   /*         if (gender=="ذكر")
+                gender="male"
+            if(gender=="انثى")
+                gender="female"
 */
 
-             fun onDateSet(
+            fun onDateSet(
                 view: DatePicker, year: Int, monthOfYear: Int,
                 dayOfMonth: Int
             ) {
@@ -129,21 +108,23 @@ class registerTwoActivity : AppCompatActivity() {
 
                 var age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR)
 
-                if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
+                if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR))
                     age--
-                }
+
 
                 val ageInt = age + 1
 
-                // val user = HashMap<String, Any>()
-                // user.put("DOB", age)
                 var userAge=age?.toString()
 
                 getIntent().putExtra("age",userAge)
 
+                intent.putExtra("age1",userAge)
+
                 Log.d("this2","age in 2nd activity"+userAge)
                 updateDateInView()
             }
+
+
 
 
 
@@ -158,10 +139,9 @@ class registerTwoActivity : AppCompatActivity() {
 
             intent.putExtra("password", pass)
             intent.putExtra("email",email)
-
             intent.putExtra("gender",gender)
-            Log.d("this2",""+gender)
 
+            Log.d("this2",""+gender)
             Log.d("this2",""+email)
             Log.d("this2",""+name)
             Log.d("this2",""+pass)
@@ -170,7 +150,7 @@ class registerTwoActivity : AppCompatActivity() {
             Log.d("this2",""+type)
             Log.d("this2",""+bmi)
 
-          //  intent.putExtra("age", age)
+        // intent.putExtra("age", age)
 
 
 
@@ -251,42 +231,10 @@ class registerTwoActivity : AppCompatActivity() {
     fun message(str: String) {
         Toast.makeText(this, str, Toast.LENGTH_LONG).show()
     }
-    // Get the selected radio button text using radio button on click listener
-    fun radio_button_click(view: View){
-        // Get the clicked radio button instance
-        val radio: RadioButton = findViewById(radio_group.checkedRadioButtonId)
-        Toast.makeText(applicationContext,"On click : ${radio.text}",
-            Toast.LENGTH_SHORT).show()
-    }
 
 
-    fun onRadioButtonClicked(view: View) {
-        if (view is RadioButton) {
-            // Is the button now checked?
-            val checked = view.isChecked
 
-            // Check which radio button was clicked
-            when (view.getId()) {
-                R.id.rb_male ->
-                    if (checked) {
-                        // Pirates are the best
-                        /*           Toast.makeText(applicationContext,"On button click : male selected",
-                            Toast.LENGTH_SHORT).show()*/
-                        //user.put("gender", "male")
-                        intent.putExtra("gender", "male")
-                    }
-                R.id.rb_female ->
-                    if (checked) {
-                        // Ninjas rule
-                        /* Toast.makeText(applicationContext,"On button click : female selected",
-                            Toast.LENGTH_SHORT).show()*/
-                       // user.put("gender", "male")
-                        intent.putExtra("gender", "Female")
 
-                    }
-            }
-        }
-    }
 
 
     fun calculateBmi(wight: Double, height: Double): Int {
@@ -299,35 +247,35 @@ class registerTwoActivity : AppCompatActivity() {
         when {
             18.5 > bmi -> {
                 level= 1
-                showDialogWithOkButton("نحافة")
+                showDialogWithOkButton(" نحافة $bmi ")
                 intent.putExtra("type", level)
 
 
             }
             18.5 <= bmi || bmi < 25.0 -> {
-                showDialogWithOkButton("طبيعي")
+                showDialogWithOkButton(" طبيعي $bmi")
                 level= 2
                 intent.putExtra("type", level)
             }
             25.0 <= bmi || bmi < 30.0 -> {
-                showDialogWithOkButton("زيادة وزن")
+                showDialogWithOkButton("زيادة وزن $bmi")
                 level= 3
                 intent.putExtra("type", level)
             }
 
             30.0 <= bmi || bmi < 35.0 -> {
-                showDialogWithOkButton("سمنة درجة اولى")
+                showDialogWithOkButton("سمنة درجة اولى BMI $bmi")
                 level= 4
-                intent.putExtra("type", level)
+                intent.putExtra("type", level )
             }
             35.0 <= bmi || bmi < 40.0 -> {
-                showDialogWithOkButton("سمنى درجة ثانية")
+                showDialogWithOkButton(" سمنى درجة ثانية$bmi")
                 level= 5
                 intent.putExtra("type", level)
 
             }
             bmi >= 40.0 -> {
-                showDialogWithOkButton("سمنة مفرطة")
+                showDialogWithOkButton("$bmi سمنة مفرطة")
                level= 6
                 intent.putExtra("type", level)
             }

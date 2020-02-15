@@ -218,6 +218,7 @@ class registerFourActivity : AppCompatActivity() {
 
     private fun createUserCollection(weight:Double,length:Double,level:Int,goal:Int,gender:String,name:String,email:String,neededCal:Double) {
         val user = HashMap<String, Any>()
+
         db.collection("Users").document("user")
         user.put("name",name)
         user.put("email",email)

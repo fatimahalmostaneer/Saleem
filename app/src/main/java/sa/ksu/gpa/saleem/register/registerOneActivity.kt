@@ -53,34 +53,7 @@ class registerOneActivity : AppCompatActivity() {
 
                 }
 
-                if (emailt == "" && passt == "" && nameTxt?.text.toString() == "" && repassTxt?.text.toString() == "") {
-                    //show a popup for result
-                    showDialogWithOkButton("الرجاء ادخال اسم المستخدم و البريد الالكتروني وكلمة المرور")
 
-                } else if (emailt == "") {
-                    //show a popup for result
-                    showDialogWithOkButton("الرجاء ادخال البريد الالكتروني")
-
-                }//end if
-                else if (nameTxt?.text.toString() == "") {
-                    //show a popup for result
-                    showDialogWithOkButton("الرجاء ادخال اسم المستخدم")
-
-                }//end if
-                else if (repassTxt?.text.toString() == "") {
-                    //show a popup for result
-                    showDialogWithOkButton("الرجاء اعادة تعين كلمة المرور")
-
-                }//end if
-                else if (passt == "") {
-                    //show a popup for result
-                    showDialogWithOkButton("الرجاء ادخال كلمة المرور")
-
-
-                }
-
-                if (checkPassword(passt, repasst)) {
-                  //  if (verify()) {
 
 
                         Log.d("this1", "" + emailTxt?.text.toString())
@@ -91,12 +64,14 @@ class registerOneActivity : AppCompatActivity() {
                         intent.putExtra("name", nameTxt?.text.toString())
                         intent.putExtra("email", emailTxt?.text.toString())
                         intent.putExtra("password", passTxt?.text.toString())
+                    if(verify()&&checkPassword(passt, repasst)) {
 
+                        //  if (verify()) {
                         startActivity(intent)
 
-
                     }
-                }
+                    }
+
            // }
 
         })
@@ -147,7 +122,7 @@ class registerOneActivity : AppCompatActivity() {
         // [END send_email_verification]
     }
 
-  /*  private fun validateForm(): Boolean {
+    private fun validateForm(): Boolean {
         var valid = true
 
         val nameTxt = findViewById<View>(R.id.nameET) as EditText?
@@ -165,7 +140,8 @@ class registerOneActivity : AppCompatActivity() {
         if (TextUtils.isEmpty(emailEd) && TextUtils.isEmpty(nameEd) && TextUtils.isEmpty(passEd) && TextUtils.isEmpty(
                 repassEd
             )
-        ) {
+        )
+        {
 
             showDialogWithOkButton("الرجاء ادخال اسم المستخدم و البريد الالكتروني وكلمة المرور")
 
@@ -194,7 +170,7 @@ class registerOneActivity : AppCompatActivity() {
 
 
         return valid
-    }*/
+    }
 
 /*    private fun updateUI(user: FirebaseUser? {
         hideProgressBar()

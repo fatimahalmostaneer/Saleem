@@ -29,4 +29,9 @@
     <string name="NoresultData">لا توجد بيانات</string>
     <string name="Thankyou">شكرَا لك</string>
 
+
+    <string name="male">ذكر</string>
+
+    <string name="female">انثى</string>
+
 </resources>

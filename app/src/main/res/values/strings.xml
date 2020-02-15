@@ -27,6 +27,10 @@
     <string name="NoresultData">No result data</string>
     <string name="Thankyou">Thank you</string>
 
+    <string name="male">male</string>
+
+    <string name="female">female</string>
+
     <string-array name="Quantities">
         <item>مل</item>
         <item>كأس</item>
