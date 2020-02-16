@@ -28,6 +28,7 @@ import android.widget.RadioGroup
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import com.google.common.base.Verify.verify
 import com.wajahatkarim3.easyvalidation.core.collection_ktx.noNumbersList
 
 
@@ -47,11 +48,11 @@ class registerTwoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_two)
-        var RadioG =findViewById<View>(R.id.radio_group) as RadioGroup
+        var RadioG = findViewById<View>(R.id.radio_group) as RadioGroup
         val db = FirebaseFirestore.getInstance()
         val intent = Intent(this, registerThreeActivity::class.java)
 
-        val btn=findViewById<View>(R.id.nxtTwoBtn) as Button?
+        val btn = findViewById<View>(R.id.nxtTwoBtn) as Button?
 
 
         db.collection("users")
@@ -69,25 +70,54 @@ class registerTwoActivity : AppCompatActivity() {
 
             var name = getIntent().getStringExtra("name")
             var pass = getIntent().getStringExtra("password")
-            var email= getIntent().getStringExtra("email")
-
-            val wightTxt = findViewById<View>(R.id.wight) as EditText?
-            val heightTxt = findViewById<View>(R.id.height) as EditText?
+            var email = getIntent().getStringExtra("email")
+            var id: Int = radio_group.checkedRadioButtonId
 
 
-            var wight = wightTxt?.text.toString().toDouble()
-            var height = heightTxt?.text.toString().toDouble()
-            var bmi = (wight)/(height/100 * height/100)
-            val type = calculateBmi(wight = wight, height = height)
+            if (verify()) {
+                val wightTxt = findViewById<View>(R.id.wight) as EditText?
+                val heightTxt = findViewById<View>(R.id.height) as EditText?
+
+
+                var wight = wightTxt?.text.toString().toDouble()
+                var height = heightTxt?.text.toString().toDouble()
+
+                val radio: RadioButton = findViewById(id)
+                var gender = radio?.text.toString();
+
+                Log.d("this2", "" + gender)
+                intent.putExtra("gender", gender)
+
+                intent.putExtra("wight", wight)
+                intent.putExtra("height", height)
+
+            }
+
+            //  var bmi = (wight) / (height / 100 * height / 100)
+            //val type = calculateBmi(wight = wight, height = height)
 
 
             // Get the checked radio button id from radio group
-            var id: Int = radio_group.checkedRadioButtonId
-         //   if (id!=-1){ // If any radio button checked from radio group
-                // Get the instance of radio button using id
-                val radio:RadioButton = findViewById(id)
-                var gender =radio?.text.toString();
-   /*         if (gender=="ذكر")
+        //    var id: Int = radio_group.checkedRadioButtonId
+            //   if (id!=-1){ // If any radio button checked from radio group
+            // Get the instance of radio button using id
+
+/*
+            if (id != -1) {
+                val radio: RadioButton = findViewById(id)
+                var gender = radio?.text.toString();
+
+                Log.d("this2", "" + gender)
+                intent.putExtra("gender", gender)
+
+            } else if (id == -1){
+
+
+                showDialogWithOkButton("الرجاء اختيار الجنس")
+
+        }*/
+
+            /*         if (gender=="ذكر")
                 gender="male"
             if(gender=="انثى")
                 gender="female"
@@ -114,13 +144,13 @@ class registerTwoActivity : AppCompatActivity() {
 
                 val ageInt = age + 1
 
-                var userAge=age?.toString()
+                var userAge = age?.toString()
 
-                getIntent().putExtra("age",userAge)
+                getIntent().putExtra("age", userAge)
 
-                intent.putExtra("age1",userAge)
+                intent.putExtra("age1", userAge)
 
-                Log.d("this2","age in 2nd activity"+userAge)
+                Log.d("this2", "age in 2nd activity" + userAge)
                 updateDateInView()
             }
 
@@ -131,33 +161,31 @@ class registerTwoActivity : AppCompatActivity() {
 
 
 
-            intent.putExtra("wight",wight)
-            intent.putExtra("height", height)
-            intent.putExtra("type", type)
+          /*  intent.putExtra("BMI", bmi)
+            intent.putExtra("type", type)*/
             intent.putExtra("name", name)
-            intent.putExtra("BMI", bmi)
+
 
             intent.putExtra("password", pass)
-            intent.putExtra("email",email)
-            intent.putExtra("gender",gender)
-
-            Log.d("this2",""+gender)
-            Log.d("this2",""+email)
-            Log.d("this2",""+name)
-            Log.d("this2",""+pass)
-            Log.d("this2",""+height)
-            Log.d("this2",""+wight)
-            Log.d("this2",""+type)
-            Log.d("this2",""+bmi)
-
-        // intent.putExtra("age", age)
+            intent.putExtra("email", email)
 
 
+            Log.d("this2", "" + email)
+            Log.d("this2", "" + name)
+            Log.d("this2", "" + pass)
+            Log.d("this2", "" + height)
+            Log.d("this2", "" + wight)
+       /*     Log.d("this2", "" + type)
+            Log.d("this2", "" + bmi)*/
 
-            startActivity(intent)
-        }//------------------------------------------
+            // intent.putExtra("age", age)
+            if (verify()) {
 
 
+                startActivity(intent)
+            }//------------------------------------------
+
+        }
 
 
         // get the references from layout file
@@ -196,6 +224,9 @@ class registerTwoActivity : AppCompatActivity() {
                 getIntent().putExtra("age",userAge)
                 intent.putExtra("age",userAge)
 
+                getIntent().putExtra("agee",age)
+                intent.putExtra("agee",age)
+
 
                 Log.d("this2","age in 2nd activity"+userAge)
                 updateDateInView()
@@ -215,10 +246,43 @@ class registerTwoActivity : AppCompatActivity() {
                     cal.get(Calendar.DAY_OF_MONTH)
                 ).show()
 
-
             }
 
         })
+    }
+
+    private fun verify(): Boolean {
+
+        val wightTxt = findViewById<View>(R.id.wight) as EditText?
+        val heightTxt = findViewById<View>(R.id.height) as EditText?
+
+
+        var wight = wightTxt?.text.toString()
+        var height = heightTxt?.text.toString()
+        var id: Int = radio_group.checkedRadioButtonId
+
+
+        if (wight == "") {
+            showDialogWithOkButton("الرجاء ادخال الوزن")
+            return false
+        } else if (height == "") {
+
+            showDialogWithOkButton("الرجاء ادخال الطول")
+            return false
+
+
+        } else if (id == -1) {
+
+
+            showDialogWithOkButton("الرجاء اختيار الجنس")
+            return false
+
+        }
+        /*    else if(radio_group.c){
+
+        }*/
+        else return true
+
     }
 
     private fun updateDateInView() {

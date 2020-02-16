@@ -58,9 +58,16 @@ class registerFourActivity : AppCompatActivity() {
         var goal=0
 
 
+
+
         var button_background : Int = 1;
 
+        var clicked=false;
+
         one?.setOnClickListener {
+
+
+
             if(button_background==2){
                 one.setBackgroundResource(R.drawable.unclick);
                 button_background=1;
@@ -72,6 +79,7 @@ class registerFourActivity : AppCompatActivity() {
             }
          //   user.put("level","beginner")
             goal = 1
+           clicked=true;
         }
         two?.setOnClickListener{
             if(button_background==2){
@@ -87,6 +95,7 @@ class registerFourActivity : AppCompatActivity() {
 
            // user.put("level","Intermediate")
             goal = 2
+          clicked=true;
         }
 
         three?.setOnClickListener{
@@ -102,6 +111,7 @@ class registerFourActivity : AppCompatActivity() {
 
            // user.put("level","advance")
             goal = 3
+          clicked=true;
         }
 
 
@@ -119,6 +129,9 @@ class registerFourActivity : AppCompatActivity() {
         var pass = getIntent().getStringExtra("password")
         var email = getIntent().getStringExtra("email")
 
+        var agee= getIntent().getIntExtra("agee",0)
+        //intent.putExtra("agee",agee)
+
         Log.d("this",""+email)
         Log.d("this",""+name)
         Log.d("this",""+pass)
@@ -133,28 +146,43 @@ class registerFourActivity : AppCompatActivity() {
 
 
         btn?.setOnClickListener {
+
+            if (verify(clicked)) {
+
             Toast.makeText(this@registerFourActivity, "Click...", Toast.LENGTH_LONG).show()
-          //  val intent = Intent(this, MainActivity::class.java)
-            var neededCal=0.0
-
-            if (gender=="male")
-                 neededCal=calcualteCaloriesMen(3.0,weight!!,length!!,goal!!)
+            //  val intent = Intent(this, MainActivity::class.java)
+            var neededCal = 0.0
 
 
+            if (gender == "male")
+                neededCal = calcualteCaloriesMen(3.0, weight!!, length!!, goal!!)
 
-            if (gender=="female")
-                neededCal=calcualteCaloriesWomen(3.0,weight!!,length!!,goal!!)
 
 
-            createAccount(email,pass)
+            if (gender == "female")
+                neededCal = calcualteCaloriesWomen(3.0, weight!!, length!!, goal!!)
 
-            createUserCollection(weight,length,level,goal,gender,name, email,neededCal)
 
-            startActivity( Intent(this, loginn::class.java))
+            createAccount(email, pass)
+
+            createUserCollection(weight, length, level, goal, gender, name, email, neededCal, agee)
+
+                startActivity(Intent(this, loginn::class.java))
+            }
         }
-
 //
 
+
+    }
+
+    private fun verify(clicked:Boolean): Boolean {
+
+
+        if(!clicked){
+            showDialogWithOkButton("الرجاء اختيار الهدف")
+            return false
+        }
+else return true
 
     }
 
@@ -216,7 +244,7 @@ class registerFourActivity : AppCompatActivity() {
         alert.show()
     }
 
-    private fun createUserCollection(weight:Double,length:Double,level:Int,goal:Int,gender:String,name:String,email:String,neededCal:Double) {
+    private fun createUserCollection(weight:Double,length:Double,level:Int,goal:Int,gender:String,name:String,email:String,neededCal:Double,userAge:Int) {
         val user = HashMap<String, Any>()
 
         db.collection("Users").document("user")
@@ -229,6 +257,7 @@ class registerFourActivity : AppCompatActivity() {
         user.put("goal",goal)
         user.put("gender",gender)
         user.put("needed cal",neededCal)
+        user.put("age",userAge)
        // db.collection("users").document(auth.getUid().set(user))
 
         /*MySharedPreference.clearData(this)

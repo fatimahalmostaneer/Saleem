@@ -7,10 +7,12 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_register_two.*
 import sa.ksu.gpa.saleem.R
 import java.util.HashMap
+import com.google.common.base.Verify.verify as verify
 
 class registerThreeActivity : AppCompatActivity() {
 
@@ -39,7 +41,8 @@ class registerThreeActivity : AppCompatActivity() {
 
         db.collection("users")
 
-//        var level=0
+
+        var clicked=false;
 
 
        one?.setOnClickListener {
@@ -54,6 +57,8 @@ class registerThreeActivity : AppCompatActivity() {
             }
            //user.put("goal",1)
           var level=1
+
+           clicked=true;
            intent.putExtra("level",level)
 
        }
@@ -71,6 +76,7 @@ class registerThreeActivity : AppCompatActivity() {
 
             //user.put("goal",2)
            var level=2
+            clicked=true;
             intent.putExtra("level",level)
 
         }
@@ -87,6 +93,7 @@ class registerThreeActivity : AppCompatActivity() {
             }
             //user.put("goal",3)
            var level=3
+            clicked=true;
             intent.putExtra("level",level)
             Log.d("this3",""+level)
 
@@ -95,55 +102,80 @@ class registerThreeActivity : AppCompatActivity() {
 
 
         btn?.setOnClickListener {
+            if(verify(clicked)) {
+                Toast.makeText(this@registerThreeActivity, "Click...", Toast.LENGTH_LONG).show()
 
-            Toast.makeText(this@registerThreeActivity, "Click...", Toast.LENGTH_LONG).show()
 
-
-
-                val length = getIntent().getDoubleExtra("height",0.0)
-                var weight=getIntent().getDoubleExtra("wight",0.0)
+                val length = getIntent().getDoubleExtra("height", 0.0)
+                var weight = getIntent().getDoubleExtra("wight", 0.0)
                 var gender = getIntent().getStringExtra("gender")
-                var bmii = getIntent().getDoubleExtra("bmi",0.0)
-                var age= getIntent().getIntExtra("age",0)
-            var userAge= getIntent().getStringExtra("uaserAge")
+                var bmii = getIntent().getDoubleExtra("bmi", 0.0)
+                var age = getIntent().getIntExtra("age", 0)
+                var userAge = getIntent().getStringExtra("uaserAge")
+                var agee = getIntent().getIntExtra("agee", 0)
+                intent.putExtra("agee", agee)
 
-            var bmi=(weight)/(length/100*length/100)
-
-
-            var name = getIntent().getStringExtra("name")
-            var pass = getIntent().getStringExtra("password")
-            var email = getIntent().getStringExtra("email")
+                var bmi = (weight) / (length / 100 * length / 100)
 
 
-                intent.putExtra("wight",weight)
-                intent.putExtra("height",length)
-                intent.putExtra("BMI",bmi)
-                intent.putExtra("gender",gender)
-               // intent.putExtra("age",age)
-            intent.putExtra("userAge",userAge)
-            intent.putExtra("name",name)
-            intent.putExtra("password",pass)
-            intent.putExtra("email",email)
-
-            Log.d("this3",""+email)
-            Log.d("this3",""+name)
-            Log.d("this3",""+pass)
-            Log.d("this3",""+length)
-            Log.d("this3",""+weight)
-          //  Log.d("this3",""+level)
-            Log.d("this3",""+bmi)
-            Log.d("this3",""+gender)
-           // Log.d("this3",""+age)
-            Log.d("this3",""+userAge)
+                var name = getIntent().getStringExtra("name")
+                var pass = getIntent().getStringExtra("password")
+                var email = getIntent().getStringExtra("email")
 
 
-            startActivity(intent)
+                intent.putExtra("wight", weight)
+                intent.putExtra("height", length)
+                intent.putExtra("BMI", bmi)
+                intent.putExtra("gender", gender)
+                // intent.putExtra("age",age)
+                intent.putExtra("userAge", userAge)
+                intent.putExtra("name", name)
+                intent.putExtra("password", pass)
+                intent.putExtra("email", email)
+
+                Log.d("this3", "" + email)
+                Log.d("this3", "" + name)
+                Log.d("this3", "" + pass)
+                Log.d("this3", "" + length)
+                Log.d("this3", "" + weight)
+                //  Log.d("this3",""+level)
+                Log.d("this3", "" + bmi)
+                Log.d("this3", "" + gender)
+                // Log.d("this3",""+age)
+                Log.d("this3", "" + userAge)
+
+
+                startActivity(intent)
+
+            }
         }
 
 
 
     }
 
+
+    private fun verify(clicked:Boolean): Boolean {
+
+
+        if(!clicked){
+            showDialogWithOkButton("الرجاء اختيار المستوى")
+            return false
+        }
+        else return true
+
+    }
+
+    private fun showDialogWithOkButton(msg: String) {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage(msg)
+            .setCancelable(false)
+            .setPositiveButton("OK") { dialog, id ->
+                //do things
+            }
+        val alert = builder.create()
+        alert.show()
+    }
 }
 
 

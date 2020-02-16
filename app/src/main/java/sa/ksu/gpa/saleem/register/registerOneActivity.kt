@@ -64,6 +64,7 @@ class registerOneActivity : AppCompatActivity() {
                         intent.putExtra("name", nameTxt?.text.toString())
                         intent.putExtra("email", emailTxt?.text.toString())
                         intent.putExtra("password", passTxt?.text.toString())
+
                     if(verify()&&checkPassword(passt, repasst)) {
 
                         //  if (verify()) {
