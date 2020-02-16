@@ -187,6 +187,7 @@ class loginn : AppCompatActivity() {
                 .addOnCompleteListener(this,
                     OnCompleteListener<AuthResult> { task ->
                         if (task.isSuccessful) {
+                            
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success")
                             Toast.makeText(
