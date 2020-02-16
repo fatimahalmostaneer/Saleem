@@ -19,13 +19,15 @@
 
         </activity>
         <activity android:name=".register.registerFourActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".loginn" >
+        <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".loginn" >
+
         </activity>
         <activity android:name=".register.registerThreeActivity" />
         <activity android:name=".ScanActivity" />
