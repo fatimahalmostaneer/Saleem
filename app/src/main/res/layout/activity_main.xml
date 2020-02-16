@@ -17,7 +17,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="80dp"
-        app:sdMainFabClosedSrc="@drawable/ic_add_black_24dp" />
+        app:sdMainFabClosedSrc="@drawable/ic_add_black_24dp"
+        android:layout_alignParentRight="true" />
     <include layout="@layout/home_fragment" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -44,9 +45,15 @@
         android:text="for scanner !!"
         android:layout_marginTop="640dp"
         ></Button>
+    <Button
+        android:id="@+id/fortestingadd"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="for  !!"
+        android:layout_marginTop="600dp"
+        ></Button>
 
 </RelativeLayout>
-
     <!--
 
 <?xml version="1.0" encoding="utf-8"?>
