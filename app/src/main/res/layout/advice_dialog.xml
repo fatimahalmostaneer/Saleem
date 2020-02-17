@@ -20,8 +20,11 @@
         android:inputType="textLongMessage"
         android:layout_width="300dp"
         android:layout_height="200dp"
-        android:gravity="bottom"
-        android:hint="                    ادخل النصيحة هنا"></EditText>
+        android:gravity="top"
+        android:layout_marginTop="20dp"
+        android:maxLength="140"
+        android:background="@drawable/border"
+        android:hint="  ادخل النصيحة هنا"></EditText>
 
 
     <LinearLayout
@@ -33,15 +36,32 @@
 
         <Button
             android:id="@+id/dialogShareBtn"
-            android:text="نشر"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></Button>
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/rounded_buttons"
+            android:backgroundTint="#1111"
+            android:text="نشر"></Button>
 
         <Button
             android:id="@+id/dialogCancelBtn"
             android:text="إلغاء"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></Button>
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+           android:background="@drawable/rounded_buttons"
+            android:backgroundTint="#1111"></Button>
     </LinearLayout>
+
+    <!--
+
+    THIS IS THE KOTLIN SUCCESS MSG (DOES NOT BELONG HERE)
+    MOVE IT TO THE APPROPRIATE PLACE/FILE
+
+    val builder = AlertDialog.Builder(this)
+                builder.setTitle("تم نشر النصيحة")
+                builder.setMessage("شكرًا لك!")
+                builder.setNegativeButton("حسنًا",{ dialogInterface: DialogInterface, i: Int -> })
+                builder.show()-->
 
 </LinearLayout>

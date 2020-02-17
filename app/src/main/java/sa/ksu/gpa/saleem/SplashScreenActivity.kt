@@ -21,10 +21,11 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.*
 import kotlinx.android.synthetic.main.advice_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_home_body.*
+import java.lang.Exception
 import java.util.ArrayList
 
 
-class MainActivity : AppCompatActivity() {
+class SplashScreenActivity : AppCompatActivity() {
     private val CAMERA_REQUEST_CODE=123;
     private var btn: Button? = null
     private var addExcercize: Button? = null
@@ -32,14 +33,29 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        db= FirebaseFirestore.getInstance()
+        setContentView(R.layout.activity_splashscreen)
+
+        val background = object : Thread(){
+            override fun run(){
+                try {
+                    Thread.sleep(5000)
+
+                    val intent = Intent(baseContext, MainActivity::class.java)
+                    startActivity(intent)
+                } catch (e: Exception){
+                    e.printStackTrace()
+                }
+            }
+        }
+        background.start()
+
+        /* db= FirebaseFirestore.getInstance()
         btn = findViewById(R.id.fortesting) as Button
 
         btn!!.setOnClickListener {
             val permisison= ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
 
-            val intent = Intent(this@MainActivity, ScanActivity::class.java)
+            val intent = Intent(this@SplashScreenActivity, ScanActivity::class.java)
             if(permisison!= PackageManager.PERMISSION_GRANTED){
                 makeRequest()
 
@@ -59,11 +75,11 @@ class MainActivity : AppCompatActivity() {
         addAdviceIV.setOnClickListener{
             addAdviceDialog()
 
-        }
+        }*/
 
         }
 
-    private fun addAdviceDialog(){
+    /*private fun addAdviceDialog(){
         //inflate dialog with custom view
         val mDialogView = LayoutInflater.from(this).inflate(R.layout.advice_dialog, null)
         //alert dialog builder
@@ -167,13 +183,13 @@ class MainActivity : AppCompatActivity() {
 
                 } else {
                     Log.d("tag","permisson granted")
-                    val intent = Intent(this@MainActivity, ScanActivity::class.java)
+                    val intent = Intent(this@SplashScreenActivity, ScanActivity::class.java)
                     startActivity(intent)
 
                 }
             }
         }
-    }
+    }*/
 
 
     }
