@@ -19,9 +19,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.*
-import kotlinx.android.synthetic.main.advice_dialog.view.*
-import kotlinx.android.synthetic.main.fragment_home_body.*
-import java.util.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
@@ -47,7 +44,6 @@ class MainActivity : AppCompatActivity() {
 
             else startActivity(intent)
         }
-
         addExcercize = findViewById(R.id.fortestingadd) as Button
 
         addExcercize!!.setOnClickListener {
@@ -55,66 +51,7 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        //button click to show dialog
-        addAdviceIV.setOnClickListener{
-            addAdviceDialog()
-
         }
-
-        }
-
-    private fun addAdviceDialog(){
-        //inflate dialog with custom view
-        val mDialogView = LayoutInflater.from(this).inflate(R.layout.advice_dialog, null)
-        //alert dialog builder
-        val mBuilder= AlertDialog.Builder(this)
-            .setView(mDialogView)
-            .setTitle("نشر نصيحة")
-        //show dialog
-        val mAlertDialog = mBuilder.show()
-        //advice click of custom layout
-        mDialogView.dialogShareBtn.setOnClickListener{
-            //dismiss dialog
-            mAlertDialog.dismiss()
-            //get text from editTexts of custom layout
-            val title = mDialogView.dialogadviceTitleET.text.toString()
-            val body = mDialogView.dialogAdviceET.text.toString()
-            //set input in TV
-            advicesTV.setText("العنوان: "+title+"\n النصيحة: "+body)
-        }
-        //cancel button click of custom layout
-        mDialogView.dialogCancelBtn.setOnClickListener{
-            //dismiss dialog
-            mAlertDialog.dismiss()
-        }
-
-    }
-
-    fun showAddFood(data: ArrayList<String>) {
-        val fragment = ItemListDialogFragmentA(data)
-        val bundle = Bundle()
-        bundle.putStringArrayList("item_data", data)
-        this.supportFragmentManager?.let { fragment.show(it, "tag") }
-        fragment.setOnSelectData(object : ItemListDialogFragmentA.Listener {
-            override fun onItemClicked(position: Int) {
-
-            }
-        })
-    }
-    public fun addFood(){
-        val list = ArrayList<String>()
-        list.add("وجبة مفصلة")
-        list.add("وجبة ")
-        showAddFood(list)
-        // ItemListDialogFragment fragment = ItemListDialogFragment.newInstance(new Gson().toJson(menuDataArrayList));
-        //        fragment.show(getActivity().getSupportFragmentManager(), "tag");
-        //        fragment.setOnSelectData(position -> {
-        //            cetType.setText(data.get(position).getDepartmentName());
-        //            typeId = data.get(position).getId();
-        //        });
-
-
-    }
 
     private fun addExcercizeDialog() {
         val mDialogView = LayoutInflater.from(this).inflate(R.layout.add_excercise_dialog, null)
