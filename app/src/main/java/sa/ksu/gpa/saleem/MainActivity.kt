@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import android.widget.Toast.LENGTH_LONG
 import androidx.appcompat.app.AlertDialog
@@ -18,6 +19,8 @@ import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.leinardi.android.speeddial.SpeedDialActionItem
+import com.leinardi.android.speeddial.SpeedDialView
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.*
 import kotlinx.android.synthetic.main.advice_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_home_body.*
@@ -47,6 +50,48 @@ class MainActivity : AppCompatActivity() {
 
             else startActivity(intent)
         }
+
+        val speedDialView = findViewById<SpeedDialView>(R.id.speedDial)
+        speedDialView.addActionItem(
+            SpeedDialActionItem.Builder(10009, R.drawable.ic_scan)
+                .create()
+        )
+        speedDialView.addActionItem(
+            SpeedDialActionItem.Builder(10011, R.drawable.ic_dumbbell)
+                .create()
+        )
+        speedDialView.addActionItem(
+            SpeedDialActionItem.Builder(10012, R.drawable.ic_timer_black_24dp)
+                .create()
+        )
+        speedDialView.addActionItem(
+            SpeedDialActionItem.Builder(10013, R.drawable.ic_water)
+                .create()
+        )
+        speedDialView.addActionItem(
+            SpeedDialActionItem.Builder(10014, R.drawable.ic_report)
+                .create()
+        )
+        speedDialView.setOnActionSelectedListener(SpeedDialView.OnActionSelectedListener { actionItem ->
+            when (actionItem.id) {
+                10009 -> {
+                    //select scan barcode
+                    val permisison= ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+
+                    val intent = Intent(this@MainActivity, ScanActivity::class.java)
+                    if(permisison!= PackageManager.PERMISSION_GRANTED){
+                        makeRequest()
+                    }
+
+                    else startActivity(intent)
+                    speedDialView.close() // To close the Speed Dial with animation
+                    return@OnActionSelectedListener true // false will close it without animation
+                }
+            }
+            false
+        })
+        findViewById<ImageView>(R.id.ivAddView).setOnClickListener { addFood() }
+
 
         addExcercize = findViewById(R.id.fortestingadd) as Button
 
