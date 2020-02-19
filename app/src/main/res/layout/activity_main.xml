@@ -8,8 +8,8 @@
     android:background="@color/colorWhite"
     tools:context=".MainActivity"
     >
-
-
+    <!--Todo: نقل هادا مع حذف التعليق بعد النقل -->
+    <!--start-->
     <com.leinardi.android.speeddial.SpeedDialView
         android:id="@+id/speedDial"
         android:layout_width="wrap_content"
@@ -17,10 +17,16 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="80dp"
+        app:sdMainFabOpenedBackgroundColor="@color/colorPrimary"
         app:sdMainFabClosedSrc="@drawable/ic_add_black_24dp"
         android:layout_alignParentRight="true" />
-    <include layout="@layout/home_fragment" />
-
+    <!--    <include layout="@layout/home_fragment" />-->
+    <fragment
+        android:name="sa.ksu.gpa.saleem.HomeFragment"
+        android:id="@+id/fooFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <!--    end-->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         app:menu="@menu/bottom_nav_menu"

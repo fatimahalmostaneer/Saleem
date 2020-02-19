@@ -1,6 +1,7 @@
 package sa.ksu.gpa.saleem
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     private var addExcercize: Button? = null
     private lateinit var db:FirebaseFirestore
 
+    @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -87,6 +89,9 @@ class MainActivity : AppCompatActivity() {
                     speedDialView.close() // To close the Speed Dial with animation
                     return@OnActionSelectedListener true // false will close it without animation
                 }
+                10011 ->{
+                    addAdviceDialog()
+                }
             }
             false
         })
@@ -101,10 +106,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         //button click to show dialog
-        addAdviceIV.setOnClickListener{
-            addAdviceDialog()
+//        addAdviceIV.setOnClickListener{
 
-        }
+
+//        }
 
         }
 

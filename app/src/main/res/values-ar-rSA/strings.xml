@@ -34,5 +34,9 @@
     <string name="male">ذكر</string>
 
     <string name="female">انثى</string>
+    <string name="add_snack">اضافة وجبة حفيفة</string>
+    <string name="add_dinner">اضافة عشاء</string>
+    <string name="add_lunch">اضافة غداء</string>
+    <string name="add_breakfast">اضافة فطور</string>
 
 </resources>

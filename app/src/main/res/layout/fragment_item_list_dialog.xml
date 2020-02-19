@@ -7,7 +7,8 @@
     android:clipToPadding="false"
     android:paddingTop="16dp"
     android:paddingBottom="16dp"
-    tools:listitem="@layout/fragment_item_list_dialog_item">
+    android:orientation="vertical"
+    >
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
@@ -24,5 +25,12 @@
         tools:context=".ItemListDialogFragment"
         tools:listitem="@layout/fragment_item_list_dialog_item" />
 
-
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/btn_bg"
+        android:backgroundTint="@android:color/white"
+        android:text="@string/cancel" />
 </LinearLayout>
