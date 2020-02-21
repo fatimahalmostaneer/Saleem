@@ -2,9 +2,11 @@ package sa.ksu.gpa.saleem
 
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -16,16 +18,29 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreException
 import com.leinardi.android.speeddial.SpeedDialActionItem
 import com.leinardi.android.speeddial.SpeedDialView
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.*
-import java.util.ArrayList
+import kotlinx.android.synthetic.main.home_fragment.*
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 /**
  * A simple [Fragment] subclass.
  */
 class HomeFragment : Fragment() {
+    private lateinit var db: FirebaseFirestore
+    var totalcal  = 0.0
+    var consumerCal = 0.0
+    var remainderCal = 0.0
+    var history_Id = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,11 +54,59 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<ImageView>(R.id.ivAddView).setOnClickListener { addFood() }
+//        view.findViewById<ImageView>(R.id.ivAddView).setOnClickListener { addFood() }
         view.findViewById<LinearLayout>(R.id.add_breakfast).setOnClickListener { addFood() }
         view.findViewById<LinearLayout>(R.id.add_lunch).setOnClickListener { addFood() }
         view.findViewById<LinearLayout>(R.id.add_dinner).setOnClickListener { addFood() }
         view.findViewById<LinearLayout>(R.id.add_snack).setOnClickListener { addFood() }
+        db= FirebaseFirestore.getInstance()
+        val currentuser = FirebaseAuth.getInstance().currentUser?.uid
+
+//        val burntCalories = db.collection("Users").document(currentuser)
+        val burntCalories = db.collection("Users")
+            .document("ckS3vhq8P8dyOeSI7CE7D4RgMiv1")//test user
+            .addSnapshotListener(EventListener(){ documentSnapshot: DocumentSnapshot?, firebaseFirestoreException: FirebaseFirestoreException? ->
+                var neededcal = documentSnapshot?.get("needed cal")
+                totalcal = neededcal as Double
+
+                tv_main_number.setText("${totalcal.toInt()}")
+                pb_counter.progress =remainderCal.toInt()
+                pb_counter.max = totalcal.toInt()
+
+                Log.e("hhhh","${totalcal.toInt()}")
+                Log.e("wwww","${consumerCal.toInt()}")
+
+
+            })
+        db.collection("History")
+            .whereEqualTo("date",getCurrentDate())
+            .whereEqualTo("user_id","ckS3vhq8P8dyOeSI7CE7D4RgMiv1")
+            .get().addOnSuccessListener { documents ->
+                if(documents.isEmpty){
+                    val data = hashMapOf(
+                        "cal" to remainderCal,
+                        "date" to getCurrentDate(),
+                        "steps_count" to 1,
+                        "user_id" to "ckS3vhq8P8dyOeSI7CE7D4RgMiv1"
+                    )
+                    db.collection("History").document().set(data).addOnSuccessListener {
+                        for (document in documents) {
+                            Log.d("hhh", "${document.id} => ${document.data}")
+                            history_Id = document.id
+
+
+                        }
+                    }
+                }
+                for (document in documents) {
+                    Log.d("hhh", "${document.id} => ${document.data}")
+                    history_Id = document.id
+                    remainderCal = document.get("cal") as Double
+                    pb_counter.progress = remainderCal.toInt()
+                    remainder_cal.setText("${remainderCal.toInt()}")
+                    tv_main_number.setText("${(totalcal-remainderCal).toInt()}")
+                }
+            }
     }
     fun showAddFood(data: ArrayList<String>) {
         val fragment = ItemListDialogFragmentA(data)
@@ -69,8 +132,24 @@ class HomeFragment : Fragment() {
         var intent = Intent(activity,AddFoodActivity::class.java).apply{
 
         }
-        startActivity(intent)
+        startActivityForResult(intent,1000)
 
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1000 && resultCode == Activity.RESULT_OK){
+            var d:Int = 0
+            d = data?.getDoubleExtra("data",0.0)!!.toInt()
+            Log.e("onActivityResult","$d")
+            consumerCal -= d
+            remainderCal += d
+            pb_counter.progress =remainderCal.toInt()
+            pb_counter.max = totalcal.toInt()
+            remainder_cal.setText("${remainderCal.toInt()}")
+            tv_main_number.setText("${(totalcal-remainderCal).toInt()}")
+            Toast.makeText(context,"تمت اضافة الوجبة", Toast.LENGTH_LONG)
+            updateHistory()
+        }
     }
 
     fun addFood(){
@@ -102,9 +181,18 @@ class HomeFragment : Fragment() {
                 mDialogView.addExcerciseError.setText("الرجاء ادخال المعلومات الناقصة")
             }
             else{
+                var burntStringData = burnt.toString()
+                var data =  burntStringData.toInt()
+                consumerCal -= data
+                remainderCal += data
 
+                pb_counter.progress =remainderCal.toInt()
+                pb_counter.max = totalcal.toInt()
+                remainder_cal.setText("${remainderCal.toInt()}")
+                tv_main_number.setText("${(totalcal-remainderCal).toInt()}")
                 Toast.makeText(context,"تمت اضافة الوجبة", Toast.LENGTH_LONG)
                 mAlertDialog?.dismiss()
+                updateHistory()
 
             }
             // extra detail add a success shape
@@ -116,4 +204,27 @@ class HomeFragment : Fragment() {
 
     }
 
+    fun getCurrentDate():String {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val current = LocalDateTime.now()
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+            val formatted = current.format(formatter)
+            return formatted
+        }
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+        val currentDate = sdf.format(Date())
+        return "$currentDate"
+    }
+
+
+    fun updateHistory(){
+        val data = hashMapOf(
+            "cal" to remainderCal,
+            "date" to getCurrentDate(),
+            "steps_count" to 1,
+            "user_id" to "ckS3vhq8P8dyOeSI7CE7D4RgMiv1"
+        )
+        if (!history_Id.equals(""))
+        db.collection("History").document(history_Id).update(data as Map<String, Any>);
+    }
 }

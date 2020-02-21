@@ -30,63 +30,70 @@
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_margin="16dp"
-                android:background="@drawable/bg_radus_white"
 
-                android:hint="اكتب هنا " />
+            <!--    Item-->
 
             <LinearLayout
+                android:id="@+id/main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/name"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:id="@+id/addIngredientcomp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:hint="الاسم" />
+                    android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/amount"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:hint="الكمية" />
+                    <Spinner
+                        android:id="@+id/spFood"
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="3"
+                        android:entries="@array/Ingredients">
 
-                <EditText
-                    android:id="@+id/wight"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:hint="السعرات" />
+                    </Spinner>
+
+                    <Spinner
+                        android:id="@+id/spWeight"
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="3"
+                        android:entries="@array/Quantities">
+
+                    </Spinner>
+
+                    <EditText
+                        android:gravity="center"
+                        android:paddingStart="2dp"
+                        android:paddingEnd="2dp"
+                        android:id="@+id/et_number"
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_weight="2"
+                        android:background="@drawable/border"
+                        android:backgroundTint="#5E3A3333"
+                        android:inputType="number"
+                        android:maxLength="5" />
+
+                    <Button
+                        android:id="@+id/delete_button"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:onClick="addObject"
+                        android:background="@android:drawable/ic_input_add"
+                        tools:ignore="OnClick" />
+                </LinearLayout>
 
             </LinearLayout>
-
-            <Button
-                android:id="@+id/add"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="اضافة" />
-            <!--    Item-->
-            <include
-                layout="@layout/item_component"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_component"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
