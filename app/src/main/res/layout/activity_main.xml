@@ -15,7 +15,9 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="80dp"
+
         app:sdMainFabOpenedBackgroundColor="@color/colorPrimary"
+        app:sdMainFabOpenedIconColor="#3f51b5"
         app:sdMainFabClosedSrc="@drawable/ic_add_black_24dp"
         android:layout_alignParentRight="true" />
     <!--    <include layout="@layout/home_fragment" />-->
@@ -32,6 +34,7 @@
         android:background="@color/colorLightGray"
         app:itemIconTint="@android:color/black"
         app:itemTextColor="@android:color/black"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom='true' />

@@ -41,7 +41,7 @@ class HomeFragment : Fragment() {
     var consumerCal = 0.0
     var remainderCal = 0.0
     var history_Id = ""
-
+    private lateinit var pagerAdapter: PagerAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,7 +53,8 @@ class HomeFragment : Fragment() {
     @SuppressLint("ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        pagerAdapter = activity?.supportFragmentManager?.let { PagerAdapter(it) }!!
+        viewPager.adapter = pagerAdapter
 //        view.findViewById<ImageView>(R.id.ivAddView).setOnClickListener { addFood() }
         view.findViewById<LinearLayout>(R.id.add_breakfast).setOnClickListener { addFood() }
         view.findViewById<LinearLayout>(R.id.add_lunch).setOnClickListener { addFood() }
@@ -63,21 +64,21 @@ class HomeFragment : Fragment() {
         val currentuser = FirebaseAuth.getInstance().currentUser?.uid
 
 //        val burntCalories = db.collection("Users").document(currentuser)
-        val burntCalories = db.collection("Users")
-            .document("ckS3vhq8P8dyOeSI7CE7D4RgMiv1")//test user
-            .addSnapshotListener(EventListener(){ documentSnapshot: DocumentSnapshot?, firebaseFirestoreException: FirebaseFirestoreException? ->
-                var neededcal = documentSnapshot?.get("needed cal")
-                totalcal = neededcal as Double
-
-                tv_main_number.setText("${totalcal.toInt()}")
-                pb_counter.progress =remainderCal.toInt()
-                pb_counter.max = totalcal.toInt()
-
-                Log.e("hhhh","${totalcal.toInt()}")
-                Log.e("wwww","${consumerCal.toInt()}")
-
-
-            })
+//        val burntCalories = db.collection("Users")
+//            .document("ckS3vhq8P8dyOeSI7CE7D4RgMiv1")//test user
+//            .addSnapshotListener(EventListener(){ documentSnapshot: DocumentSnapshot?, firebaseFirestoreException: FirebaseFirestoreException? ->
+//                var neededcal = documentSnapshot?.getDouble("needed cal")
+//                totalcal = neededcal as Double
+//
+//                tv_main_number.setText("${totalcal.toInt()}")
+//                pb_counter.progress =remainderCal.toInt()
+//                pb_counter.max = totalcal.toInt()
+//
+//                Log.e("hhhh","${totalcal.toInt()}")
+//                Log.e("wwww","${consumerCal.toInt()}")
+//
+//
+//            })
         db.collection("History")
             .whereEqualTo("date",getCurrentDate())
             .whereEqualTo("user_id","ckS3vhq8P8dyOeSI7CE7D4RgMiv1")
@@ -93,8 +94,6 @@ class HomeFragment : Fragment() {
                         for (document in documents) {
                             Log.d("hhh", "${document.id} => ${document.data}")
                             history_Id = document.id
-
-
                         }
                     }
                 }
@@ -177,7 +176,6 @@ class HomeFragment : Fragment() {
 
 
             if (burnt==null||workoutName==null){
-
                 mDialogView.addExcerciseError.setText("الرجاء ادخال المعلومات الناقصة")
             }
             else{
@@ -221,7 +219,6 @@ class HomeFragment : Fragment() {
         val data = hashMapOf(
             "cal" to remainderCal,
             "date" to getCurrentDate(),
-            "steps_count" to 1,
             "user_id" to "ckS3vhq8P8dyOeSI7CE7D4RgMiv1"
         )
         if (!history_Id.equals(""))
