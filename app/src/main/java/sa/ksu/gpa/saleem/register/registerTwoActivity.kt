@@ -77,7 +77,7 @@ class registerTwoActivity : AppCompatActivity() {
             if (verify()) {
                 val wightTxt = findViewById<View>(R.id.wight) as EditText?
                 val heightTxt = findViewById<View>(R.id.height) as EditText?
-
+                var id: Int = radio_group.checkedRadioButtonId
 
                 var wight = wightTxt?.text.toString().toDouble()
                 var height = heightTxt?.text.toString().toDouble()

@@ -17,6 +17,7 @@ import com.google.firebase.auth.ActionCodeSettings
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.activity_fragment_one.*
 import kotlinx.android.synthetic.main.activity_register_one.*
 import kotlinx.android.synthetic.main.activity_register_two.*
 import sa.ksu.gpa.saleem.MainActivity
@@ -48,7 +49,7 @@ class registerFourActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        db.collection("users")
+        db.collection("Users")
 
         val btn=findViewById<View>(R.id.startBtn) as Button?
         val one=findViewById<View>(R.id.goalOneBtn) as Button?
@@ -140,8 +141,8 @@ class registerFourActivity : AppCompatActivity() {
         Log.d("this",""+gender)
         Log.d("this",""+level)
         Log.d("this",""+userAge)
-        Log.d("this",""+bmi)
         Log.d("this",""+goal)
+        Log.d("this needed cal",""+neededCal)
 
 
 
@@ -166,6 +167,7 @@ class registerFourActivity : AppCompatActivity() {
             createAccount(email, pass)
 
             createUserCollection(weight, length, level, goal, gender, name, email, neededCal, agee)
+                Log.d("this needed cal inside",""+neededCal)
 
                 startActivity(Intent(this, loginn::class.java))
             }
@@ -247,7 +249,7 @@ else return true
     private fun createUserCollection(weight:Double,length:Double,level:Int,goal:Int,gender:String,name:String,email:String,neededCal:Double,userAge:Int) {
         val user = HashMap<String, Any>()
 
-        db.collection("Users").document("user")
+       // db.collection("Users").document("user")
         user.put("name",name)
         user.put("email",email)
        // user.put("pass",pass)
@@ -258,13 +260,14 @@ else return true
         user.put("gender",gender)
         user.put("needed cal",neededCal)
         user.put("age",userAge)
-       // db.collection("users").document(auth.getUid().set(user))
+/*
+       db.collection("users").document(auth.getUid().set(user))
+*/
 
         /*MySharedPreference.clearData(this)
         MySharedPreference.putString(this, Constants.Keys.ID, auth.getInstance().getUid())*/
 
-
-        db.collection("Users").document(auth.uid!!).set(user)
+      /*  db.collection("Users").document(auth.uid!!).set(user)
 
             .addOnSuccessListener(OnSuccessListener<Void> {
                 Toast.makeText(
@@ -276,7 +279,7 @@ else return true
             .addOnFailureListener(OnFailureListener { e ->
                 Toast.makeText(this, "Error_add_user", Toast.LENGTH_SHORT).show()
                 Log.d(TAG, e.toString())
-            })
+            })*/
   //   user.put("age",age)
        // user.put("Needed Calories",neededCalories)
 
@@ -284,14 +287,14 @@ else return true
         /*MySharedPreference.clearData(this)
         MySharedPreference.putString(this, Constants.Keys.ID, mAuth.getInstance().getUid())
 */
-   /*     db.collection("Users")
+        db.collection("Users")
             .add(user)
             .addOnSuccessListener { documentReference ->
                 Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference.id}")
             }
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error adding document", e)
-            }*/
+            }
     }
 
     val actionCodeSettings = ActionCodeSettings.newBuilder()
@@ -314,16 +317,36 @@ else return true
         Log.d(registerFourActivity.TAG, "createAccount:$email")
 
         // [START create_user_with_email]
+        val auth = FirebaseAuth.getInstance()
+
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
+                //sendEmailVerification(email)
+
                 if (task.isSuccessful) {
+                   // FirebaseAuth.getInstance().currentUser!!.sendEmailVerification()
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(registerFourActivity.TAG, "createUserWithEmail:success")
+                    //send email by email to verify user account
 
-                   // sendEmailVerification(email)
-                    showDialogWithOkButton("الرجاء التحقق من البريد الالكتروني")
+
+                    //sendEmailVerification(email)
+                   // showDialogWithOkButton("الرجاء التحقق من البريد الالكتروني")
+
                     val user = auth.currentUser
+                    FirebaseAuth.getInstance().currentUser!!.sendEmailVerification().addOnSuccessListener {
+                        fun onSuccess(aVoid: Void) {
+                            Log.d("", "vrify email")
+                        }
+                    }
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                Log.d(TAG, "Email sent.")
+                            }
+                        }
                     // updateUI(user)
+
+
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(registerFourActivity.TAG, "createUserWithEmail:failure", task.exception)
@@ -341,11 +364,28 @@ else return true
 
 
     private fun sendEmailVerification(email: String) {
-        // Disable button
-        //verifyEmailButton.isEnabled = false
 
-        // Send verification email
-        // [START send_email_verification]
+        val auth = FirebaseAuth.getInstance()
+
+        auth.sendSignInLinkToEmail(email, actionCodeSettings)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d(TAG, "Email sent.")
+                    showDialogWithOkButton("send :)YAYAYYYYY")
+
+                }
+
+                else {
+                    Log.e(registerFourActivity.TAG, "sendEmailVerification", task.exception)
+                    Toast.makeText(
+                        baseContext,
+                        "Failed to send verification email.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    showDialogWithOkButton("NO NO")
+
+                }
+            }
 
         val user = auth.currentUser
         user?.sendEmailVerification()
@@ -360,6 +400,7 @@ else return true
                         "Verification email sent to ${user.email} ",
                         Toast.LENGTH_SHORT
                     ).show()
+                    showDialogWithOkButton("send :)")
                 } else {
                     Log.e(registerFourActivity.TAG, "sendEmailVerification", task.exception)
                     Toast.makeText(
@@ -367,11 +408,14 @@ else return true
                         "Failed to send verification email.",
                         Toast.LENGTH_SHORT
                     ).show()
+                    showDialogWithOkButton("NOT send :(")
+
                 }
                 // [END_EXCLUDE]
             }
         // [END send_email_verification]
     }
+
 
     companion object {
         const val TAG = "register Four "

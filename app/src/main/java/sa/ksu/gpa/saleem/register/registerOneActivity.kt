@@ -165,6 +165,11 @@ class registerOneActivity : AppCompatActivity() {
 
                         showDialogWithOkButton("الرجاء ادخال اسم المستخدم")
                     }
+        else if(passEd.length < 5){
+                        showDialogWithOkButton("الرجاء ادخال كلمة المرور من 6 او اكثر ارقام")
+
+                    }
+
 
 
         // checkPassword(passEd,repassEd)
@@ -257,7 +262,17 @@ class registerOneActivity : AppCompatActivity() {
             return false
 
 
-        } else return true
+        } else if(passTxt.length < 5){
+            showDialogWithOkButton("الرجاء ادخال كلمة المرور من 6 او اكثر ارقام")
+            return false
+
+        }
+        else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(emailTxt).matches()){
+            showDialogWithOkButton("الرجاء ادخال الايميل بطريقة صحيحة")
+
+            return false
+        }
+        else return true
 
     }
 }

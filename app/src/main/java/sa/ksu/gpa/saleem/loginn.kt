@@ -52,11 +52,11 @@ class loginn : AppCompatActivity() {
 
         authStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
             if (firebaseAuth.currentUser != null) {
-                if (verify) {
+
 
                     startActivity(Intent(this, MainActivity::class.java))
 
-                }
+
 
             }
         }
@@ -183,11 +183,12 @@ class loginn : AppCompatActivity() {
         }
 
         if (entered_email != "" && entered_password != "") {
+
             auth.signInWithEmailAndPassword(entered_email, entered_password)
-                .addOnCompleteListener(this,
-                    OnCompleteListener<AuthResult> { task ->
-                        if (task.isSuccessful) {
-                            
+                .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+
+                            //val user = auth.currentUser
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success")
                             Toast.makeText(
@@ -196,9 +197,12 @@ class loginn : AppCompatActivity() {
                             ).show()
 
                             if (auth.getCurrentUser()!!.isEmailVerified()) {
+                               // FirebaseAuth.getInstance().currentUser!!.sendEmailVerification()
+
 
                                 startActivity(Intent(this, MainActivity::class.java))
                             } else {
+                                FirebaseAuth.getInstance().currentUser!!.sendEmailVerification()
                                 showDialogWithOkButton("تحقق من الرابط المرسل على بريدك لإكمال عملية تسجيل الدخول ")
                             }
 
@@ -229,7 +233,7 @@ class loginn : AppCompatActivity() {
 
         }
 
-    })
+    }
             //end of signIn
 
 }
