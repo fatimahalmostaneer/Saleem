@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity() {
             }
             false
         })
-        findViewById<ImageView>(R.id.ivAddView).setOnClickListener { addFood() }
+//        findViewById<ImageView>(R.id.ivAddView).setOnClickListener { addFood() }
 
 
        /* addExcercize = findViewById(R.id.fortestingadd) as Button
