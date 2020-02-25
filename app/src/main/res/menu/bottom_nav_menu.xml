@@ -4,17 +4,21 @@
 
     <item
         android:id="@+id/exercise"
-        android:title="Exercise"
+        android:title="التمارين"
         android:icon="@drawable/ic_dumbbell"/>
+    <item
+        android:id="@+id/profile"
+        android:title="حسابي "
+        android:icon="@drawable/ic_person_black_24dp"/>
 
     <item
         android:id="@+id/home"
-        android:title="Home"
+        android:title="الرئيسية "
         android:icon="@drawable/ic_home"/>
 
     <item
         android:id="@+id/meals"
-        android:title="Meals"
+        android:title="الوجبات"
         android:icon="@drawable/ic_dish"/>
 
 </menu>
