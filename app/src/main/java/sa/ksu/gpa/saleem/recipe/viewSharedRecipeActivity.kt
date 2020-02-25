@@ -34,9 +34,8 @@ class viewSharedRecipeActivity : AppCompatActivity(),
 
     }
     private fun generateDummyData(): List<RecipeModel> {
-        val listOfRecipes = mutableListOf<RecipeModel>()
 
-        if (search==null){
+        val listOfRecipes = mutableListOf<RecipeModel>()
             listOfRecipes.clear()
             db.collection("Recipes")
             .get()
@@ -54,28 +53,6 @@ class viewSharedRecipeActivity : AppCompatActivity(),
                 Log.w("here", "Error getting documents: ", exception)
             }
         return listOfRecipes
-        }
-
-        else
-            listOfRecipes.clear()
-            db.collection("Recipes")
-                .whereEqualTo("name", search)
-                .get()
-                .addOnSuccessListener { documents ->
-                    for (document in documents) {
-
-                        var recipename= document!!.get("name").toString()
-                        var recipeImage= document!!.get("image").toString()
-                        var movieModel = RecipeModel(1, recipename, recipeImage)
-                        listOfRecipes.add(movieModel)
-
-                        Log.d("here", "${document.id} => ${document.data}")
-                    }
-                }
-                .addOnFailureListener { exception ->
-                    Log.w("here", "Error getting documents: ", exception)
-                }
-            return listOfRecipes
 
 
 

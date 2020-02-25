@@ -224,8 +224,10 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
         val NumberOfCaloriesDoc = db.collection("Users").document(currentuser)
         NumberOfCaloriesDoc.get().addOnSuccessListener {
                 documentSnapshot ->
-            NumberOfRecipes= documentSnapshot.get("NumberOfRecipes").toString().toInt()
-            recipeID= currentuser+NumberOfRecipes
+
+              NumberOfRecipes= documentSnapshot.get("NumberOfRecipes").toString().toInt()
+              recipeID= currentuser+NumberOfRecipes
+
             db.collection("Recipes").document(recipeID).set(docData).addOnSuccessListener {
                 Log.d("please","added")
                 NumberOfCaloriesDoc.update("NumberOfRecipes", FieldValue.increment(1))
