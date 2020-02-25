@@ -13,7 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".AddFoodActivity"></activity>
-        <activity android:name=".recipe.ShareRecipeFirst"></activity>
+        <activity android:name=".recipe.viewSharedRecipeActivity">
+
+        </activity>
+        <activity android:name=".recipe.sharedRecipeInformaion"></activity>
+        <activity android:name=".recipe.ShareRecipeFirst">
+
+        </activity>
         <activity android:name=".register.registerOneActivity"></activity>
         <activity android:name=".profile.editProf"
             android:parentActivityName=".profile.fragmentOne"/>
@@ -22,17 +28,19 @@
         <activity android:name=".profile.fragmentTwo" />
         <activity android:name=".profile.fragmentOne" />
 
-        <activity android:name=".MainActivity" />
-        <activity android:name=".register.registerFourActivity" />
-        <activity
-            android:name=".SplashScreenActivity"
-            android:noHistory="true"
-            android:theme="@style/splashTheme">
+        <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".register.registerFourActivity" />
+        <activity
+            android:name=".SplashScreenActivity"
+            android:noHistory="true"
+            android:theme="@style/splashTheme">
+
         </activity>
 
         <activity android:name=".loginn"></activity>

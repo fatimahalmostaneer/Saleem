@@ -9,7 +9,8 @@ android {
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "sa.ksu.gpa.saleem"
-        minSdkVersion 16
+        minSdkVersion 21
+        multiDexEnabled true
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -34,8 +35,29 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.firebase:firebase-analytics:17.2.0'
+    implementation 'me.dm7.barcodescanner:zxing:1.9'
+    implementation 'com.google.firebase:firebase-firestore:21.3.1'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.github.f0ris.sweetalert:library:1.5.6'
+    implementation 'com.google.firebase:firebase-auth:19.2.0'
+    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+    implementation 'com.github.DonMat:searchablespinner:v1.0.1'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:recyclerview-v7:28.0.0-rc01'
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:design:28.0.0-rc01'
+    implementation 'com.github.kittinunf.fuel:fuel-android:1.15.1'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.github.leinardi:FloatingActionButtonSpeedDial:master-SNAPSHOT'
+    implementation "com.wajahatkarim3.easyvalidation:easyvalidation-core:1.0.1"
     implementation 'com.mikhaellopez:circularprogressbar:3.0.3'
-
+    implementation 'com.google.firebase:firebase-analytics:17.2.0'
+    implementation 'com.google.firebase:firebase-storage:19.1.1'
+    implementation 'com.google.firebase:firebase-firestore:21.3.1'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 }
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'

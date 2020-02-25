@@ -29,6 +29,7 @@ import kotlinx.android.synthetic.main.add_excercise_dialog.view.*
 import kotlinx.android.synthetic.main.advice_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_home_body.*
 import kotlinx.android.synthetic.main.home_fragment.*
+import sa.ksu.gpa.saleem.recipe.ShareRecipeFirst
 import java.util.ArrayList
 
 
@@ -99,6 +100,11 @@ class MainActivity : AppCompatActivity() {
                 }
                 10014 ->{
                     addAdviceDialog()
+                }
+                10013->{
+                    val intent = Intent(this@MainActivity, ShareRecipeFirst::class.java)
+                    startActivity(intent)
+
                 }
             }
             false
