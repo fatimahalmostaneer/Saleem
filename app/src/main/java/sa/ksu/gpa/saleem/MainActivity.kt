@@ -20,11 +20,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.leinardi.android.speeddial.SpeedDialActionItem
 import com.leinardi.android.speeddial.SpeedDialView
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.*
 import kotlinx.android.synthetic.main.advice_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_home_body.*
@@ -45,6 +47,25 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         db= FirebaseFirestore.getInstance()
+        bottomNavigation.setOnNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.home-> {
+                    title="الرئيسية"
+                    loadFragment(HomeFragment())
+                    return@setOnNavigationItemSelectedListener true
+                }
+
+                R.id.profile-> {
+                    title="حسابي"
+                    //this is for show profile fragment
+//                    loadFragment(HomeFragment())
+                    return@setOnNavigationItemSelectedListener true
+                }
+
+            }
+            false
+
+        }
         /*btn = findViewById(R.id.fortesting) as Button
 
         btn!!.setOnClickListener {
@@ -125,7 +146,13 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
+    private fun loadFragment(fragment: Fragment) {
+        // load fragment
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.container, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
     private fun addWater(){
         if (counter < 8) {
             val inflater =
