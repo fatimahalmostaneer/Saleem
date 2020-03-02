@@ -1,35 +1,57 @@
 package sa.ksu.gpa.saleem
 
 import android.app.Activity
+import android.app.Dialog
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_add_food.*
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.collections.ArrayList
 
 
-class AddFoodActivity : AppCompatActivity() {
+class AddFoodActivity (context: Context ,onSave: OnSave) : Dialog(context) {
+    var onSave = onSave
+
     lateinit var adapter: ItemAdapter
     var listdata = ArrayList<Item>()
     var nutritionalValueList = ArrayList<NutritionalValue>()
+    private lateinit var db: FirebaseFirestore
+    lateinit var dialog:ProgressDialog
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_add_food)
         toolbar.title = "اضافة وجبة مفصلة"
+        toolbar.setNavigationIcon(android.R.drawable.ic_menu_close_clear_cancel)
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
 
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowCustomEnabled(true)
+        db= FirebaseFirestore.getInstance()
+//        setSupportActionBar(toolbar)
+//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//        supportActionBar?.setDisplayShowCustomEnabled(true)
         toolbar.setNavigationOnClickListener {
             onBackPressed()
         }
@@ -38,8 +60,8 @@ class AddFoodActivity : AppCompatActivity() {
         }
 
         val recyclerView: RecyclerView = findViewById(R.id.rv_component)
-        adapter = ItemAdapter(listdata, this)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        adapter = ItemAdapter(listdata, context)
+        recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
         initNutritionalValueList()
         save.setOnClickListener {
@@ -51,15 +73,19 @@ class AddFoodActivity : AppCompatActivity() {
                     Log.e("hhh","amount ==> ${data.amount.toInt()}")
                     Log.e("hhh","amount ==> ${data.nutritionalValue}")
                 }
-                var intent : Intent
-                intent = Intent()
-                intent.putExtra("data",sum)
-                setResult(Activity.RESULT_OK,intent)
-                finish()
+                addFoodToFirestore(sum,nameOfFood.text.toString())
+
+
+
             }else{
-                Toast.makeText(this,"ادخل مكونات الوجبة",Toast.LENGTH_LONG).show()
+                Toast.makeText(context,"ادخل مكونات الوجبة",Toast.LENGTH_LONG).show()
             }
         }
+        delete_button.setOnClickListener {
+            addObject(it)
+        }
+
+
     }
 
     private fun initNutritionalValueList() {
@@ -209,7 +235,7 @@ class AddFoodActivity : AppCompatActivity() {
 
     fun addObject(view: View) {
         if(et_number.text.toString() .equals("")){
-            Toast.makeText(this,"ادخل الكمية المضافة ",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,"ادخل الكمية المضافة ",Toast.LENGTH_SHORT).show()
             return
         }
         var item = Item()
@@ -219,12 +245,62 @@ class AddFoodActivity : AppCompatActivity() {
         var nutritionalValue =   nutritionalValueList.get(spFood.selectedItemPosition)
         var ww = nutritionalValue.array[spWeight.selectedItemPosition]
         item.nutritionalValue = ww
-        runOnUiThread {
-            listdata.add(item)
-            Log.e("hhh", "list size ==> " + listdata.size)
-            rv_component.adapter?.notifyDataSetChanged()
-        }
+
+        listdata.add(item)
+        Log.e("hhh", "list size ==> " + listdata.size)
+        rv_component.adapter?.notifyDataSetChanged()
+
     }
 
+    fun addFoodToFirestore(sum: Double,name:String){
+        val data = hashMapOf(
+            "food_name" to name,
+            "type" to "Detailed",
+            "foods" to listdata,
+            "date" to getCurrentDate(),
+            "user_id" to "ckS3vhq8P8dyOeSI7CE7D4RgMiv1",
+            "cal_of_food" to sum
+        )
+        showLoadingDialog()
+        db.collection("Foods").document().set(data as Map<String, Any>).addOnSuccessListener {
+            dialog.dismiss()
+            Toast.makeText(context,"تمت الاضافة بنجاح",Toast.LENGTH_SHORT).show()
+            dismiss()
 
+
+            var intent : Intent
+            intent = Intent()
+            intent.putExtra("data",sum)
+
+            onSave.onSaveSuccess(sum)
+            dismiss()
+//                intent.putExtra("object",Gson().toJson(listdata))
+
+        }.addOnFailureListener {
+            dialog.dismiss()
+            Toast.makeText(context,"حصل خطأ في عملية الاضافة",Toast.LENGTH_SHORT).show();
+        };
+    }
+
+    private fun showLoadingDialog() {
+        dialog = ProgressDialog.show(
+            context, "",
+            "Loading. Please wait...", true
+        )
+    }
+
+    fun getCurrentDate():String {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val current = LocalDateTime.now()
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH)
+            val formatted = current.format(formatter)
+            return formatted
+        }
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+        val currentDate = sdf.format(Date())
+        return "$currentDate"
+    }
+    public interface OnSave{
+        fun onSaveSuccess(sum:Double )
+    }
 }

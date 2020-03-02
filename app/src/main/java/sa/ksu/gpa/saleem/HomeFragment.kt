@@ -3,6 +3,7 @@ package sa.ksu.gpa.saleem
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -27,10 +28,12 @@ import com.leinardi.android.speeddial.SpeedDialActionItem
 import com.leinardi.android.speeddial.SpeedDialView
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.*
 import kotlinx.android.synthetic.main.home_fragment.*
+import sa.ksu.gpa.saleem.AddFoodActivity.OnSave
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * A simple [Fragment] subclass.
@@ -42,6 +45,7 @@ class HomeFragment : Fragment() {
     var remainderCal = 0.0
     var history_Id = ""
     private lateinit var pagerAdapter: PagerAdapter
+    lateinit var dialog:ProgressDialog
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,6 +59,9 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         pagerAdapter = activity?.supportFragmentManager?.let { PagerAdapter(it) }!!
         viewPager.adapter = pagerAdapter
+        dotsIndicator.setViewPager(viewPager)
+        viewPager.adapter?.registerDataSetObserver(dotsIndicator.dataSetObserver)
+
 //        view.findViewById<ImageView>(R.id.ivAddView).setOnClickListener { addFood() }
         view.findViewById<LinearLayout>(R.id.add_breakfast).setOnClickListener { addFood() }
         view.findViewById<LinearLayout>(R.id.add_lunch).setOnClickListener { addFood() }
@@ -128,33 +135,41 @@ class HomeFragment : Fragment() {
 
     private fun startAddFoodActivity() {
 
-        var intent = Intent(activity,AddFoodActivity::class.java).apply{
-
+//        var intent = Intent(activity,AddFoodActivity::class.java).apply{
+//
+//        }
+//        startActivityForResult(intent,1000)
+        var onsave  = object : OnSave {
+            override fun onSaveSuccess(sum: Double) {
+                var d:Int = 0
+                d = sum.toInt()
+                Log.e("onActivityResult","$d")
+                consumerCal -= d
+                remainderCal += d
+                pb_counter.progress =remainderCal.toInt()
+                pb_counter.max = totalcal.toInt()
+                remainder_cal.setText("${remainderCal.toInt()}")
+                tv_main_number.setText("${(totalcal-remainderCal).toInt()}")
+                Toast.makeText(context,"تمت اضافة الوجبة", Toast.LENGTH_LONG)
+                updateHistory()
+            }
         }
-        startActivityForResult(intent,1000)
+        var dialog: AddFoodActivity? = context?.let { AddFoodActivity(it,onsave) }
+
+        dialog?.show()
 
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1000 && resultCode == Activity.RESULT_OK){
-            var d:Int = 0
-            d = data?.getDoubleExtra("data",0.0)!!.toInt()
-            Log.e("onActivityResult","$d")
-            consumerCal -= d
-            remainderCal += d
-            pb_counter.progress =remainderCal.toInt()
-            pb_counter.max = totalcal.toInt()
-            remainder_cal.setText("${remainderCal.toInt()}")
-            tv_main_number.setText("${(totalcal-remainderCal).toInt()}")
-            Toast.makeText(context,"تمت اضافة الوجبة", Toast.LENGTH_LONG)
-            updateHistory()
+
         }
     }
 
     fun addFood(){
         val list = ArrayList<String>()
         list.add("وجبة مفصلة")
-        list.add("وجبة ")
+        list.add("وجبة سريعة")
         showAddFood(list)
 
     }
@@ -188,7 +203,24 @@ class HomeFragment : Fragment() {
                 pb_counter.max = totalcal.toInt()
                 remainder_cal.setText("${remainderCal.toInt()}")
                 tv_main_number.setText("${(totalcal-remainderCal).toInt()}")
-                Toast.makeText(context,"تمت اضافة الوجبة", Toast.LENGTH_LONG)
+                val data1 = hashMapOf(
+                    "food_name" to workoutName.toString(),
+                    "type" to "unDetailed",
+                    "foods" to ArrayList<AddFoodActivity.Item>(),
+                    "date" to getCurrentDate(),
+                    "user_id" to "ckS3vhq8P8dyOeSI7CE7D4RgMiv1",
+                    "cal_of_food" to burntStringData.toInt()
+                )
+                showLoadingDialog()
+                db.collection("Foods").document().set(data1 as Map<String, Any>).addOnSuccessListener {
+                    dialog.dismiss()
+                    Toast.makeText(context,"تمت الاضافة بنجاح",Toast.LENGTH_SHORT).show()
+                }.addOnFailureListener {
+                    dialog.dismiss()
+                    Toast.makeText(context,"حصل خطأ في عملية الاضافة",Toast.LENGTH_SHORT).show();
+                };
+
+
                 mAlertDialog?.dismiss()
                 updateHistory()
 
@@ -201,6 +233,14 @@ class HomeFragment : Fragment() {
         }
 
     }
+
+    private fun showLoadingDialog() {
+        dialog = ProgressDialog.show(
+            context, "",
+            "Loading. Please wait...", true
+        )
+    }
+
 
     fun getCurrentDate():String {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -222,6 +262,6 @@ class HomeFragment : Fragment() {
             "user_id" to "ckS3vhq8P8dyOeSI7CE7D4RgMiv1"
         )
         if (!history_Id.equals(""))
-        db.collection("History").document(history_Id).update(data as Map<String, Any>);
+            db.collection("History").document(history_Id).update(data as Map<String, Any>);
     }
 }
