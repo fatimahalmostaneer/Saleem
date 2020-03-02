@@ -20,6 +20,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
@@ -83,22 +84,32 @@ class MainActivity : AppCompatActivity() {
         val speedDialView = findViewById<SpeedDialView>(R.id.speedDial)
         speedDialView.addActionItem(
             SpeedDialActionItem.Builder(10009, R.drawable.ic_scan)
+                .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorBlue, getTheme()))
+                .setFabImageTintColor(ResourcesCompat.getColor(getResources(), R.color.white, getTheme()))
                 .create()
         )
         speedDialView.addActionItem(
             SpeedDialActionItem.Builder(10011, R.drawable.ic_dumbbell)
+                .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorBlue, getTheme()))
+                .setFabImageTintColor(ResourcesCompat.getColor(getResources(), R.color.white, getTheme()))
                 .create()
         )
         speedDialView.addActionItem(
             SpeedDialActionItem.Builder(10012, R.drawable.ic_timer_black_24dp)
+                .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorBlue, getTheme()))
+                .setFabImageTintColor(ResourcesCompat.getColor(getResources(), R.color.white, getTheme()))
                 .create()
         )
         speedDialView.addActionItem(
             SpeedDialActionItem.Builder(10013, R.drawable.ic_water)
+                .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorBlue, getTheme()))
+                .setFabImageTintColor(ResourcesCompat.getColor(getResources(), R.color.white, getTheme()))
                 .create()
         )
         speedDialView.addActionItem(
             SpeedDialActionItem.Builder(10014, R.drawable.ic_report)
+                .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorBlue, getTheme()))
+                .setFabImageTintColor(ResourcesCompat.getColor(getResources(), R.color.white, getTheme()))
                 .create()
         )
         speedDialView.setOnActionSelectedListener(SpeedDialView.OnActionSelectedListener { actionItem ->
