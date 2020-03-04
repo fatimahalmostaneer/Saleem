@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -32,6 +33,8 @@ import kotlinx.android.synthetic.main.add_excercise_dialog.view.*
 import kotlinx.android.synthetic.main.advice_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_home_body.*
 import kotlinx.android.synthetic.main.home_fragment.*
+import sa.ksu.gpa.saleem.profile.Profile
+import sa.ksu.gpa.saleem.profile.fragmentOne
 import sa.ksu.gpa.saleem.recipe.ShareRecipeFirst
 import java.util.ArrayList
 
@@ -59,7 +62,11 @@ class MainActivity : AppCompatActivity() {
                 R.id.profile-> {
                     title="حسابي"
                     //this is for show profile fragment
-//                    loadFragment(HomeFragment())
+              // loadFragment(fragmentOne())
+
+                    val intent = Intent(this@MainActivity, Profile::class.java)
+                    startActivity(intent)
+
                     return@setOnNavigationItemSelectedListener true
                 }
 

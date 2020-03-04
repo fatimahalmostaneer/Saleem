@@ -92,9 +92,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="40dp"
-                android:text="@string/forgetPassword"
-
+                android:layout_marginLeft="90dp"
+                android:text="نسيت كلمة المرور"
+                android:layout_gravity="center"
                 android:textColor="@color/colorPrimaryDark" />
 
             <RelativeLayout
@@ -117,6 +117,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:text="@string/signUp"
+
                     android:textSize="20dp"/>
 
 

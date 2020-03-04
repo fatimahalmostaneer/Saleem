@@ -17,7 +17,7 @@
     <string name="name">الاسم</string>
     <string name="signUp">التسجيل</string>
     <string name="password">كلمة المرور</string>
-    <string name="createAccount">إنشاء حساب</string>
+    <string name="createAccount"><u>إنشاء حساب</u></string>
     <string name="enteryourEmail">ادخل البريد الإلكتروني</string>
     <string name="forgetPassword">نسيت كلمة المرور</string>
 

@@ -45,20 +45,14 @@
         android:layout_height="match_parent"
         android:layout_above="@id/bottomNavigation"></FrameLayout>
 
-   <!-- <Button
+    <Button
         android:id="@+id/fortesting"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="for scanner !!"
-        android:layout_marginTop="640dp"
+        android:layout_marginTop="230dp"
         ></Button>
-    <Button
-        android:id="@+id/fortestingadd"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="for  !!"
-        android:layout_marginTop="600dp"
-        ></Button>-->
+
 
 
 </RelativeLayout>

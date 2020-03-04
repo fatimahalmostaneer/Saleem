@@ -10,7 +10,7 @@
     <string name="login_failed">"Login failed"</string>
     <string name="app_name">Saleem</string>
     <string name="action_sign_in">Sign in</string>
-    <string name="signUp">Sign up</string>
+    <string name="signUp"><u>sign up</u></string>
     <string name="login_btn">Login</string>
     <string name="name">Name</string>
     <string name="password">Password</string>
@@ -52,6 +52,17 @@
         <item>حليب</item>
     </string-array>
 
+    <string-array name="planets_array">
+        <item>خسارة الوزن</item>
+        <item>الحفاظ على الوزن</item>
+        <item>زيادة الوزن</item>
+    </string-array>
+    <string-array name="planetsLevel_array">
+        <item>مبتدى</item>
+        <item>متوسط</item>
+        <item>متقدم</item>
+
+    </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

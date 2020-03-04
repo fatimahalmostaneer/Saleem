@@ -23,9 +23,8 @@ import android.R
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
-
-
+import android.view.View
+import androidx.appcompat.widget.Toolbar
 
 
 class Profile : AppCompatActivity() {
@@ -42,6 +41,12 @@ class Profile : AppCompatActivity() {
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = findViewById(sa.ksu.gpa.saleem.R.id.tabLayout)
         tabs.setupWithViewPager(viewPager)
+
+        val toolbar = findViewById<View>(sa.ksu.gpa.saleem.R.id.toolbar)
+        setSupportActionBar(toolbar as Toolbar?)
+        supportActionBar!!.setTitle("")
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setHomeButtonEnabled(false)
 
        // var ref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid)
 
@@ -65,7 +70,7 @@ class Profile : AppCompatActivity() {
 
 
 
-        val docRef = db.collection("Users").document(userUid)
+        val docRef = db.collection("users").document(userUid)
 
             docRef.get().addOnSuccessListener { document ->
                 if (document != null) {

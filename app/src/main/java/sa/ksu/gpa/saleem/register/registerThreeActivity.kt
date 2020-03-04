@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.Toolbar
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_register_two.*
 import sa.ksu.gpa.saleem.R
@@ -28,6 +29,12 @@ class registerThreeActivity : AppCompatActivity() {
         val one=findViewById<View>(R.id.levelOneBtn) as Button?
         val two=findViewById<View>(R.id.levelTwoBtn) as Button?
         val three=findViewById<View>(R.id.levelThreeBtn) as Button?
+
+        val toolbar = findViewById<View>(R.id.toolbar)
+        setSupportActionBar(toolbar as Toolbar?)
+        supportActionBar!!.setTitle("")
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setHomeButtonEnabled(false)
 
         val btn=findViewById<View>(R.id.nxtThreeBtn) as Button?
 
@@ -50,7 +57,7 @@ class registerThreeActivity : AppCompatActivity() {
                 one.setBackgroundResource(R.drawable.unclick);
                 button_background=1;
             } else if(button_background==1){
-                one.setBackgroundResource(R.drawable.rounded_buttons);
+                one.setBackgroundResource(R.drawable.register_btn);
                 two?.setBackgroundResource(R.drawable.unclick)
                 three?.setBackgroundResource(R.drawable.unclick)
                 button_background=2;
@@ -67,7 +74,7 @@ class registerThreeActivity : AppCompatActivity() {
                 two?.setBackgroundResource(R.drawable.unclick);
                 button_background=1;
             } else if(button_background==1){
-                two?.setBackgroundResource(R.drawable.rounded_buttons);
+                two?.setBackgroundResource(R.drawable.register_btn);
                 one?.setBackgroundResource(R.drawable.unclick)
                 three?.setBackgroundResource(R.drawable.unclick)
                 button_background=2;
@@ -86,7 +93,7 @@ class registerThreeActivity : AppCompatActivity() {
                 three?.setBackgroundResource(R.drawable.unclick);
                 button_background=1;
             } else if(button_background==1){
-                three?.setBackgroundResource(R.drawable.rounded_buttons);
+                three?.setBackgroundResource(R.drawable.register_btn);
                 two?.setBackgroundResource(R.drawable.unclick)
                 one?.setBackgroundResource(R.drawable.unclick)
                 button_background=2;
@@ -179,14 +186,5 @@ class registerThreeActivity : AppCompatActivity() {
 }
 
 
-
-/*private fun Button?.setOnClickListener(registerThreeActivity: registerThreeActivity) {
-    when(view.id) {
-        R.id.goalOneBtn -> {*//* do your code *//*}
-        R.id.goalTwoBtn -> {*//* do your code *//*}
-        R.id.goalThreeBtn -> {*//* do your code *//*}
-        else -> {*//* do your code *//*}
-        }
-    }*/
 
 

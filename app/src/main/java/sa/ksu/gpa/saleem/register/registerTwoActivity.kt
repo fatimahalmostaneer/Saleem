@@ -28,6 +28,7 @@ import android.widget.RadioGroup
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import androidx.appcompat.widget.Toolbar
 import com.google.common.base.Verify.verify
 import com.wajahatkarim3.easyvalidation.core.collection_ktx.noNumbersList
 
@@ -53,6 +54,12 @@ class registerTwoActivity : AppCompatActivity() {
         val intent = Intent(this, registerThreeActivity::class.java)
 
         val btn = findViewById<View>(R.id.nxtTwoBtn) as Button?
+        val toolbar = findViewById<View>(R.id.toolbar)
+
+        setSupportActionBar(toolbar as Toolbar?)
+        supportActionBar!!.setTitle("")
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setHomeButtonEnabled(false)
 
 
         db.collection("users")

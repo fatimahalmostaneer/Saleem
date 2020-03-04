@@ -16,6 +16,27 @@
         android:gravity="center"
         tools:ignore="MissingConstraints">
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/register_toolbar"
+            android:fitsSystemWindows="true"
+            android:theme="@style/AppTheme.ProfileTheme"
+            app:elevation="0dp">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/colorAccent"
+                android:gravity="center"
+                app:title=" "
+                app:titleTextColor="@color/whiteTextColor" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -52,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="50dp"
-                android:background="@drawable/rounded_buttons"
+                android:background="@drawable/register_btn"
                 android:text="خسارة وزن"
                 android:textColor="#FFFFFF"
                 android:textSize="20dp"
@@ -65,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="60dp"
-                android:background="@drawable/rounded_buttons"
+                android:background="@drawable/register_btn"
                 android:text="الحفاظ على الوزن"
                 android:textColor="#fff"
                 android:textSize="20dp"
@@ -78,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="60dp"
-                android:background="@drawable/rounded_buttons"
+                android:background="@drawable/register_btn"
                 android:text="زيادة الوزن"
                 android:textColor="#fff"
                 android:textSize="20dp"
