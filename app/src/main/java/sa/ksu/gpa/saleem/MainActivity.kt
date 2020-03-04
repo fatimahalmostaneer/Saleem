@@ -67,6 +67,7 @@ class MainActivity : AppCompatActivity() {
             false
 
         }
+        showAddAdvice()
         /*btn = findViewById(R.id.fortesting) as Button
 
         btn!!.setOnClickListener {
@@ -107,7 +108,7 @@ class MainActivity : AppCompatActivity() {
                 .create()
         )
         speedDialView.addActionItem(
-            SpeedDialActionItem.Builder(10014, R.drawable.ic_report)
+            SpeedDialActionItem.Builder(10014, R.drawable.advice)
                 .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorBlue, getTheme()))
                 .setFabImageTintColor(ResourcesCompat.getColor(getResources(), R.color.white, getTheme()))
                 .create()
@@ -186,70 +187,61 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun addAdviceDialog(){
-        //inflate dialog
         val mDialogView = LayoutInflater.from(this).inflate(R.layout.advice_dialog, null)
-        //alert dialog builder
-        val mBuilder= AlertDialog.Builder(this)
+        val mBuilder = AlertDialog.Builder(this)
             .setView(mDialogView)
-            .setTitle("نشر نصيحة")
 
-        //show dialog
-        val mAlertDialog = mBuilder.show()
+        val  mAlertDialog = mBuilder.show()
+        var body = mDialogView.dialogAdviceET!!.editText!!.text
+
+
         mDialogView.dialogShareBtn.setOnClickListener{
+            if (body.length > 140){
+                Toast.makeText(this, "لا يمكن نشر نصائح أطول من ١٤٠ حرف", LENGTH_LONG).show()
+            }
+            else if (body.isEmpty()){
+                Toast.makeText(this, "لا يمكن ترك هذه الخانة فارغة ", LENGTH_LONG).show()
+            }
 
-            //get text from editTexts
-            val body = mDialogView.dialogAdviceET.text.toString()
+            else {
+                var body1=body.toString()
+                val advice = HashMap<String, Any>()
+                db.collection("Advices").document()
+                //advice.put("text",body) //advice["text"] = body
+                advice["text"] = body1
+                db.collection("Advices").document().set(advice)
+                Toast.makeText(this, "تمت اضافة النصيحة", LENGTH_LONG).show()
+                advicesTV.text = body1
+                mAlertDialog.dismiss()
+            }
 
-            val advice = HashMap<String, Any>()
-            db.collection("Advices").document()
-            //advice.put("text",body) //advice["text"] = body
-            advice["text"] = body
-            db.collection("Advices").document().set(advice)
-
-                .addOnSuccessListener {
-                    // Log.d("added", "DocumentSnapshot added with ID: ${documentReference.id}")
-                    Log.d("added", "DocumentSnapshot added")
-                }
-                .addOnFailureListener { e ->
-                    Log.w("fail", "Error adding document", e)
-                }
-
-            showAddAdvice(body)
-
-            //Toast.makeText(applicationContext,"تم نشر النصيحة", LENGTH_LONG)
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("تم نشر النصيحة")
-            builder.setMessage("شكرًا لك!")
-            builder.setNegativeButton("حسنًا") { dialogInterface: DialogInterface, i: Int -> }
-            builder.show()
-            //dismiss dialog
-            mAlertDialog.dismiss()
         }
-        //cancel button click
         mDialogView.dialogCancelBtn.setOnClickListener{
-            //dismiss dialog
             mAlertDialog.dismiss()
+
         }
 
+
     }
 
-    private fun showAddAdvice(data: String){
+    private fun showAddAdvice(){
         //set input in TV
-        advicesTV.text = data //advicesTV.setText("النصيحة اليومية: "+data)
+        //advicesTV.text = data //advicesTV.setText("النصيحة اليومية: "+data)
 
-        /* db.collection("Advices")
-              .get()
-              .addOnSuccessListener { result ->
-                  for (document in result) {
-                      Log.d("exists", "${document.id} => ${document.data}")
-                      advicesTV.text = document.getString("text")
-                  }
-              }
-              .addOnFailureListener { exception ->
-                  Log.w("error", "Error getting documents.", exception)
-              }*/
+        db.collection("Advices")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    Log.d("exists", "${document.id} => ${document.data}")
+                    advicesTV.text = document.getString("text")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("error", "Error getting documents.", exception)
+            }
 
     }
+
 
     fun showAddFood(data: ArrayList<String>) {
         val fragment = ItemListDialogFragmentA(data)

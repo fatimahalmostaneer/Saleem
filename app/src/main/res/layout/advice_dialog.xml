@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp"
     android:gravity="center">
 
-
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/dialogAdviceET"
-        android:inputType="textLongMessage"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:gravity="top"
-        android:layout_marginTop="20dp"
-        android:maxLength="140"
-        android:background="@drawable/border"
-        android:hint="  ادخل النصيحة هنا"></EditText>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:counterEnabled="true"
+        app:counterMaxLength="140"
+        app:errorEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:gravity="top"
+            android:background="@drawable/border"
+            android:hint="   النصيحة"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
 
     <LinearLayout

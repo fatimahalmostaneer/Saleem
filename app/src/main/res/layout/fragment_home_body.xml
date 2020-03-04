@@ -5,11 +5,45 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/advicesLL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="8dp"
+            android:background="@drawable/bg_radus_white"
+            android:elevation="4dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/advicesTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="النصائح الصحية"
+                android:textColor="@color/material_blue_grey_80"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/ic_idea" />
+
+            <!--ic_idea-->
+        </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/add_breakfast"
@@ -196,41 +230,6 @@
 
             </HorizontalScrollView>
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/advicesLL"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="8dp"
-            android:background="@drawable/bg_radus_white"
-            android:clickable="true"
-            android:elevation="4dp"
-            android:focusable="true"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-
-            <TextView
-                android:id="@+id/advicesTV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="النصائح الصحية"
-                android:textColor="@color/material_blue_grey_80"
-                android:textSize="18sp" />
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_margin="8dp"
-                android:src="@drawable/ic_idea" />
-
-            <!--ic_idea-->
-        </LinearLayout>
-
 
     </LinearLayout>
 
