@@ -16,15 +16,33 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/textRecipeTitle"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:paddingStart="300dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#A97E7575"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@id/imageRecipe"
+        android:backgroundTint="#81111111"
+        android:orientation="vertical"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="107dp"
-        tools:text="Avengers" />
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="88dp">
 
+
+        <TextView
+            android:id="@+id/textRecipeTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            tools:ignore="MissingConstraints"
+            tools:text="سينابون" />
+
+        <TextView
+            android:id="@+id/textRecipeCalories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            tools:ignore="MissingConstraints"
+            tools:text="السعرات :" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

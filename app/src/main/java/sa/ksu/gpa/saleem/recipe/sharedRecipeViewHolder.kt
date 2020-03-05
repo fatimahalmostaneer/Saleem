@@ -14,6 +14,7 @@ class sharedRecipeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     fun bindView(recipeModel: RecipeModel) {
         itemView.textRecipeTitle.text = recipeModel.recipeTitle
         itemView.imageRecipe.layoutParams.height = getRandomIntInRange(250, 150)
+        itemView.textRecipeCalories.text=recipeModel.recipeCalories
 
         itemView.setOnClickListener {
            // val intent = Intent(itemView.context, sharedRecipeInformaion::class.java)

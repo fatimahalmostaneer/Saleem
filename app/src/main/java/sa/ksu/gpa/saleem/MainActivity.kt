@@ -109,17 +109,7 @@ class MainActivity : AppCompatActivity() {
             }
             false
         })
-//        findViewById<ImageView>(R.id.ivAddView).setOnClickListener { addFood() }
 
-
-       /* addExcercize = findViewById(R.id.fortestingadd) as Button
-
-        addExcercize!!.setOnClickListener {
-            addExcercizeDialog()
-
-        }*/
-
-        // set on-click listener
         addWaterBtn.setOnClickListener {
             addWater()
         }
@@ -263,7 +253,7 @@ class MainActivity : AppCompatActivity() {
                 val currentuser = FirebaseAuth.getInstance().currentUser!!.uid
                 val burntCalories = db.collection("Users").document(currentuser)
                 burntCalories.update("burntCalories", FieldValue.increment(burntcal))
-                Toast.makeText(applicationContext,"تمت اضافة المنتج", LENGTH_LONG)
+                Toast.makeText(applicationContext,"تمت العملية بنجاح", LENGTH_LONG)
                 mAlertDialog.dismiss()
 
             }

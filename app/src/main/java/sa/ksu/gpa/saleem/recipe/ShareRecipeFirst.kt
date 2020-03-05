@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.field.view.*
 import pl.utkala.searchablespinner.SearchableSpinner
 import sa.ksu.gpa.saleem.R
 import java.io.IOException
+import kotlin.random.Random
 
 
 class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
@@ -27,24 +28,27 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
     private var filePath: Uri? = null
     private lateinit var db: FirebaseFirestore
     private var storageReference: StorageReference? = null
-    private lateinit var image :TextView
-    private lateinit var Recipeimage :ImageView
-    private lateinit var publishRecipe:Button
-    private lateinit var nameRecipe:EditText
-    private lateinit var preprationRecipe:EditText
-    private  var Quantity:EditText? = null
-    private  var unit:Spinner? = null
-    private  var IngredientNames: SearchableSpinner? = null
+    private lateinit var image: TextView
+    private lateinit var Recipeimage: ImageView
+    private lateinit var publishRecipe: Button
+    private lateinit var nameRecipe: EditText
+    private lateinit var preprationRecipe: EditText
+    private var Quantity: EditText? = null
+    private var unit: Spinner? = null
+    private var IngredientNames: SearchableSpinner? = null
     private lateinit var checkBox: CheckBox
     private lateinit var checkBox1: CheckBox
     private lateinit var checkBox2: CheckBox
     private lateinit var checkBox3: CheckBox
     private lateinit var checkBox4: CheckBox
     private lateinit var checkBox5: CheckBox
-    private lateinit var addIngrediant:Button
-    private lateinit var main:LinearLayout
-    private lateinit var uri:String
+    private lateinit var addIngrediant: Button
+    private lateinit var calcualteCalories: Button
+    private lateinit var viewTotalCalories: TextView
 
+
+    private lateinit var main: LinearLayout
+    private  var uri: String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,26 +57,27 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
 
 
         db = FirebaseFirestore.getInstance()
-        //to-do
-        storageReference = FirebaseStorage.getInstance().getReference().child("12").child("image")
+        // TO-DO
+        storageReference = FirebaseStorage.getInstance().getReference().child("AXBFsLC5GeTGHkCDz8oz").child("" + Random(100000))
 
-        image=findViewById(R.id.sharedrecipeimage)
-        Recipeimage=findViewById(R.id.sharedrecipeimageReal)
+        image = findViewById(R.id.sharedrecipeimage)
+        Recipeimage = findViewById(R.id.sharedrecipeimageReal)
         addIngrediant = findViewById(R.id.addIngredient)
         publishRecipe = findViewById(R.id.publishRecipe)
         nameRecipe = findViewById(R.id.Recipename)
         preprationRecipe = findViewById(R.id.prepration)
         checkBox = findViewById(R.id.checkBox)
         checkBox1 = findViewById(R.id.checkBox1)
-        checkBox2= findViewById(R.id.checkBox2)
-        checkBox3= findViewById(R.id.checkBox3)
-        checkBox4= findViewById(R.id.checkBox4)
-        checkBox5= findViewById(R.id.checkBox5)
-        Quantity= findViewById(R.id.quantity)
-        IngredientNames= findViewById(R.id.IngredientNames)
-        unit= findViewById(R.id.unit)
-        main=findViewById(R.id.main) //to add ings dirctly
-
+        checkBox2 = findViewById(R.id.checkBox2)
+        checkBox3 = findViewById(R.id.checkBox3)
+        checkBox4 = findViewById(R.id.checkBox4)
+        checkBox5 = findViewById(R.id.checkBox5)
+        Quantity = findViewById(R.id.quantity)
+        IngredientNames = findViewById(R.id.IngredientNames)
+        calcualteCalories = findViewById(R.id.calculate_total_calories)
+        viewTotalCalories = findViewById(R.id.view_total_calories)
+        unit = findViewById(R.id.unit)
+        main = findViewById(R.id.main) //to add ings dirctly
 
 
         image.setOnClickListener(this)
@@ -80,8 +85,8 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
         publishRecipe.setOnClickListener(this)
 
 
-
     }
+
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.sharedrecipeimage -> {
@@ -91,9 +96,14 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
                 addIngrediants()
 
             }
-            R.id.publishRecipe->{
+            R.id.publishRecipe -> {
                 addRecipe()
                 finish()
+            }
+            R.id.calculate_total_calories -> {
+              var calories:String = CalcualteCalories()
+                viewTotalCalories.setText(calories)
+                Toast.makeText(this,"الرجاء تحديد الكمية",Toast.LENGTH_LONG)
             }
 
             else -> {
@@ -102,38 +112,50 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun addIngrediants() {
-        val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val rowView: View = inflater.inflate(R.layout.field, null)
-        main.addView(rowView, main.getChildCount())
+    private fun CalcualteCalories():String {
+
+        return "1230"
 
     }
-    private fun getIngrediants(recipeID:String) {
 
-        if (main.childCount==0) {
-            Toast.makeText(this,"الرجاء اضافة المكونات",Toast.LENGTH_LONG)
+    private fun addIngrediants() {
+        if(main.childCount==0|| main.getChildAt(main.childCount-1)!!.quantity.text.toString()!=null) {
+            val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val rowView: View = inflater.inflate(R.layout.field, null)
+            main.addView(rowView, main.getChildCount())
+        }
+        else
+            Toast.makeText(this,"الرجاء تحديد الكمية",Toast.LENGTH_LONG)
+
+    }
+
+    private fun getIngrediants(recipeID: String) {
+
+        if (main.childCount == 0) {
+            Toast.makeText(this, "الرجاء اضافة المكونات", Toast.LENGTH_LONG)
             return
         }
         var i = main.childCount
-        var count =0
-        while (i!=0){
+        var count = 0
+        while (i != 0) {
 
             var ingquantity = main.getChildAt(count)!!.quantity.text.toString()
-            Log.d("please","quantity"+ingquantity)
+            Log.d("please", "quantity" + ingquantity)
             var ingqunit = main.getChildAt(count).IngredientNames.selectedItem.toString()
-            Log.d("please","unit"+ingqunit)
-            var real=main.getChildAt(count).unit.selectedItem.toString()
-            Log.d("please","real"+real)
+            Log.d("please", "unit" + ingqunit)
+            var real = main.getChildAt(count).unit.selectedItem.toString()
+            Log.d("please", "real" + real)
             val docData = hashMapOf(
                 // "UID" to currentUser!!.toString(),
                 "ingreidentName" to ingqunit,
                 "ingredienunit" to real,
                 "ingquantity" to ingquantity
             )
-            db.collection("Recipes").document(recipeID).collection("ingredients").document().set(docData).addOnSuccessListener {
-                Log.d("please","ing added ")
-            }.addOnFailureListener{
-                Log.d("please","not added ")
+            db.collection("Recipes").document(recipeID).collection("ingredients").document()
+                .set(docData).addOnSuccessListener {
+                Log.d("please", "ing added ")
+            }.addOnFailureListener {
+                Log.d("please", "not added ")
 
             }
             i--
@@ -179,68 +201,71 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
             }
         }
     }
-
     fun onDelete(view: View) {
         main.removeView(view.getParent() as View)
     }
-    private fun addRecipe(){
 
-        var  NumberOfRecipes:Int=0
-        var recipeID:String=""
-        var name:String =nameRecipe!!.text.toString()
-        var prepration=preprationRecipe!!.text.toString()
+    private fun addRecipe() {
 
 
+        var NumberOfRecipes: Int = 0
+        var recipeID: String = ""
+        var name: String = nameRecipe!!.text.toString()
+        var prepration = preprationRecipe!!.text.toString()
+        var calories:String = CalcualteCalories()
 
-        var type: String? =null
-        var type1:String? =null
-        var type2:String? =null
-        var type3:String? =null
-        var type4:String? =null
-        var type5:String? =null
 
-        if (checkBox.isChecked==true)
+
+        var type: String? = null
+        var type1: String? = null
+        var type2: String? = null
+        var type3: String? = null
+        var type4: String? = null
+        var type5: String? = null
+
+        if (checkBox.isChecked == true)
             type = checkBox!!.text.toString()
-        if (checkBox1.isChecked==true)
+        if (checkBox1.isChecked == true)
             type1 = checkBox1!!.text.toString()
-        if (checkBox2.isChecked==true)
-            type2 =checkBox2!!.text.toString()
-        if (checkBox3.isChecked==true)
-            type3 =checkBox3!!.text.toString()
-        if (checkBox4.isChecked==true)
-            type4 =checkBox4!!.text.toString()
-        if (checkBox5.isChecked==true)
-            type5 =checkBox5!!.text.toString()
+        if (checkBox2.isChecked == true)
+            type2 = checkBox2!!.text.toString()
+        if (checkBox3.isChecked == true)
+            type3 = checkBox3!!.text.toString()
+        if (checkBox4.isChecked == true)
+            type4 = checkBox4!!.text.toString()
+        if (checkBox5.isChecked == true)
+            type5 = checkBox5!!.text.toString()
 
-        val currentuser ="AXBFsLC5GeTGHkCDz8oz"
+        val currentuser = "AXBFsLC5GeTGHkCDz8oz"
         val docData = hashMapOf(
-           // "UID" to currentuser!!.toString(),
+            // "UID" to currentuser!!.toString(),
             "UID" to "AXBFsLC5GeTGHkCDz8oz",
             "image" to uri,
             "name" to name,
             "prepration" to prepration,
-            "Type" to arrayListOf(type,type1,type2,type3,type4,type5)
+            "Type" to arrayListOf(type, type1, type2, type3, type4, type5),
+            "calories" to calories!!
         )
-        val NumberOfCaloriesDoc = db.collection("Users").document(currentuser)
-        NumberOfCaloriesDoc.get().addOnSuccessListener {
-                documentSnapshot ->
 
-              NumberOfRecipes= documentSnapshot.get("NumberOfRecipes").toString().toInt()
-              recipeID= currentuser+NumberOfRecipes
+
+        val NumberOfCaloriesDoc = db.collection("Users").document(currentuser)
+        NumberOfCaloriesDoc.get().addOnSuccessListener { documentSnapshot ->
+
+            NumberOfRecipes = documentSnapshot.get("NumberOfRecipes").toString().toInt()
+            recipeID = currentuser + NumberOfRecipes
 
             db.collection("Recipes").document(recipeID).set(docData).addOnSuccessListener {
-                Log.d("please","added")
+                Log.d("please", "added")
                 NumberOfCaloriesDoc.update("NumberOfRecipes", FieldValue.increment(1))
                 getIngrediants(recipeID)
-            }.addOnFailureListener{
-                Log.d("please","not added"+it.toString())
+            }.addOnFailureListener {
+                Log.d("please", "not added" + it.toString())
 
             }
 
         }.addOnFailureListener {
-            Log.d("Here",""+it)
+            Log.d("Here", "" + it)
         }
-
 
 
     }

@@ -3,13 +3,23 @@
     <ScrollView android:scrollbars="vertical" android:orientation="vertical" tools:context=".recipe.ShareRecipeFirst" android:layout_height="match_parent" android:layout_width="match_parent" xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    -<LinearLayout android:orientation="vertical" android:layout_height="wrap_content" android:layout_width="match_parent" android:gravity="top">
+    -<LinearLayout
+    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:gravity="top">
 
 
     -<RelativeLayout android:layout_height="wrap_content" android:layout_width="match_parent">
 
 
-    -<com.google.android.material.appbar.AppBarLayout android:layout_height="100dp" android:layout_width="match_parent" app:elevation="0dp" android:theme="@style/AppTheme.AppBarOverlay" android:fitsSystemWindows="true" android:background="@drawable/icon_shape_circuler_two" android:id="@+id/appbar">
+    -<com.google.android.material.appbar.AppBarLayout
+    android:layout_height="100dp"
+    android:layout_width="match_parent"
+    app:elevation="0dp"
+    android:theme="@style/AppTheme.AppBarOverlay"
+    android:fitsSystemWindows="true"
+    android:background="@drawable/icon_shape_circuler_two" android:id="@+id/appbar">
 
     <androidx.appcompat.widget.Toolbar app:title=" " android:layout_height="?attr/actionBarSize" android:layout_width="match_parent" android:gravity="center" android:background="@drawable/icon_shape_botum" android:id="@+id/toolbar" app:titleTextColor="#FFFFFF" android:alpha="0.5" android:backgroundTint="#448AFF" android:layout_gravity="center"/>
 
@@ -82,7 +92,15 @@
 
     <LinearLayout android:orientation="vertical" android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/main"> </LinearLayout>
 
-    <Button android:layout_height="50dp" android:layout_width="100dp" android:gravity="center" android:background="@drawable/border" android:id="@+id/addIngredient" android:alpha="0.5" android:backgroundTint="#448AFF" android:layout_gravity="center" android:layout_marginTop="5dp" android:textColor="#F8F8F8" android:text="إضافة"/>
+    <Button android:layout_height="50dp"
+        android:layout_width="100dp"
+        android:gravity="center"
+        android:background="@drawable/border"
+        android:id="@+id/addIngredient"
+        android:alpha="0.5"
+        android:backgroundTint="#448AFF"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp" android:textColor="#F8F8F8" android:text="إضافة"/>
 
 </LinearLayout>
 
@@ -98,15 +116,47 @@
 </LinearLayout>
 
 
-    -<LinearLayout android:orientation="horizontal" android:layout_height="wrap_content" android:layout_width="match_parent" android:gravity="center" android:layout_marginTop="15dp">
+    -<LinearLayout
+    android:orientation="horizontal"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:layout_marginTop="15dp">
 
-    <Button android:layout_height="50dp" android:layout_width="100dp" android:gravity="center" android:background="@drawable/border" android:backgroundTint="#43AFA3A3" android:layout_gravity="center" android:textColor="#FFFFFF" android:text="احسب" android:layout_marginLeft="6dp"/>
+    <Button
+        android:id="@+id/calculate_total_calories"
+        android:layout_height="50dp"
+        android:layout_width="100dp"
+        android:gravity="center"
+        android:background="@drawable/border"
+        android:backgroundTint="#5E111111"
+        android:layout_gravity="center"
+        android:textColor="#FFFFFF"
+        android:text="احسب"
+        android:layout_marginLeft="6dp"/>
 
-    <TextView android:layout_height="50dp" android:layout_width="80dp" android:gravity="center" android:background="@drawable/border" android:layout_gravity="center" android:layout_marginLeft="30dp" android:hint="300 كال" android:padding="5dp"> </TextView>
+    <TextView
+        android:id="@+id/view_total_calories"
+        android:layout_height="50dp"
+        android:layout_width="80dp"
+        android:gravity="center"
+        android:background="@drawable/border"
+        android:layout_gravity="center"
+        android:layout_marginLeft="30dp"
+        android:hint="300 كال"
+        android:textColor="#111"
+        android:padding="5dp">
+    </TextView>
 
 </LinearLayout>
 
-    <Button android:layout_height="50dp" android:layout_width="100dp" android:gravity="center" android:background="@drawable/border" android:id="@+id/publishRecipe" android:alpha="0.5" android:backgroundTint="#448AFF" android:layout_gravity="center" android:layout_marginTop="10dp" android:textColor="#FFFFFF" android:text="انشر" android:textStyle="bold"/>
+    <Button android:layout_height="50dp"
+        android:layout_width="100dp"
+        android:gravity="center"
+        android:background="@drawable/border"
+        android:id="@+id/publishRecipe"
+        android:alpha="0.5"
+        android:backgroundTint="#448AFF" android:layout_gravity="center" android:layout_marginTop="10dp" android:textColor="#FFFFFF" android:text="انشر" android:textStyle="bold"/>
 
 </LinearLayout>
 
