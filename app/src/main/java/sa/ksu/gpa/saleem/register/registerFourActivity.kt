@@ -312,7 +312,7 @@ else return true
 
         val db = FirebaseFirestore.getInstance()
         val userUid = FirebaseAuth.getInstance().currentUser!!.uid
-        val docRef = db.collection("Users").document(userIId)
+        val docRef = db.collection("users").document(userIId)
 
         Log.d(registerFourActivity.TAG, "createAccountcolloection:$userIId")
 
