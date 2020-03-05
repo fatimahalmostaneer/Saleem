@@ -100,35 +100,6 @@ class registerTwoActivity : AppCompatActivity() {
 
             }
 
-            //  var bmi = (wight) / (height / 100 * height / 100)
-            //val type = calculateBmi(wight = wight, height = height)
-
-
-            // Get the checked radio button id from radio group
-        //    var id: Int = radio_group.checkedRadioButtonId
-            //   if (id!=-1){ // If any radio button checked from radio group
-            // Get the instance of radio button using id
-
-/*
-            if (id != -1) {
-                val radio: RadioButton = findViewById(id)
-                var gender = radio?.text.toString();
-
-                Log.d("this2", "" + gender)
-                intent.putExtra("gender", gender)
-
-            } else if (id == -1){
-
-
-                showDialogWithOkButton("الرجاء اختيار الجنس")
-
-        }*/
-
-            /*         if (gender=="ذكر")
-                gender="male"
-            if(gender=="انثى")
-                gender="female"
-*/
 
             fun onDateSet(
                 view: DatePicker, year: Int, monthOfYear: Int,
