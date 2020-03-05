@@ -2,6 +2,7 @@ package sa.ksu.gpa.saleem.register
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Html
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
@@ -17,6 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_register_one.*
 import kotlinx.android.synthetic.main.activity_register_two.*
 import sa.ksu.gpa.saleem.R
+import sa.ksu.gpa.saleem.loginn
 
 class registerOneActivity : AppCompatActivity() {
 
@@ -27,6 +29,13 @@ class registerOneActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_one)
 
+        val  textView = findViewById<View>(R.id. signUpBtn ) as TextView?
+        textView?.setText(Html.fromHtml("<u>تسجيل الدخول</u>"));
+
+        textView?.setOnClickListener {
+            val intent = Intent(applicationContext, loginn::class.java)
+            startActivity(intent)
+        }
 
         val intent = Intent(this, registerTwoActivity::class.java)
 

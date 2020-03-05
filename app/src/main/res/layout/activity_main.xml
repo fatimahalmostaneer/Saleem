@@ -32,8 +32,8 @@
         app:menu="@menu/bottom_nav_menu"
         app:labelVisibilityMode="labeled"
         android:background="@color/colorLightGray"
-        app:itemIconTint="@android:color/black"
-        app:itemTextColor="@android:color/black"
+        app:itemIconTint="@color/bottom_nav_color"
+        app:itemTextColor="@color/bottom_nav_color"
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,20 +45,14 @@
         android:layout_height="match_parent"
         android:layout_above="@id/bottomNavigation"></FrameLayout>
 
-   <!-- <Button
+    <Button
         android:id="@+id/fortesting"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="for scanner !!"
-        android:layout_marginTop="640dp"
+        android:layout_marginTop="230dp"
         ></Button>
-    <Button
-        android:id="@+id/fortestingadd"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="for  !!"
-        android:layout_marginTop="600dp"
-        ></Button>-->
+
 
 
 </RelativeLayout>

@@ -4,129 +4,170 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layoutDirection="rtl"
+
     android:orientation="vertical"
     tools:context=".AddFoodActivity">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        style="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    <LinearLayout
+        android:background="@drawable/border"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <LinearLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:layout_width="350dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/colorPrimary"
+            app:title="اضافة وجبة"
+            app:titleTextColor="@color/white" />
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:text="المكونات"
-                android:textColor="@android:color/black"
-                android:textSize="20sp" />
-
-
-            <!--    Item-->
+            android:layout_height="match_parent">
 
             <LinearLayout
-                android:id="@+id/main"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/addIngredientcomp"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_margin="16dp"
+                    android:gravity="center"
+                    android:text="اسم الوجبة"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp" />
 
-                    <Spinner
-                        android:id="@+id/spFood"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_weight="3"
-                        android:entries="@array/Ingredients">
+                <EditText
+                    android:id="@+id/nameOfFood"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/border"
+                    android:gravity="center" />
 
-                    </Spinner>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:gravity="center"
+                    android:text="المكونات"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp" />
 
-                    <Spinner
-                        android:id="@+id/spWeight"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_weight="3"
-                        android:entries="@array/Quantities">
 
-                    </Spinner>
+                <!--    Item-->
 
-                    <EditText
-                        android:gravity="center"
-                        android:paddingStart="2dp"
-                        android:paddingEnd="2dp"
-                        android:id="@+id/et_number"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_weight="2"
-                        android:background="@drawable/border"
-                        android:backgroundTint="#5E3A3333"
-                        android:inputType="number"
-                        android:maxLength="5" />
+                <LinearLayout
+                    android:id="@+id/main"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    <Button
-                        android:id="@+id/delete_button"
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight="1"
-                        android:onClick="addObject"
-                        android:background="@android:drawable/ic_input_add"
-                        tools:ignore="OnClick" />
+                    <LinearLayout
+                        android:id="@+id/addIngredientcomp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Spinner
+                            android:id="@+id/spFood"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_weight="3"
+                            android:entries="@array/Ingredients">
+
+                        </Spinner>
+
+                        <Spinner
+                            android:id="@+id/spWeight"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_weight="3"
+                            android:entries="@array/Quantities">
+
+                        </Spinner>
+
+                        <EditText
+                            android:id="@+id/et_number"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_weight="2"
+                            android:background="@drawable/border"
+                            android:backgroundTint="#5E3A3333"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:maxLength="5"
+                            android:paddingStart="2dp"
+                            android:paddingEnd="2dp" />
+
+                        <Button
+                            android:id="@+id/delete_button"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:background="@android:drawable/ic_input_add"
+                            tools:ignore="OnClick" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_component"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_component" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+
+                        android:id="@+id/save"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/border"
+                        android:layout_weight="0.5"
+                        android:backgroundTint="#69F0AE"
+                        android:text="إضافة"
+                        android:textSize="15dp"
+                        android:textColor="#F7FFFFFF"/>
+
+                    <Button
+                        android:id="@+id/cancel"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"
+                        android:background="@drawable/border"
+                        android:backgroundTint="#341A1818"
+                        android:textSize="15dp"
+                        android:text="إلغاء"
+                        android:textColor="#F7FFFFFF" />
+                </LinearLayout>
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_component"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_component" />
+        </androidx.core.widget.NestedScrollView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <Button
-
-                    android:id="@+id/save"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:gravity="center"
-                    android:text="حفظ "
-                    android:textColor="@color/colorWhite" />
-
-                <Button
-                    android:id="@+id/cancel"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="الغاء" />
-            </LinearLayout>
-        </LinearLayout>
-
-    </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
 
 </LinearLayout>

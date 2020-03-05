@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -17,6 +18,7 @@ import sa.ksu.gpa.saleem.R
 import com.google.firebase.auth.FirebaseAuth
 import sa.ksu.gpa.saleem.loginn
 import sa.ksu.gpa.saleem.register.registerFourActivity
+import sa.ksu.gpa.saleem.register.registerOneActivity
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
@@ -29,6 +31,7 @@ class fragmentOne : Fragment() {
 
     private val TAG = "DocSnippets"
     private lateinit var auth: FirebaseAuth
+    private lateinit var neededCall:String
 
 
     private lateinit var pageViewModel: PageViewModel
@@ -53,9 +56,15 @@ class fragmentOne : Fragment() {
 
         val userUid = FirebaseAuth.getInstance().currentUser!!.uid
 
+
+
+
+
+        Log.d(registerFourActivity.TAG, "kkkkkkkkkkkkkkkkkkkkk"+userUid)
+
         val db = FirebaseFirestore.getInstance()
 
-        val docRef = db.collection("Users").document(userUid)
+        val docRef = db.collection("users").document(userUid)
 
         docRef.get().addOnSuccessListener { document ->
             if (document != null) {
@@ -65,19 +74,59 @@ class fragmentOne : Fragment() {
                     val email = document.get("email").toString()
                     val wight = document.get("weight").toString()
                     val hight = document.get("height").toString()
-                    val neededCal = document.get("needed cal").toString().toDouble()
+                  //  val neededCal = document.get("needed cal").toString().toDouble()
                     val gender = document.get("gender").toString()
                     val age = document.get("age").toString()
-                    val level = document.get("level").toString().toInt()
-                    val goal = document.get("goal").toString().toInt()
-                    val weight=document.get("weight").toString().toDouble()
-                    val length=document.get("height").toString().toDouble()
+
+                Log.d(registerFourActivity.TAG, "kkkkkkkkkkkkkkkkkkkkk"+userUid+name+wight)
+
+                    val weight=wight.toString().toDouble()
+                    val length=hight.toString().toDouble()
+
+                val goalll = document.get("goal").toString()
+                val levelll = document.get("level").toString()
+                val goal=goalll.toString().toInt()
+                var level=levelll.toString().toInt()
+
+                Log.e(registerOneActivity.TAG, "kkkkkkkkkkkkkkkkkkkkkoo"+level)
+
                     var bmi = (weight) / (length / 100 * length / 100)
+
+                if (gender=="female") {
+                    var neededCal: Double = 0.0
+                    var Mifflin = ((10 * weight) + (6.25 * length) - (5 * level) - 161)
+                    var Revised =
+                        ((9.247 * weight) + (3.098 * length) - (4.330 * level) + 447.593)
+
+                    var Calories = (Mifflin + Revised) / 2
+
+                    when (goal) {
+                        1 -> neededCal = Calories - 500
+                        2 -> neededCal = Calories + 500
+                        3 -> neededCal = Calories
+                    }
+                    neededCall=roundOffDecimal(neededCal).toString()
+
+                } else if (gender=="male"){
+                    var neededCal:Double=0.0
+                    var Mifflin =((10*weight)+ (6.25*length)-(5*level )+5)
+                    var Revised =((13.397*weight) +(4.799*length) - (5.677*level) + 88.362)
+
+                    var Calories= (Mifflin+Revised)/2
+
+                    when(goal){
+                        1 -> neededCal= Calories-500
+                        2->  neededCal= Calories+500
+                        3 -> neededCal= Calories
+                    }
+                     neededCall=roundOffDecimal(neededCal).toString()
+
+                }
 
 
                     var bmii=roundOffDecimal(bmi)
 
-                    var neededCall=roundOffDecimal(neededCal)
+                   // var neededCall=roundOffDecimal(neededCal)
                     //val BMI = bmii.toString()
 
                     var goall="goal"
@@ -98,6 +147,7 @@ class fragmentOne : Fragment() {
                         "gemale"->  genderr= "انثى"
 
                     }
+
 
                     val nameTxt: TextView = root.findViewById(R.id.nameSignUpHin)
                     nameTxt.setText(name)
@@ -120,7 +170,6 @@ class fragmentOne : Fragment() {
 
                     val levelTxt:TextView=root.findViewById(R.id.levelHin)
                     levelTxt.setText(levell)
-
 
 
 

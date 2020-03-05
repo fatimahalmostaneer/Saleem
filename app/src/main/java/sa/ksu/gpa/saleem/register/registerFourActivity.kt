@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.Toolbar
 import com.google.android.gms.common.internal.Constants
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
@@ -20,21 +21,35 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_fragment_one.*
 import kotlinx.android.synthetic.main.activity_register_one.*
 import kotlinx.android.synthetic.main.activity_register_two.*
-import sa.ksu.gpa.saleem.MainActivity
-import sa.ksu.gpa.saleem.R
-import sa.ksu.gpa.saleem.ScanActivity
-import sa.ksu.gpa.saleem.loginn
+import sa.ksu.gpa.saleem.*
 import java.util.*
+import java.util.logging.Level
+import kotlin.properties.Delegates
 
 class registerFourActivity : AppCompatActivity() {
 
     val user = HashMap<String, Any>()
 
+    private lateinit var auth: FirebaseAuth
+
     private val TAG = "Sign up"
 
+   // private var length by Delegates.notNull<Double>()
+
+   private var goal =0
+
+    private var weight:Double = 0.0
+    private var level:Int = 0
+    private lateinit var name :String
+    private lateinit var gender:String
+    private lateinit var email:String
+    private var neededCal:Double = 0.0
+    private var agee:Int = 0
+
+    private var length:Double = 0.0
+    //private var goal by Delegates.notNull<Int>()
 
 
-    private lateinit var auth: FirebaseAuth
 
     val db = FirebaseFirestore.getInstance()
 
@@ -43,11 +58,18 @@ class registerFourActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_four)
+       // val intent = Intent(this, MainActivity::class.java)
 
 
         val intent = Intent(this, loginn::class.java)
 
-        auth = FirebaseAuth.getInstance()
+        val toolbar = findViewById<View>(R.id.toolbar)
+        setSupportActionBar(toolbar as Toolbar?)
+        supportActionBar!!.setTitle("")
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setHomeButtonEnabled(false)
+
+       auth = FirebaseAuth.getInstance()
 
         db.collection("Users")
 
@@ -56,7 +78,7 @@ class registerFourActivity : AppCompatActivity() {
         val two=findViewById<View>(R.id.goalTwoBtn) as Button?
         val three=findViewById<View>(R.id.goalThreeBtn) as Button?
 
-        var goal=0
+
 
 
 
@@ -73,7 +95,7 @@ class registerFourActivity : AppCompatActivity() {
                 one.setBackgroundResource(R.drawable.unclick);
                 button_background=1;
             } else if(button_background==1){
-                one.setBackgroundResource(R.drawable.rounded_buttons);
+                one.setBackgroundResource(R.drawable.register_btn);
                 two?.setBackgroundResource(R.drawable.unclick)
                 three?.setBackgroundResource(R.drawable.unclick)
                 button_background=2;
@@ -87,7 +109,7 @@ class registerFourActivity : AppCompatActivity() {
                 two?.setBackgroundResource(R.drawable.unclick);
                 button_background=1;
             } else if(button_background==1){
-                two?.setBackgroundResource(R.drawable.rounded_buttons);
+                two?.setBackgroundResource(R.drawable.register_btn);
                 one?.setBackgroundResource(R.drawable.unclick)
                 three?.setBackgroundResource(R.drawable.unclick)
                 button_background=2;
@@ -104,14 +126,14 @@ class registerFourActivity : AppCompatActivity() {
                 three?.setBackgroundResource(R.drawable.unclick);
                 button_background=1;
             } else if(button_background==1){
-                three?.setBackgroundResource(R.drawable.rounded_buttons);
+                three?.setBackgroundResource(R.drawable.register_btn);
                 two?.setBackgroundResource(R.drawable.unclick)
                 one?.setBackgroundResource(R.drawable.unclick)
                 button_background=2;
             }
 
            // user.put("level","advance")
-            goal = 3
+           goal = 3
           clicked=true;
         }
 
@@ -131,6 +153,19 @@ class registerFourActivity : AppCompatActivity() {
         var email = getIntent().getStringExtra("email")
 
         var agee= getIntent().getIntExtra("agee",0)
+
+
+        intent.putExtra("wight", weight)
+        intent.putExtra("height", length)
+        intent.putExtra("BMI", bmi)
+        intent.putExtra("gender", gender)
+        // intent.putExtra("age",age)
+        intent.putExtra("userAge", userAge)
+        intent.putExtra("name", name)
+        intent.putExtra("password", pass)
+        intent.putExtra("email", email)
+        intent.putExtra("goal",goal)
+
         //intent.putExtra("agee",agee)
 
         Log.d("this",""+email)
@@ -142,7 +177,17 @@ class registerFourActivity : AppCompatActivity() {
         Log.d("this",""+level)
         Log.d("this",""+userAge)
         Log.d("this",""+goal)
-        Log.d("this needed cal",""+neededCal)
+       // Log.d("this needed cal",""+neededCal)
+
+        var neededCal=-1.0
+
+        if (gender == "male")
+         neededCal = calcualteCaloriesMen(3.0, weight!!, length!!, goal!!)
+
+
+
+        if (gender == "female")
+           neededCal = calcualteCaloriesWomen(3.0, weight!!, length!!, goal!!)
 
 
 
@@ -152,24 +197,17 @@ class registerFourActivity : AppCompatActivity() {
 
             Toast.makeText(this@registerFourActivity, "Click...", Toast.LENGTH_LONG).show()
             //  val intent = Intent(this, MainActivity::class.java)
-            var neededCal = 0.0
-
-
-            if (gender == "male")
-                neededCal = calcualteCaloriesMen(3.0, weight!!, length!!, goal!!)
+          //  var neededCal = 0.0
 
 
 
-            if (gender == "female")
-                neededCal = calcualteCaloriesWomen(3.0, weight!!, length!!, goal!!)
 
+            createAccount(email,pass)
 
-            createAccount(email, pass)
+           // createUserCollection(weight, length, level, goal, gender, name, email, neededCal, agee)
+              //  Log.d("this needed cal inside",""+neededCal)
 
-            createUserCollection(weight, length, level, goal, gender, name, email, neededCal, agee)
-                Log.d("this needed cal inside",""+neededCal)
-
-                startActivity(Intent(this, loginn::class.java))
+               // startActivity(Intent(this, loginn::class.java))
             }
         }
 //
@@ -202,10 +240,8 @@ else return true
             3 -> neededCalories= Calories
         }
 
-        //add user's needed calories to her collection
 
         db.collection("Users").document("user")
-        //...neededCalories
 
         showDialogWithOkButton("needed calories"+neededCalories)
         return neededCalories
@@ -225,10 +261,6 @@ else return true
             3 -> neededCalories= Calories
         }
 
-        //add user's needed calories to his collection
-
-       // db.collection("Users").document("user")
-        //...neededCalories
 
         showDialogWithOkButton("needed calories"+neededCalories)
         return neededCalories
@@ -246,8 +278,10 @@ else return true
         alert.show()
     }
 
-    private fun createUserCollection(weight:Double,length:Double,level:Int,goal:Int,gender:String,name:String,email:String,neededCal:Double,userAge:Int) {
+    private fun createUserCollection(weight:Double,length:Double,level:Int,goal:Int,gender:String,name:String,email:String,neededCal:Double,
+                                     userAge:Int,userIId:String) {
         val user = HashMap<String, Any>()
+
 
        // db.collection("Users").document("user")
         user.put("name",name)
@@ -258,39 +292,35 @@ else return true
         user.put("level",level)
         user.put("goal",goal)
         user.put("gender",gender)
-        user.put("needed cal",neededCal)
+
         user.put("age",userAge)
-/*
-       db.collection("users").document(auth.getUid().set(user))
-*/
 
-        /*MySharedPreference.clearData(this)
-        MySharedPreference.putString(this, Constants.Keys.ID, auth.getInstance().getUid())*/
-
-      /*  db.collection("Users").document(auth.uid!!).set(user)
-
-            .addOnSuccessListener(OnSuccessListener<Void> {
-                Toast.makeText(
-                    this,
-                    "user added",
-                    Toast.LENGTH_SHORT
-                ).show()
-            })
-            .addOnFailureListener(OnFailureListener { e ->
-                Toast.makeText(this, "Error_add_user", Toast.LENGTH_SHORT).show()
-                Log.d(TAG, e.toString())
-            })*/
-  //   user.put("age",age)
-       // user.put("Needed Calories",neededCalories)
+        var neededCal = 0.0
 
 
-        /*MySharedPreference.clearData(this)
-        MySharedPreference.putString(this, Constants.Keys.ID, mAuth.getInstance().getUid())
-*/
-        db.collection("Users")
-            .add(user)
-            .addOnSuccessListener { documentReference ->
-                Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference.id}")
+        if (gender == "male")
+            neededCal = calcualteCaloriesMen(3.0, weight!!, length!!, goal!!)
+
+
+
+        if (gender == "female")
+            neededCal = calcualteCaloriesWomen(3.0, weight!!, length!!, goal!!)
+
+        user.put("needed cal",neededCal)
+
+
+
+        val db = FirebaseFirestore.getInstance()
+        val userUid = FirebaseAuth.getInstance().currentUser!!.uid
+        val docRef = db.collection("Users").document(userIId)
+
+        Log.d(registerFourActivity.TAG, "createAccountcolloection:$userIId")
+
+
+
+        db.collection("users").document(userIId).set(user)
+            .addOnSuccessListener { docRef ->
+                Log.d(TAG, "DocumentSnapshot written with ID: ${docRef}")
             }
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error adding document", e)
@@ -311,54 +341,86 @@ else return true
         .build()
 
 
-    private fun createAccount(email: String, password: String) {
+    private fun createAccount(email:String,pass: String) {
 
 
-        Log.d(registerFourActivity.TAG, "createAccount:$email")
-
-        // [START create_user_with_email]
-        val auth = FirebaseAuth.getInstance()
-
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                //sendEmailVerification(email)
-
-                if (task.isSuccessful) {
-                   // FirebaseAuth.getInstance().currentUser!!.sendEmailVerification()
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(registerFourActivity.TAG, "createUserWithEmail:success")
-                    //send email by email to verify user account
+        var length = getIntent().getDoubleExtra("height",0.0)
+        var weight=getIntent().getDoubleExtra("wight",0.0)
+        var gender = getIntent().getStringExtra("gender")
+        var bmi = getIntent().getDoubleExtra("bmi",0.0)
+        var level = getIntent().getIntExtra("level",0)
+        var userAge= getIntent().getStringExtra("uaserAge")
 
 
-                    //sendEmailVerification(email)
-                   // showDialogWithOkButton("الرجاء التحقق من البريد الالكتروني")
+        var name = getIntent().getStringExtra("name")
+        var pass = getIntent().getStringExtra("password")
+        var email = getIntent().getStringExtra("email")
 
-                    val user = auth.currentUser
-                    FirebaseAuth.getInstance().currentUser!!.sendEmailVerification().addOnSuccessListener {
-                        fun onSuccess(aVoid: Void) {
-                            Log.d("", "vrify email")
-                        }
+        var agee= getIntent().getIntExtra("agee",0)
+
+        if (email != "" && pass != "") {
+
+            auth.createUserWithEmailAndPassword(email, pass)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        val userId = auth.getCurrentUser()
+                        var userIId=FirebaseAuth.getInstance().currentUser!!.uid
+                        FirebaseAuth.getInstance().currentUser!!.sendEmailVerification()
+                        Log.d(registerFourActivity.TAG, "createAccountsend:$email"+userIId)
+
+                        createUserCollection(
+                            weight,
+                            length,
+                            level,
+                            goal,
+                            gender,
+                            name,
+                            email,
+                            neededCal,
+                            agee,
+                            userIId
+                        )
+                        startActivity(Intent(this, loginn::class.java))
+
+                  /*      if (auth.getCurrentUser()!!.isEmailVerified()) {
+                            // FirebaseAuth.getInstance().currentUser!!.sendEmailVerification()
+
+                            Log.d(registerFourActivity.TAG, "createAccount:$email")
+
+                            startActivity(Intent(this, loginn::class.java))
+                        } else {
+                            FirebaseAuth.getInstance().currentUser!!.sendEmailVerification()
+                            showDialogWithOkButton("تحقق من الرابط المرسل على بريدك لإكمال عملية تسجيل الدخول ")
+                        }*/
+
+                        //val user = auth.currentUser
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "signInWithEmail:success")
+                        Toast.makeText(
+                            this, "Authentication succeeded",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "signInWithEmail:failure", task.exception)
+                        Toast.makeText(
+                            this, "Authentication failed google.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        showDialogWithOkButton("البريد الإلكتروني غير صالح")
+
+
                     }
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                Log.d(TAG, "Email sent.")
-                            }
-                        }
-                    // updateUI(user)
 
-
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(registerFourActivity.TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(
-                        baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    showDialogWithOkButton("البريد الالكتروني غير صحيح")
+                    /*    MySharedPreference.clearData(this)
+            MySharedPreference.putString(this, Constants.Keys.ID, auth.getInstance().getUid())
+    */
 
                 }
-            }
-        // [END create_user_with_email]
+        }
+
     }
 
 

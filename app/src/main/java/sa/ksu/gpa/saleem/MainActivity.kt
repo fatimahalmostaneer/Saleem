@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,15 +21,20 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.leinardi.android.speeddial.SpeedDialActionItem
 import com.leinardi.android.speeddial.SpeedDialView
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.*
 import kotlinx.android.synthetic.main.advice_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_home_body.*
 import kotlinx.android.synthetic.main.home_fragment.*
+import sa.ksu.gpa.saleem.profile.Profile
+import sa.ksu.gpa.saleem.profile.fragmentOne
 import sa.ksu.gpa.saleem.recipe.ShareRecipeFirst
 import java.util.ArrayList
 
@@ -45,6 +51,30 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         db= FirebaseFirestore.getInstance()
+        bottomNavigation.setOnNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.home-> {
+                    title="الرئيسية"
+                    loadFragment(HomeFragment())
+                    return@setOnNavigationItemSelectedListener true
+                }
+
+                R.id.profile-> {
+                    title="حسابي"
+                    //this is for show profile fragment
+              // loadFragment(fragmentOne())
+
+                    val intent = Intent(this@MainActivity, Profile::class.java)
+                    startActivity(intent)
+
+                    return@setOnNavigationItemSelectedListener true
+                }
+
+            }
+            false
+
+        }
+        showAddAdvice()
         /*btn = findViewById(R.id.fortesting) as Button
 
         btn!!.setOnClickListener {
@@ -62,22 +92,32 @@ class MainActivity : AppCompatActivity() {
         val speedDialView = findViewById<SpeedDialView>(R.id.speedDial)
         speedDialView.addActionItem(
             SpeedDialActionItem.Builder(10009, R.drawable.ic_scan)
+                .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorBlue, getTheme()))
+                .setFabImageTintColor(ResourcesCompat.getColor(getResources(), R.color.white, getTheme()))
                 .create()
         )
         speedDialView.addActionItem(
             SpeedDialActionItem.Builder(10011, R.drawable.ic_dumbbell)
+                .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorBlue, getTheme()))
+                .setFabImageTintColor(ResourcesCompat.getColor(getResources(), R.color.white, getTheme()))
                 .create()
         )
         speedDialView.addActionItem(
             SpeedDialActionItem.Builder(10012, R.drawable.ic_timer_black_24dp)
+                .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorBlue, getTheme()))
+                .setFabImageTintColor(ResourcesCompat.getColor(getResources(), R.color.white, getTheme()))
                 .create()
         )
         speedDialView.addActionItem(
             SpeedDialActionItem.Builder(10013, R.drawable.ic_water)
+                .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorBlue, getTheme()))
+                .setFabImageTintColor(ResourcesCompat.getColor(getResources(), R.color.white, getTheme()))
                 .create()
         )
         speedDialView.addActionItem(
-            SpeedDialActionItem.Builder(10014, R.drawable.ic_report)
+            SpeedDialActionItem.Builder(10014, R.drawable.advice)
+                .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorBlue, getTheme()))
+                .setFabImageTintColor(ResourcesCompat.getColor(getResources(), R.color.white, getTheme()))
                 .create()
         )
         speedDialView.setOnActionSelectedListener(SpeedDialView.OnActionSelectedListener { actionItem ->
@@ -115,7 +155,13 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
+    private fun loadFragment(fragment: Fragment) {
+        // load fragment
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.container, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
     private fun addWater(){
         if (counter < 8) {
             val inflater =
@@ -138,70 +184,61 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun addAdviceDialog(){
-        //inflate dialog
         val mDialogView = LayoutInflater.from(this).inflate(R.layout.advice_dialog, null)
-        //alert dialog builder
-        val mBuilder= AlertDialog.Builder(this)
+        val mBuilder = AlertDialog.Builder(this)
             .setView(mDialogView)
-            .setTitle("نشر نصيحة")
 
-        //show dialog
-        val mAlertDialog = mBuilder.show()
+        val  mAlertDialog = mBuilder.show()
+        var body = mDialogView.dialogAdviceET!!.editText!!.text
+
+
         mDialogView.dialogShareBtn.setOnClickListener{
+            if (body.length > 140){
+                Toast.makeText(this, "لا يمكن نشر نصائح أطول من ١٤٠ حرف", LENGTH_LONG).show()
+            }
+            else if (body.isEmpty()){
+                Toast.makeText(this, "لا يمكن ترك هذه الخانة فارغة ", LENGTH_LONG).show()
+            }
 
-            //get text from editTexts
-            val body = mDialogView.dialogAdviceET.text.toString()
+            else {
+                var body1=body.toString()
+                val advice = HashMap<String, Any>()
+                db.collection("Advices").document()
+                //advice.put("text",body) //advice["text"] = body
+                advice["text"] = body1
+                db.collection("Advices").document().set(advice)
+                Toast.makeText(this, "تمت اضافة النصيحة", LENGTH_LONG).show()
+                advicesTV.text = body1
+                mAlertDialog.dismiss()
+            }
 
-            val advice = HashMap<String, Any>()
-            db.collection("Advices").document()
-            //advice.put("text",body) //advice["text"] = body
-            advice["text"] = body
-            db.collection("Advices").document().set(advice)
-
-                .addOnSuccessListener {
-                    // Log.d("added", "DocumentSnapshot added with ID: ${documentReference.id}")
-                    Log.d("added", "DocumentSnapshot added")
-                }
-                .addOnFailureListener { e ->
-                    Log.w("fail", "Error adding document", e)
-                }
-
-            showAddAdvice(body)
-
-            //Toast.makeText(applicationContext,"تم نشر النصيحة", LENGTH_LONG)
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("تم نشر النصيحة")
-            builder.setMessage("شكرًا لك!")
-            builder.setNegativeButton("حسنًا") { dialogInterface: DialogInterface, i: Int -> }
-            builder.show()
-            //dismiss dialog
-            mAlertDialog.dismiss()
         }
-        //cancel button click
         mDialogView.dialogCancelBtn.setOnClickListener{
-            //dismiss dialog
             mAlertDialog.dismiss()
+
         }
 
+
     }
 
-    private fun showAddAdvice(data: String){
+    private fun showAddAdvice(){
         //set input in TV
-        advicesTV.text = data //advicesTV.setText("النصيحة اليومية: "+data)
+        //advicesTV.text = data //advicesTV.setText("النصيحة اليومية: "+data)
 
-        /* db.collection("Advices")
-              .get()
-              .addOnSuccessListener { result ->
-                  for (document in result) {
-                      Log.d("exists", "${document.id} => ${document.data}")
-                      advicesTV.text = document.getString("text")
-                  }
-              }
-              .addOnFailureListener { exception ->
-                  Log.w("error", "Error getting documents.", exception)
-              }*/
+        db.collection("Advices")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    Log.d("exists", "${document.id} => ${document.data}")
+                    advicesTV.text = document.getString("text")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("error", "Error getting documents.", exception)
+            }
 
     }
+
 
     fun showAddFood(data: ArrayList<String>) {
         val fragment = ItemListDialogFragmentA(data)

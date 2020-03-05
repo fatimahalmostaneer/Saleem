@@ -18,9 +18,17 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_loginn.*
 import kotlinx.android.synthetic.main.fragment_item_list_dialog_item.view.*
 import sa.ksu.gpa.saleem.register.registerOneActivity
+import java.util.HashMap
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.text.Html
+import android.text.SpannableString
+
 
 class loginn : AppCompatActivity() {
 
@@ -28,11 +36,7 @@ class loginn : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private var authStateListener: FirebaseAuth.AuthStateListener? = null
     private val verify = false
-
-
-
-
-
+    val db = FirebaseFirestore.getInstance()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,11 +46,18 @@ class loginn : AppCompatActivity() {
         val login_password = findViewById<View>(R.id.passwordEDL) as EditText?
         val login_email = findViewById<View>(R.id.emailETL) as EditText?
 
+        val  textView = findViewById<View>(R.id. signUpBtn ) as TextView?
+        textView?.setText(Html.fromHtml("<u>انشاء حساب</u>"));
+
+        val  forgetPas = findViewById<View>(R.id. forgetPass ) as TextView?
+        forgetPas?.setText(Html.fromHtml("<u>نسيت كلمة المرور</u>"));
+
+
         auth = FirebaseAuth.getInstance()
 
         val mFirebaseUser = auth.getCurrentUser()
         if (mFirebaseUser != null) {
-           var userID = mFirebaseUser!!.getUid()
+            var userID = mFirebaseUser!!.getUid()
         }
 
 
@@ -54,23 +65,21 @@ class loginn : AppCompatActivity() {
             if (firebaseAuth.currentUser != null) {
 
 
-                    startActivity(Intent(this, MainActivity::class.java))
-
+                startActivity(Intent(this, MainActivity::class.java))
 
 
             }
         }
 
 
-
         // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance()
 
-        var forgetPass=findViewById<View>(R.id.forgetPass)as TextView
+        var forgetPass = findViewById<View>(R.id.forgetPass) as TextView
         var Button = findViewById<View>(R.id.loginBtn) as Button?
         var signUp = findViewById<View>(R.id.signUpBtn) as TextView?
 
-        forgetPass?.setOnClickListener{
+        forgetPass?.setOnClickListener {
             showDialoge()
         }
         Button?.setOnClickListener {
@@ -81,8 +90,6 @@ class loginn : AppCompatActivity() {
             val intent = Intent(applicationContext, registerOneActivity::class.java)
             startActivity(intent)
         }
-
-
 
 
         /*     override fun onClick(v: View) {
@@ -112,7 +119,7 @@ class loginn : AppCompatActivity() {
         button2.setOnClickListener(View.OnClickListener { dialogBuilder.dismiss() })
         button1.setOnClickListener(View.OnClickListener {
             forgetPassword(forget_email.text.toString())
-            Log.d(TAG, "signInWithEmail:" + forgetPass.text.toString())
+            Log.d(TAG, "signInWithEmail:" + forget_email.text.toString())
 
             dialogBuilder.dismiss()
         })
@@ -142,7 +149,7 @@ class loginn : AppCompatActivity() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
-       // updateUI(currentUser)
+        // updateUI(currentUser)
     }
 
     private fun showDialogWithOkButton(msg: String) {
@@ -162,7 +169,7 @@ class loginn : AppCompatActivity() {
         val login_password = findViewById<View>(R.id.passwordEDL) as EditText?
         val login_email = findViewById<View>(R.id.emailETL) as EditText?
 
-       var entered_email = login_email?.text.toString()
+        var entered_email = login_email?.text.toString()
         var entered_password = login_password?.text.toString()
 
 
@@ -186,59 +193,55 @@ class loginn : AppCompatActivity() {
 
             auth.signInWithEmailAndPassword(entered_email, entered_password)
                 .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-
-                            //val user = auth.currentUser
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithEmail:success")
-                            Toast.makeText(
-                                this, "Authentication succeeded",
-                                Toast.LENGTH_SHORT
-                            ).show()
-
-                            if (auth.getCurrentUser()!!.isEmailVerified()) {
-                               // FirebaseAuth.getInstance().currentUser!!.sendEmailVerification()
-
-
-                                startActivity(Intent(this, MainActivity::class.java))
-                            } else {
-                                FirebaseAuth.getInstance().currentUser!!.sendEmailVerification()
-                                showDialogWithOkButton("تحقق من الرابط المرسل على بريدك لإكمال عملية تسجيل الدخول ")
-                            }
+                    if (task.isSuccessful) {
+                       var user = FirebaseAuth.getInstance().currentUser
+                       // val useremailveri = user!!.isEmailVerified()
+                        val emailVerified = user!!.isEmailVerified
+                        Log.w(TAG, "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"+ emailVerified)
 
 
 
-                     /*       if (auth.getCurrentUser()!!.getUid().equals(
-                                    "DUbp3gH497gydI7fJodUfRz9A2K3",
-                                    ignoreCase = true
-                                ) || auth.getCurrentUser()!!.getUid() === "DUbp3gH497gydI7fJodUfRz9A2K3"
-                            ) {
-                                Log.d(TAG, "admin$userID")
-                                startActivity(Intent(this, AdminActivity::class.java))
-                            } else
-                                startActivity(Intent(this, MainActivity::class.java))
+                        //val user = auth.currentUser
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "signInWithEmail:success")
+                        Toast.makeText(
+                            this, "Authentication succeeded",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        if (emailVerified) {
+                            // FirebaseAuth.getInstance().currentUser!!.sendEmailVerification()
+                            startActivity(Intent(this, MainActivity::class.java))
                         } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithEmail:failure", task.exception)
-                            Toast.makeText(
-                                this, "Authentication failed google.",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            showDialogWithOkButton("البريد الإلكتروني غير صالح")
-                            // updateUI(null);
-                        }*/
+                            FirebaseAuth.getInstance().currentUser!!.sendEmailVerification()
+                            startActivity(Intent(this, MainActivity::class.java))
 
-                        // ...
-                  //  })
+                            showDialogWithOkButton("تحقق من الرابط المرسل على بريدك لإكمال عملية تسجيل الدخول ")
+                        }
 
+
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "signInWithEmail:failure", task.exception)
+                        Toast.makeText(
+                            this, "Authentication failed google.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        showDialogWithOkButton("البريد الإلكتروني غير صالح")
+
+
+                    }
+                    //end of signIn
+
+
+                }
         }
-
-    }
-            //end of signIn
-
-}
-
     }
 }
+
+
+
+
+
 
 
